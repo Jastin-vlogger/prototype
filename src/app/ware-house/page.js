@@ -1,10 +1,13 @@
 "use client"
 import React, { useState, useEffect, useMemo } from 'react';
+let ChartJS;
 
 // --- CDN Imports ---
 // These are loaded from the environment
 // const { Bar, Doughnut } = window.ReactChartjs2; // Removed this line
+if (typeof window !== 'undefined') {
 const ChartJS = window.Chart;
+}
 // --- End CDN Imports ---
 
 
