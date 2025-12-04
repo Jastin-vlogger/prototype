@@ -44,7 +44,9 @@ import {
   Moon, // Dark Theme
   Globe, // Language
   Check, // Checkmark
-  Briefcase // For Credit Days/Terms
+  Briefcase, // For Credit Days/Terms
+  ArrowLeft, // Back button
+  FileCheck2 // Doc verification
 } from 'lucide-react';
 
 
@@ -52,9 +54,6 @@ import {
 // --- REUSABLE HELPER & UI COMPONENTS
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-/**
- * A reusable modal component for popups.
- */
 const Modal = ({ children, title, onClose, size = 'md' }) => {
   const sizeClasses = {
     sm: 'max-w-sm',
@@ -265,18 +264,20 @@ const CardContent = ({ children, className = '' }) => (
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 const LoginScreen = ({ setUserState, setCurrentView, setNeedsPasswordChange, language, setLanguage, showToast }) => {
-  const [view, setView] = useState('login'); 
+  const [view, setView] = useState('login'); // 'login', 'signup', 'otp', 'forgot'
   const [userType, setUserType] = useState('customer');
   const [formData, setFormData] = useState({ email: '', password: '', company: '' });
 
   const handleLogin = (userTypeArg) => {
-    showToast(`Welcome back! Logged in as ${userTypeArg === 'new' ? 'New User' : 'Existing User'}`, 'success');
-    
+    // Simulate login logic based on type
     if (userTypeArg === 'new' || userTypeArg === 'existing') {
+      showToast(`Welcome back! Logged in as ${userTypeArg === 'new' ? 'New User' : 'Existing User'}`, 'success');
       setUserState('approved');
     } else if (userTypeArg === 'pendingDocs') {
+      showToast("Please complete your documentation.", "info");
       setUserState('pendingDocuments');
     } else if (userTypeArg === 'pendingApproval') {
+      showToast("Account is currently under review.", "info");
       setUserState('pendingApproval');
     }
     setCurrentView('dashboard'); 
@@ -291,6 +292,11 @@ const LoginScreen = ({ setUserState, setCurrentView, setNeedsPasswordChange, lan
     showToast("Verification Successful!", "success");
     setUserState('pendingDocuments'); 
     setCurrentView('dashboard');
+  };
+
+  const handleForgotPassword = () => {
+    showToast("Reset link sent to your email!", "success");
+    setView('login');
   };
   
   const inputClass = "bg-slate-50 border-2 border-slate-200 text-slate-900 placeholder:text-slate-400 focus:bg-white focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10 transition-all duration-300 rounded-xl shadow-sm";
@@ -341,6 +347,22 @@ const LoginScreen = ({ setUserState, setCurrentView, setNeedsPasswordChange, lan
             <button onClick={() => setView('signup')} className="w-full text-xs text-slate-400 hover:text-slate-600">Back to Signup</button>
           </div>
         );
+      case 'forgot':
+        return (
+          <div className="space-y-6 animate-in slide-in-from-right duration-300">
+            <div className="text-start">
+              <button onClick={() => setView('login')} className="text-slate-400 hover:text-slate-600 mb-4 flex items-center gap-1">
+                 <ArrowLeft className="w-4 h-4" /> Back to Login
+              </button>
+              <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Forgot Password</h2>
+              <p className="text-slate-500 mt-2 text-sm">Enter your email to receive a reset link.</p>
+            </div>
+            <FormInput id="resetEmail" label="Email Address" icon={Mail} placeholder="you@company.com" className={inputClass} labelClassName={labelClass} />
+            <PrimaryButton onClick={handleForgotPassword} className="bg-gradient-to-r from-red-600 to-blue-700 hover:from-red-700 hover:to-blue-800 shadow-xl shadow-blue-200 text-white font-bold py-3.5 rounded-xl">
+              Send Reset Link
+            </PrimaryButton>
+          </div>
+        );
       case 'login':
       default:
         return (
@@ -358,7 +380,7 @@ const LoginScreen = ({ setUserState, setCurrentView, setNeedsPasswordChange, lan
             <div>
               <FormInput id="password" label="Password" type="password" icon={Lock} placeholder="••••••••" className={inputClass} labelClassName={labelClass} />
               <div className="text-end -mt-2">
-                <button onClick={() => showToast("Reset link sent to email", "info")} className="text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors">Forgot password?</button>
+                <button onClick={() => setView('forgot')} className="text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors">Forgot password?</button>
               </div>
             </div>
             <FormSelect id="language" label="Preferred Language" icon={Languages} value={language} onChange={(e) => setLanguage(e.target.value)} className={inputClass} labelClassName={labelClass}>
@@ -412,6 +434,83 @@ const LoginScreen = ({ setUserState, setCurrentView, setNeedsPasswordChange, lan
             {renderView()}
             <div className="mt-8 text-center"><p className="text-xs text-slate-400">© 2025 Abreco Group. All rights reserved.</p></div>
          </div>
+      </div>
+    </div>
+  );
+};
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+// --- NEW COMPONENT: BLOCKING STATUS PAGE (Pending/Docs)
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+const BlockingStatusPage = ({ status, onLogout, setUserState }) => {
+  const isPendingDocs = status === 'pendingDocuments';
+  const [docUploaded, setDocUploaded] = useState(false);
+
+  const handleSubmitDocs = () => {
+    if (docUploaded) {
+      setUserState('pendingApproval'); // Transition to review state
+    }
+  };
+
+  return (
+    <div className="min-h-screen w-full flex items-center justify-center bg-slate-50 p-6 font-inter">
+      <div className="max-w-xl w-full bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100">
+        <div className={`h-2 w-full ${isPendingDocs ? 'bg-amber-500' : 'bg-blue-600'}`}></div>
+        <div className="p-10 text-center">
+           <div className={`mx-auto w-24 h-24 rounded-full flex items-center justify-center mb-6 ${isPendingDocs ? 'bg-amber-50 text-amber-500' : 'bg-blue-50 text-blue-600'}`}>
+              {isPendingDocs ? <FileCheck2 className="w-10 h-10" /> : <Clock className="w-10 h-10" />}
+           </div>
+           
+           <h1 className="text-3xl font-extrabold text-slate-900 mb-2">
+             {isPendingDocs ? 'Action Required' : 'Under Review'}
+           </h1>
+           <p className="text-slate-500 mb-8 max-w-sm mx-auto leading-relaxed">
+             {isPendingDocs 
+               ? 'To activate your account, we need you to upload a valid Trade License for verification.' 
+               : 'Your account is currently being reviewed by our team. We will notify you once approved.'}
+           </p>
+
+           {isPendingDocs && (
+             <div className="mb-8 p-6 bg-slate-50 rounded-2xl border border-slate-200 border-dashed">
+                <div className="flex flex-col items-center">
+                   <UploadCloud className="w-10 h-10 text-slate-400 mb-2" />
+                   <p className="text-sm font-semibold text-slate-700">Upload Trade License</p>
+                   <p className="text-xs text-slate-400 mb-4">PDF, JPG, PNG up to 5MB</p>
+                   {docUploaded ? (
+                     <div className="flex items-center gap-2 text-green-600 bg-green-50 px-3 py-1.5 rounded-lg text-sm font-bold">
+                        <CheckCircle className="w-4 h-4" /> Ready to submit
+                     </div>
+                   ) : (
+                     <button onClick={() => setDocUploaded(true)} className="px-4 py-2 bg-white border border-slate-300 rounded-lg text-sm font-bold hover:bg-slate-50 transition-colors shadow-sm text-slate-700">
+                       Choose File
+                     </button>
+                   )}
+                </div>
+             </div>
+           )}
+
+           <div className="flex flex-col gap-3">
+              {isPendingDocs && (
+                <button 
+                  onClick={handleSubmitDocs}
+                  disabled={!docUploaded}
+                  className="w-full py-3.5 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                >
+                  Submit for Verification
+                </button>
+              )}
+              <button 
+                onClick={onLogout}
+                className={`w-full py-3.5 rounded-xl font-bold transition-all ${isPendingDocs ? 'bg-white text-slate-500 hover:text-slate-900' : 'bg-slate-900 text-white hover:bg-slate-800'}`}
+              >
+                Log Out
+              </button>
+           </div>
+        </div>
+        <div className="bg-slate-50 p-4 text-center border-t border-slate-100">
+           <p className="text-xs text-slate-400">Need help? <a href="#" className="text-blue-600 font-bold hover:underline">Contact Support</a></p>
+        </div>
       </div>
     </div>
   );
@@ -734,6 +833,24 @@ const OrdersPage = ({ showToast }) => {
     showToast(`Items from ${order.id} added to cart! (Simulation)`, 'success');
   };
 
+  const handleCancelOrder = (id) => {
+    if (window.confirm("Are you sure you want to cancel this order?")) {
+      setOrders(prev => prev.map(o => {
+        if (o.id === id) {
+          return {
+            ...o,
+            status: 'Cancelled',
+            trackingStep: 0,
+            logs: [{ time: new Date().toLocaleString(), status: 'Cancelled', detail: 'Order cancelled by customer' }, ...o.logs]
+          };
+        }
+        return o;
+      }));
+      setSelectedOrder(null);
+      showToast(`Order ${id} cancelled successfully`, 'info');
+    }
+  };
+
   // Tracking Steps Component
   const TrackingProgress = ({ currentStep }) => {
     const steps = ['Ordered', 'Shipped', 'Out for Delivery', 'Delivered'];
@@ -974,9 +1091,17 @@ const OrdersPage = ({ showToast }) => {
                     <Download className="w-4 h-4" /> Download Invoice
                  </PrimaryButton>
                  {selectedOrder.status === 'Pending Delivery' && (
-                    <PrimaryButton variant="primary" onClick={(e) => { handleAck(selectedOrder.id, e); setSelectedOrder(null); }} className="w-full sm:w-auto h-11 bg-slate-900 hover:bg-slate-800">
-                      Confirm Receipt
-                    </PrimaryButton>
+                    <>
+                      <button 
+                        onClick={() => handleCancelOrder(selectedOrder.id)}
+                        className="w-full sm:w-auto h-11 px-4 py-2 text-sm font-bold text-red-600 bg-red-50 hover:bg-red-100 rounded-xl transition-colors border border-transparent"
+                      >
+                        Cancel Order
+                      </button>
+                      <PrimaryButton variant="primary" onClick={(e) => { handleAck(selectedOrder.id, e); setSelectedOrder(null); }} className="w-full sm:w-auto h-11 bg-slate-900 hover:bg-slate-800">
+                        Confirm Receipt
+                      </PrimaryButton>
+                    </>
                  )}
               </div>
            </div>
@@ -1577,115 +1702,6 @@ const FinancialsPage = ({ showToast }) => {
   );
 };
 
-// --- KYC PAGE ---
-const KYCPage = ({ showToast }) => {
-  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
-  
-  const handleUpload = (e) => {
-    e.preventDefault();
-    setIsUploadModalOpen(false);
-    showToast("Document uploaded successfully! Verification pending.", "success");
-  };
-
-  return (
-    <div className="space-y-8 animate-in fade-in duration-500 max-w-7xl mx-auto">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 pb-4 border-b border-slate-200">
-        <div>
-           <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">KYC Documents</h1>
-           <p className="text-slate-500 mt-1">Manage your company's verification documents.</p>
-        </div>
-        <PrimaryButton onClick={() => setIsUploadModalOpen(true)} className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 shadow-md">
-          <UploadCloud className="w-4 h-4" /> Upload New
-        </PrimaryButton>
-      </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <Card className="border border-slate-200 shadow-md hover:shadow-lg transition-all rounded-2xl p-6 relative overflow-hidden group">
-          <div className="absolute top-0 right-0 p-4 opacity-50 group-hover:opacity-100 transition-opacity">
-             <MoreHorizontal className="w-5 h-5 text-slate-400 cursor-pointer" />
-          </div>
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-14 h-14 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center shadow-sm">
-              <FileText className="w-7 h-7" />
-            </div>
-            <div>
-              <h3 className="font-bold text-slate-900 text-lg">Trade License</h3>
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-700 mt-1">
-                 Verified <CheckCircle className="w-3 h-3 ml-1" />
-              </span>
-            </div>
-          </div>
-          <div className="bg-slate-50 rounded-xl p-4 border border-slate-100 space-y-2">
-             <div className="flex justify-between text-xs">
-                <span className="text-slate-500 font-medium">License No</span>
-                <span className="text-slate-900 font-bold">TRD-998877</span>
-             </div>
-             <div className="flex justify-between text-xs">
-                <span className="text-slate-500 font-medium">Expiry Date</span>
-                <span className="text-slate-900 font-bold">2026-11-10</span>
-             </div>
-          </div>
-        </Card>
-
-        <Card className="border border-slate-200 shadow-md hover:shadow-lg transition-all rounded-2xl p-6 relative overflow-hidden group">
-          <div className="absolute top-0 right-0 p-4 opacity-50 group-hover:opacity-100 transition-opacity">
-             <MoreHorizontal className="w-5 h-5 text-slate-400 cursor-pointer" />
-          </div>
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-14 h-14 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center shadow-sm">
-              <ShieldCheck className="w-7 h-7" />
-            </div>
-            <div>
-              <h3 className="font-bold text-slate-900 text-lg">VAT Certificate</h3>
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-100 text-amber-700 mt-1">
-                 Pending Review <Clock className="w-3 h-3 ml-1" />
-              </span>
-            </div>
-          </div>
-          <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
-             <p className="text-xs text-slate-500 leading-relaxed">
-               Document submitted on <span className="font-bold text-slate-700">Dec 01, 2025</span>. Our team is currently reviewing the details.
-             </p>
-          </div>
-        </Card>
-        
-        {/* Placeholder Card */}
-        <button onClick={() => setIsUploadModalOpen(true)} className="border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center justify-center p-6 hover:bg-slate-50 hover:border-slate-300 transition-all group min-h-[240px]">
-           <div className="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 group-hover:bg-white group-hover:shadow-sm mb-4 transition-all">
-              <UploadCloud className="w-6 h-6" />
-           </div>
-           <h4 className="font-bold text-slate-600 group-hover:text-slate-900">Upload Document</h4>
-           <p className="text-xs text-slate-400 mt-1 text-center px-4">Drag & drop or click to browse</p>
-        </button>
-      </div>
-
-      {isUploadModalOpen && (
-        <Modal title="Upload Document" onClose={() => setIsUploadModalOpen(false)}>
-          <form onSubmit={handleUpload} className="space-y-5">
-            <FormSelect id="docType" label="Document Type" icon={FileText}>
-               <option>Trade License</option>
-               <option>VAT Certificate</option>
-               <option>Power of Attorney</option>
-               <option>Passport Copy</option>
-            </FormSelect>
-            <div>
-               <label className="block text-sm font-medium mb-1 text-slate-700">Select File</label>
-               <div className="border-2 border-dashed border-slate-300 rounded-xl p-8 text-center hover:bg-slate-50 transition cursor-pointer flex flex-col items-center justify-center">
-                  <UploadCloud className="w-10 h-10 text-slate-400 mb-3" />
-                  <p className="text-sm font-medium text-slate-700">Click to browse or drag file here</p>
-                  <p className="text-xs text-slate-400 mt-1">PDF, JPG, PNG up to 10MB</p>
-               </div>
-            </div>
-            <div className="pt-2">
-              <PrimaryButton type="submit" className="bg-slate-900 hover:bg-slate-800">Upload & Submit</PrimaryButton>
-            </div>
-          </form>
-        </Modal>
-      )}
-    </div>
-  );
-};
-
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 // --- SHELL COMPONENTS (Sidebar, Header)
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -1694,7 +1710,7 @@ const Sidebar = ({ currentView, setCurrentView, onClose, isDarkMode }) => {
   const navItems = [
     { id: 'dashboard', name: 'Dashboard', icon: LayoutDashboard },
     { id: 'orders', name: 'Orders', icon: Package },
-    { id: 'buy-again', name: 'Buy Again', icon: RefreshCw },
+    // REMOVED 'Buy Again' from here as requested
     { id: 'invoices', name: 'Invoices', icon: Receipt }, 
     { id: 'financials', name: 'Payments & Wallet', icon: Wallet },
     { id: 'services', name: 'Service Requests', icon: Wrench },
@@ -1720,7 +1736,8 @@ const Sidebar = ({ currentView, setCurrentView, onClose, isDarkMode }) => {
           ${
             isActive
               ? 'bg-gradient-to-r from-red-50 to-white text-red-700 font-bold shadow-[0_2px_8px_-2px_rgba(239,68,68,0.15)]'
-              : `text-slate-500 hover:bg-slate-50 hover:text-slate-900 font-medium ${isDarkMode ? 'hover:bg-slate-800 hover:text-slate-200 text-slate-400' : ''}`
+              // UPDATED: Darker text and font-bold for better visibility ("viveable colour")
+              : `text-slate-700 font-bold hover:bg-slate-100 hover:text-red-700 ${isDarkMode ? 'text-slate-300 hover:bg-slate-800 hover:text-slate-100' : ''}`
           }
         `}
       >
@@ -1972,6 +1989,7 @@ export default function App() {
 
   const commonProps = { showToast };
 
+  // Render Logic
   if (userState === 'loggedOut') {
     return (
       <div dir={language === 'ar' ? 'rtl' : 'ltr'}>
@@ -1988,12 +2006,26 @@ export default function App() {
     );
   }
 
+  // Handle restricted states (Pending Approval / Pending Docs)
+  if (userState === 'pendingApproval' || userState === 'pendingDocuments') {
+    return (
+      <div dir={language === 'ar' ? 'rtl' : 'ltr'}>
+        <BlockingStatusPage 
+          status={userState} 
+          onLogout={handleLogout} 
+          setUserState={setUserState}
+        />
+        <ToastContainer toasts={toasts} removeToast={removeToast} />
+      </div>
+    );
+  }
+
   const MainContent = () => {
     switch (currentView) {
       case 'orders': return <OrdersPage {...commonProps} />;
       case 'buy-again': return <BuyAgainPage {...commonProps} />;
       case 'invoices': return <InvoicesPage {...commonProps} />;
-      case 'services': return <RecentServiceWidget {...commonProps} />; // Using Widget for now as full page wasn't fully spec'd in request but widget exists
+      case 'services': return <RecentServiceWidget {...commonProps} />; 
       case 'financials': return <FinancialsPage {...commonProps} />;
       case 'saved-items': return <SavedItemsPage {...commonProps} />;
       case 'returns': return <ReturnsPage {...commonProps} />;
