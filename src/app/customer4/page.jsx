@@ -869,8 +869,12 @@ const OneFile = () => {
   const [selectedServiceBooking, setSelectedServiceBooking] = useState(null);
   const [serviceBookingStep, setServiceBookingStep] = useState(1);
   const [bookingDetails, setBookingDetails] = useState({
+      propertyType: 'residential',
+      urgency: 'standard',
+      serviceSpecificAnswer: '',
       description: '',
       datePreference: '',
+      addressId: '',
       contactName: '',
       contactEmail: '',
       contactPhone: ''
@@ -1300,8 +1304,18 @@ const OneFile = () => {
     return { subtotal, tax, shipping, total, discountAmount };
   };
 
-  const OrderSummaryCard = useCallback(({ totals, buttonText, buttonAction, buttonDisabled = false, isReadOnly = false, items = [] }) => (
+  const OrderSummaryCard = useCallback(({ totals, buttonText, buttonAction, buttonDisabled = false, isReadOnly = false, items = [], onBack }) => (
     <div className={`sticky top-32 p-8 rounded-[2rem] border ${cardClass} ${isDarkMode ? 'border-white/10' : 'border-gray-200'}`}>
+      {/* Back Button Implementation - Matches Screenshot */}
+      {onBack && (
+        <button 
+            onClick={onBack}
+            className={`w-full mb-8 py-3 rounded-xl border flex items-center justify-center gap-2 font-bold transition-all ${isDarkMode ? 'border-white/20 text-white hover:bg-white/10' : 'border-gray-300 text-gray-900 hover:bg-gray-100'}`}
+        >
+            <ArrowLeft className="w-4 h-4" /> Back
+        </button>
+      )}
+
       <h3 className={`text-xl font-bold mb-6 ${textHeadingClass}`}>{t('orderSummary')}</h3>
       
       {/* Read Only Items List for Checkout/Order Page */}
@@ -2198,6 +2212,17 @@ const OneFile = () => {
         window.scrollTo(0,0);
     };
 
+    // Handle Back Logic based on current step
+    const handleBack = () => {
+        if (checkoutStep > 1) {
+            setCheckoutStep(checkoutStep - 1);
+            window.scrollTo(0, 0);
+        } else {
+            setCurrentView('cart');
+            window.scrollTo(0, 0);
+        }
+    };
+
     const getStepActions = () => {
         switch (checkoutStep) {
             case 1:
@@ -2290,16 +2315,6 @@ const OneFile = () => {
                     </button>
                 </div>
             )}
-            
-            <div className="lg:hidden mt-8">
-                <button 
-                    onClick={stepActions.action} 
-                    disabled={stepActions.disabled}
-                    className={`w-full px-8 py-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2 ${!stepActions.disabled ? 'bg-indigo-600 text-white hover:bg-indigo-500 shadow-lg shadow-indigo-500/30' : 'bg-gray-500/50 text-gray-300 cursor-not-allowed'}`}
-                >
-                    {stepActions.text} <ArrowRight className="w-4 h-4" />
-                </button>
-            </div>
         </div>
     );
 
@@ -2340,22 +2355,7 @@ const OneFile = () => {
                 </div>
             )}
             
-            <div className="flex flex-col-reverse md:flex-row gap-4 mt-8">
-                <button 
-                    onClick={() => setCheckoutStep(1)} 
-                    className={`px-8 py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 border ${isDarkMode ? 'border-white/20 text-white hover:bg-white/10' : 'border-gray-300 text-gray-900 hover:bg-gray-100'}`}
-                >
-                    <ArrowLeft className="w-4 h-4" /> Back
-                </button>
-                
-                <button 
-                    onClick={stepActions.action} 
-                    disabled={stepActions.disabled}
-                    className={`lg:hidden flex-1 px-8 py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 ${!stepActions.disabled ? 'bg-indigo-600 text-white hover:bg-indigo-500' : 'bg-gray-500/50 text-gray-300 cursor-not-allowed'}`}
-                >
-                    {stepActions.text} <ArrowRight className="w-4 h-4" />
-                </button>
-            </div>
+            {/* Removed the bottom back button since we now have it in the summary card */}
         </div>
     );
 
@@ -2392,22 +2392,7 @@ const OneFile = () => {
                     </p>
                 </div>
             </div>
-
-            <div className="flex flex-col-reverse md:flex-row gap-4 mt-8">
-                <button 
-                    onClick={() => setCheckoutStep(2)} 
-                    className={`px-8 py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 border ${isDarkMode ? 'border-white/20 text-white hover:bg-white/10' : 'border-gray-300 text-gray-900 hover:bg-gray-100'}`}
-                >
-                    <ArrowLeft className="w-4 h-4" /> Back
-                </button>
-                
-                <button 
-                    onClick={handlePlaceOrder} 
-                    className={`lg:hidden flex-1 px-8 py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 bg-gradient-to-r from-rose-600 to-pink-600 text-white shadow-lg shadow-rose-600/20 hover:scale-[1.02]`}
-                >
-                    {stepActions.text} <ShoppingBag className="w-4 h-4" />
-                </button>
-            </div>
+            {/* Removed the bottom back button here as well */}
         </div>
     );
 
@@ -2446,7 +2431,8 @@ const OneFile = () => {
                         buttonAction={stepActions.action} 
                         buttonDisabled={stepActions.disabled}
                         items={cart} 
-                        isReadOnly={checkoutStep === 3} 
+                        isReadOnly={checkoutStep === 3}
+                        onBack={handleBack} 
                     />
                 </div>
             </div>
@@ -2940,13 +2926,20 @@ const OneFile = () => {
     });
     setServiceBookingStep(1);
     setIsBookingSuccess(false);
+    
+    // Pre-fill user details if available (mock)
     setBookingDetails({
+        propertyType: 'residential',
+        urgency: 'standard',
+        serviceSpecificAnswer: '',
         description: '',
         datePreference: '',
-        contactName: '',
-        contactEmail: '',
-        contactPhone: ''
+        addressId: mockAddresses[0]?.id || '',
+        contactName: 'John Doe',
+        contactEmail: 'john@example.com',
+        contactPhone: '+971 50 123 4567'
     });
+    
     setCurrentView('service-booking');
     window.scrollTo(0,0);
   };
@@ -2980,6 +2973,17 @@ const OneFile = () => {
     
     const { mainCategory, subCategory, icon, buttonGradient, accent } = selectedServiceBooking;
 
+    // Dynamic field based on category
+    const getSpecificFieldLabel = () => {
+        switch(mainCategory) {
+            case 'Maintenance': return 'Number of Units / Items';
+            case 'Furniture': return 'Quantity of Items';
+            case 'Pest Control': return 'Approximate Area (sq. ft)';
+            case 'Equipment': return 'Equipment Brand/Model (if known)';
+            default: return 'Specific Requirements';
+        }
+    };
+
     const StepIndicator = ({ step, title }) => (
         <div className="flex items-center">
             <div 
@@ -2991,8 +2995,8 @@ const OneFile = () => {
             >
                 {serviceBookingStep > step ? <CheckCircle className="w-5 h-5" /> : step}
             </div>
-            <span className={`ml-3 hidden sm:inline text-sm font-medium ${serviceBookingStep === step ? 'text-indigo-500' : textMutedClass}`}>{title}</span>
-            {step < 3 && <div className={`w-12 h-0.5 mx-2 transition-all ${serviceBookingStep > step ? 'bg-emerald-500' : isDarkMode ? 'bg-slate-700' : 'bg-gray-200'}`}></div>}
+            <span className={`ml-3 hidden md:inline text-sm font-medium ${serviceBookingStep === step ? 'text-indigo-500' : textMutedClass}`}>{title}</span>
+            {step < 4 && <div className={`w-8 lg:w-12 h-0.5 mx-2 transition-all ${serviceBookingStep > step ? 'bg-emerald-500' : isDarkMode ? 'bg-slate-700' : 'bg-gray-200'}`}></div>}
         </div>
     );
 
@@ -3002,75 +3006,125 @@ const OneFile = () => {
     };
 
     const handleEstimateRequest = () => {
-        if (!bookingDetails.contactName || !bookingDetails.contactEmail || !bookingDetails.description) {
-            showToast("Please fill in all required fields.", "error");
-            return;
-        }
-        // Simulate API call delay
-        showToast("Requesting estimate...", "info");
-        setTimeout(() => {
-            setIsBookingSuccess(true);
-            showToast("Estimate request submitted successfully! We will contact you soon.", "success");
-        }, 1500);
+        setIsBookingSuccess(true);
+        window.scrollTo(0,0);
+        showToast("Service request submitted successfully!", "success");
     };
 
     const renderStepContent = () => {
         switch (serviceBookingStep) {
-            case 1:
+            case 1: // Scope & Urgency
                 return (
-                    <div className="space-y-6">
-                        <h2 className={`text-2xl font-bold ${textHeadingClass} flex items-center gap-3`}>
-                             {React.cloneElement(icon, { className: `w-6 h-6 ${accent}` })} {t('services')}: {subCategory}
-                        </h2>
-                        <div className={`p-6 rounded-2xl border ${isDarkMode ? 'bg-white/5 border-white/10' : 'bg-gray-100 border-gray-200'}`}>
-                            <p className={textMutedClass}>
-                                You are requesting an estimate for **{subCategory}** service under the **{mainCategory}** category. 
-                                Our certified professionals will review your requirements and provide a detailed quote.
-                            </p>
+                    <div className="space-y-8 animate-fade-in">
+                        <div className="flex items-center gap-4 mb-6">
+                            <div className={`p-4 rounded-2xl ${isDarkMode ? 'bg-white/5' : 'bg-gray-100'} ${accent}`}>
+                                {React.cloneElement(icon, { className: "w-8 h-8" })}
+                            </div>
+                            <div>
+                                <h2 className={`text-2xl font-bold ${textHeadingClass}`}>{subCategory}</h2>
+                                <p className={textMutedClass}>{mainCategory}</p>
+                            </div>
                         </div>
-                        <div className="flex justify-end">
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="space-y-3">
+                                <label className={`text-sm font-bold ml-1 ${textMutedClass}`}>Property Type</label>
+                                <div className="grid grid-cols-2 gap-3">
+                                    {['residential', 'commercial'].map((type) => (
+                                        <div 
+                                            key={type}
+                                            onClick={() => setBookingDetails(prev => ({ ...prev, propertyType: type }))}
+                                            className={`cursor-pointer p-4 rounded-xl border text-center transition-all ${bookingDetails.propertyType === type ? 'border-indigo-500 bg-indigo-500/10 text-indigo-500 font-bold' : isDarkMode ? 'border-white/10 hover:bg-white/5' : 'border-gray-200 hover:bg-gray-50'}`}
+                                        >
+                                            <span className="capitalize">{type}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="space-y-3">
+                                <label className={`text-sm font-bold ml-1 ${textMutedClass}`}>Urgency Level</label>
+                                <div className="grid grid-cols-2 gap-3">
+                                    {['standard', 'emergency'].map((type) => (
+                                        <div 
+                                            key={type}
+                                            onClick={() => setBookingDetails(prev => ({ ...prev, urgency: type }))}
+                                            className={`cursor-pointer p-4 rounded-xl border text-center transition-all ${bookingDetails.urgency === type ? 'border-rose-500 bg-rose-500/10 text-rose-500 font-bold' : isDarkMode ? 'border-white/10 hover:bg-white/5' : 'border-gray-200 hover:bg-gray-50'}`}
+                                        >
+                                            <span className="capitalize">{type}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="space-y-3">
+                            <label className={`text-sm font-bold ml-1 ${textMutedClass}`}>{getSpecificFieldLabel()}</label>
+                            <input 
+                                type="text"
+                                name="serviceSpecificAnswer"
+                                value={bookingDetails.serviceSpecificAnswer}
+                                onChange={handleInputChange}
+                                placeholder="E.g., 3 units, 2500 sqft, etc."
+                                className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all ${inputBgClass}`}
+                            />
+                        </div>
+
+                        <div className="flex justify-end pt-4">
                             <button 
                                 onClick={() => setServiceBookingStep(2)}
-                                className={`px-8 py-3 rounded-xl font-bold text-white transition-all flex items-center justify-center gap-2 ${buttonGradient} shadow-lg shadow-indigo-600/30 hover:scale-[1.02]`}
+                                disabled={!bookingDetails.serviceSpecificAnswer}
+                                className={`px-8 py-3 rounded-xl font-bold text-white transition-all flex items-center justify-center gap-2 ${!bookingDetails.serviceSpecificAnswer ? 'bg-gray-500/50 cursor-not-allowed' : buttonGradient} shadow-lg shadow-indigo-600/30 hover:scale-[1.02]`}
                             >
-                                Add Requirements <ArrowRight className="w-4 h-4" />
+                                Next Step <ArrowRight className="w-4 h-4" />
                             </button>
                         </div>
                     </div>
                 );
-            case 2:
+
+            case 2: // Details & Schedule
                 return (
-                    <div className="space-y-6">
-                        <h2 className={`text-2xl font-bold ${textHeadingClass}`}>2. Specify Service Requirements</h2>
+                    <div className="space-y-6 animate-fade-in">
+                        <h2 className={`text-2xl font-bold ${textHeadingClass}`}>Details & Schedule</h2>
+                        
                         <div className="space-y-4">
-                            <label className={`text-sm font-medium ml-1 ${textMutedClass}`}>Detailed Description of Issue/Work Needed <span className="text-rose-500">*</span></label>
-                            <textarea 
-                                name="description"
-                                value={bookingDetails.description}
-                                onChange={handleInputChange}
-                                rows="4" 
-                                placeholder={`E.g., "The air conditioning unit in the main server room is making a loud noise and blowing hot air."`} 
-                                className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-all resize-none ${inputBgClass}`}
-                            ></textarea>
+                            <div className="space-y-2">
+                                <label className={`text-sm font-medium ml-1 ${textMutedClass}`}>Describe the Issue / Requirement <span className="text-rose-500">*</span></label>
+                                <textarea 
+                                    name="description"
+                                    value={bookingDetails.description}
+                                    onChange={handleInputChange}
+                                    rows="4" 
+                                    placeholder={`Please provide detailed information about what you need done...`} 
+                                    className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all resize-none ${inputBgClass}`}
+                                ></textarea>
+                            </div>
                             
-                            <label className={`text-sm font-medium ml-1 ${textMutedClass}`}>Preferred Date/Time for Visit</label>
-                            <input 
-                                type="datetime-local" 
-                                name="datePreference"
-                                value={bookingDetails.datePreference}
-                                onChange={handleInputChange}
-                                className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-all ${inputBgClass}`} 
-                            />
-                            
-                            <label className={`text-sm font-medium ml-1 ${textMutedClass}`}>Upload Photo/Diagram (Optional)</label>
-                            <div className={`w-full border border-dashed rounded-xl p-6 text-center cursor-pointer hover:border-indigo-500 transition-colors ${inputBgClass}`}>
-                                <Plus className="w-6 h-6 mx-auto mb-2 text-indigo-500" />
-                                <span className="text-sm">Click to upload or drag & drop files</span>
-                                <span className={`text-xs block mt-1 ${textMutedClass}`}>Max file size: 5MB</span>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <label className={`text-sm font-medium ml-1 ${textMutedClass}`}>Preferred Date/Time</label>
+                                    <input 
+                                        type="datetime-local" 
+                                        name="datePreference"
+                                        value={bookingDetails.datePreference}
+                                        onChange={handleInputChange}
+                                        className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all ${inputBgClass}`} 
+                                    />
+                                </div>
+                                
+                                <div className="space-y-2">
+                                    <label className={`text-sm font-medium ml-1 ${textMutedClass}`}>Upload Photo (Optional)</label>
+                                    <div className={`w-full h-[50px] border border-dashed rounded-xl flex items-center justify-center cursor-pointer hover:border-indigo-500 transition-colors ${inputBgClass}`}>
+                                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                                            <Plus className="w-4 h-4" />
+                                            <span>Attach Image</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div className="flex justify-between gap-4">
+                        <div className="flex justify-between gap-4 pt-4">
                             <button 
                                 onClick={() => setServiceBookingStep(1)}
                                 className={`px-6 py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 border ${isDarkMode ? 'border-white/20 text-white hover:bg-white/10' : 'border-gray-300 text-gray-900 hover:bg-gray-100'}`}
@@ -3082,45 +3136,65 @@ const OneFile = () => {
                                 disabled={!bookingDetails.description}
                                 className={`px-8 py-3 rounded-xl font-bold text-white transition-all flex items-center justify-center gap-2 ${!bookingDetails.description ? 'bg-gray-500/50 cursor-not-allowed' : buttonGradient} shadow-lg shadow-indigo-600/30 hover:scale-[1.02]`}
                             >
-                                Continue to Contact <ArrowRight className="w-4 h-4" />
+                                Next Step <ArrowRight className="w-4 h-4" />
                             </button>
                         </div>
                     </div>
                 );
-            case 3:
+
+            case 3: // Location & Contact
                 return (
-                    <div className="space-y-6">
-                        <h2 className={`text-2xl font-bold ${textHeadingClass}`}>3. Contact & Estimate Request</h2>
+                    <div className="space-y-6 animate-fade-in">
+                        <h2 className={`text-2xl font-bold ${textHeadingClass}`}>Location & Contact</h2>
+                        
                         <div className="space-y-4">
-                            <label className={`text-sm font-medium ml-1 ${textMutedClass}`}>Full Name <span className="text-rose-500">*</span></label>
-                            <input 
-                                type="text" 
-                                name="contactName"
-                                value={bookingDetails.contactName}
-                                onChange={handleInputChange}
-                                placeholder="Your Name" 
-                                className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-all ${inputBgClass}`} 
-                            />
-                            
-                            <label className={`text-sm font-medium ml-1 ${textMutedClass}`}>Email Address <span className="text-rose-500">*</span></label>
-                            <input 
-                                type="email" 
-                                name="contactEmail"
-                                value={bookingDetails.contactEmail}
-                                onChange={handleInputChange}
-                                placeholder="your.email@business.com" 
-                                className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-all ${inputBgClass}`} 
-                            />
-                            
-                            <label className={`text-sm font-medium ml-1 ${textMutedClass}`}>Phone Number</label>
-                            <input 
-                                type="tel" 
-                                name="contactPhone"
-                                value={bookingDetails.contactPhone}
-                                onChange={handleInputChange}
-                                placeholder="+971 50 XXX XXXX" 
-                                className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-1 focus:ring-indigo-500 transition-all ${inputBgClass}`} 
-                            />
+                            <div className="space-y-2">
+                                <label className={`text-sm font-medium ml-1 ${textMutedClass}`}>Service Location <span className="text-rose-500">*</span></label>
+                                <select 
+                                    name="addressId"
+                                    value={bookingDetails.addressId}
+                                    onChange={handleInputChange}
+                                    className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all ${inputBgClass}`}
+                                >
+                                    <option value="" disabled>Select Address</option>
+                                    {mockAddresses.map(addr => (
+                                        <option key={addr.id} value={addr.id}>{addr.name} - {addr.city}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                    <label className={`text-sm font-medium ml-1 ${textMutedClass}`}>Contact Name</label>
+                                    <input 
+                                        type="text" 
+                                        name="contactName"
+                                        value={bookingDetails.contactName}
+                                        onChange={handleInputChange}
+                                        className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all ${inputBgClass}`} 
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className={`text-sm font-medium ml-1 ${textMutedClass}`}>Phone Number</label>
+                                    <input 
+                                        type="tel" 
+                                        name="contactPhone"
+                                        value={bookingDetails.contactPhone}
+                                        onChange={handleInputChange}
+                                        className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all ${inputBgClass}`} 
+                                    />
+                                </div>
+                                <div className="space-y-2 md:col-span-2">
+                                    <label className={`text-sm font-medium ml-1 ${textMutedClass}`}>Email Address</label>
+                                    <input 
+                                        type="email" 
+                                        name="contactEmail"
+                                        value={bookingDetails.contactEmail}
+                                        onChange={handleInputChange}
+                                        className={`w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all ${inputBgClass}`} 
+                                    />
+                                </div>
+                            </div>
                         </div>
 
                         <div className="flex justify-between gap-4 pt-4">
@@ -3131,17 +3205,85 @@ const OneFile = () => {
                                 <ArrowLeft className="w-4 h-4" /> Back
                             </button>
                             <button 
-                                onClick={handleEstimateRequest}
-                                disabled={!bookingDetails.contactName || !bookingDetails.contactEmail}
-                                className={`px-8 py-3 rounded-xl font-bold text-white transition-all flex items-center justify-center gap-2 ${!bookingDetails.contactName || !bookingDetails.contactEmail ? 'bg-gray-500/50 cursor-not-allowed' : 'bg-gradient-to-r from-emerald-500 to-teal-500'} shadow-lg shadow-emerald-600/30 hover:scale-[1.02]`}
+                                onClick={() => setServiceBookingStep(4)}
+                                disabled={!bookingDetails.addressId || !bookingDetails.contactName}
+                                className={`px-8 py-3 rounded-xl font-bold text-white transition-all flex items-center justify-center gap-2 ${!bookingDetails.addressId || !bookingDetails.contactName ? 'bg-gray-500/50 cursor-not-allowed' : buttonGradient} shadow-lg shadow-indigo-600/30 hover:scale-[1.02]`}
                             >
-                                Request Estimate <Send className="w-4 h-4" />
+                                Review <ArrowRight className="w-4 h-4" />
                             </button>
                         </div>
                     </div>
                 );
-            default:
-                return null;
+
+            case 4: // Review & Submit
+                return (
+                    <div className="space-y-6 animate-fade-in">
+                         <h2 className={`text-2xl font-bold ${textHeadingClass}`}>Review & Submit</h2>
+                         
+                         <div className={`p-6 rounded-2xl border ${isDarkMode ? 'bg-white/5 border-white/10' : 'bg-gray-50 border-gray-200'}`}>
+                             <h3 className={`font-bold text-lg mb-4 ${textHeadingClass} border-b ${isDarkMode ? 'border-white/10' : 'border-gray-200'} pb-2`}>Service Summary</h3>
+                             
+                             <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 text-sm">
+                                 <div>
+                                     <span className={`block text-xs uppercase tracking-wide opacity-70 ${textMutedClass}`}>Service</span>
+                                     <span className={`font-bold text-base ${textHeadingClass}`}>{subCategory}</span>
+                                 </div>
+                                 <div>
+                                     <span className={`block text-xs uppercase tracking-wide opacity-70 ${textMutedClass}`}>Category</span>
+                                     <span className={`font-bold text-base ${textHeadingClass}`}>{mainCategory}</span>
+                                 </div>
+                                 <div>
+                                     <span className={`block text-xs uppercase tracking-wide opacity-70 ${textMutedClass}`}>Property Type</span>
+                                     <span className={`font-bold capitalize ${textHeadingClass}`}>{bookingDetails.propertyType}</span>
+                                 </div>
+                                 <div>
+                                     <span className={`block text-xs uppercase tracking-wide opacity-70 ${textMutedClass}`}>Urgency</span>
+                                     <span className={`font-bold capitalize ${bookingDetails.urgency === 'emergency' ? 'text-rose-500' : textHeadingClass}`}>{bookingDetails.urgency}</span>
+                                 </div>
+                                 <div>
+                                     <span className={`block text-xs uppercase tracking-wide opacity-70 ${textMutedClass}`}>{getSpecificFieldLabel()}</span>
+                                     <span className={`font-bold ${textHeadingClass}`}>{bookingDetails.serviceSpecificAnswer}</span>
+                                 </div>
+                                 <div>
+                                     <span className={`block text-xs uppercase tracking-wide opacity-70 ${textMutedClass}`}>Date Preference</span>
+                                     <span className={`font-bold ${textHeadingClass}`}>{bookingDetails.datePreference ? new Date(bookingDetails.datePreference).toLocaleString() : 'Flexible'}</span>
+                                 </div>
+                             </div>
+                             
+                             <div className={`mt-4 pt-4 border-t ${isDarkMode ? 'border-white/10' : 'border-gray-200'}`}>
+                                 <span className={`block text-xs uppercase tracking-wide opacity-70 ${textMutedClass} mb-1`}>Description</span>
+                                 <p className={`text-sm italic ${textMutedClass}`}>{bookingDetails.description}</p>
+                             </div>
+                         </div>
+
+                         <div className={`p-6 rounded-2xl border ${isDarkMode ? 'bg-white/5 border-white/10' : 'bg-gray-50 border-gray-200'}`}>
+                             <h3 className={`font-bold text-lg mb-4 ${textHeadingClass} border-b ${isDarkMode ? 'border-white/10' : 'border-gray-200'} pb-2`}>Contact & Location</h3>
+                             <div className="text-sm space-y-2">
+                                 <p><span className={textMutedClass}>Name:</span> <span className={`font-bold ${textHeadingClass}`}>{bookingDetails.contactName}</span></p>
+                                 <p><span className={textMutedClass}>Phone:</span> <span className={`font-bold ${textHeadingClass}`}>{bookingDetails.contactPhone}</span></p>
+                                 <p><span className={textMutedClass}>Email:</span> <span className={`font-bold ${textHeadingClass}`}>{bookingDetails.contactEmail}</span></p>
+                                 <p><span className={textMutedClass}>Location:</span> <span className={`font-bold ${textHeadingClass}`}>{mockAddresses.find(a => a.id == bookingDetails.addressId)?.name}</span></p>
+                             </div>
+                         </div>
+
+                         <div className="flex justify-between gap-4 pt-4">
+                             <button 
+                                 onClick={() => setServiceBookingStep(3)}
+                                 className={`px-6 py-3 rounded-xl font-bold transition-all flex items-center justify-center gap-2 border ${isDarkMode ? 'border-white/20 text-white hover:bg-white/10' : 'border-gray-300 text-gray-900 hover:bg-gray-100'}`}
+                             >
+                                 <ArrowLeft className="w-4 h-4" /> Edit
+                             </button>
+                             <button 
+                                 onClick={handleEstimateRequest}
+                                 className={`flex-1 px-8 py-3 rounded-xl font-bold text-white transition-all flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 shadow-lg shadow-emerald-600/30 hover:scale-[1.02]`}
+                             >
+                                 Submit Request <CheckCircle className="w-4 h-4" />
+                             </button>
+                         </div>
+                    </div>
+                );
+
+            default: return null;
         }
     };
 
@@ -3155,36 +3297,41 @@ const OneFile = () => {
             </button>
             
             <div className="mb-8">
-                 <h1 className={`text-4xl font-bold ${textHeadingClass}`}>Book Service: <span className={`text-transparent bg-clip-text bg-gradient-to-r ${buttonGradient}`}>{subCategory}</span></h1>
-                 <p className={`text-lg ${textMutedClass}`}>Step-by-step guide to request an expert service estimate.</p>
+                 <h1 className={`text-3xl md:text-4xl font-bold ${textHeadingClass}`}>Book Service: <span className={`text-transparent bg-clip-text bg-gradient-to-r ${buttonGradient}`}>{subCategory}</span></h1>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
                 
                 <div className="lg:col-span-2 space-y-8">
                     {/* Step Indicators */}
-                    <div className={`flex justify-between items-center p-4 rounded-xl border ${isDarkMode ? 'border-white/10 bg-white/5' : 'border-gray-200 bg-white'}`}>
-                        <StepIndicator step={1} title="Service" />
-                        <StepIndicator step={2} title="Requirements" />
-                        <StepIndicator step={3} title="Contact & Send" />
+                    <div className={`flex justify-between items-center p-4 rounded-xl border overflow-x-auto hide-scrollbar ${isDarkMode ? 'border-white/10 bg-white/5' : 'border-gray-200 bg-white'}`}>
+                        <StepIndicator step={1} title="Scope" />
+                        <StepIndicator step={2} title="Details" />
+                        <StepIndicator step={3} title="Contact" />
+                        <StepIndicator step={4} title="Review" />
                     </div>
 
                     {/* Content Card */}
-                    <div className={`p-8 rounded-[2.5rem] border ${cardClass} ${isDarkMode ? 'border-white/10' : 'border-gray-200'}`}>
+                    <div className={`p-6 md:p-8 rounded-[2.5rem] border ${cardClass} ${isDarkMode ? 'border-white/10' : 'border-gray-200'}`}>
                         {isBookingSuccess ? (
-                            <div className="text-center py-12 space-y-6">
+                            <div className="text-center py-12 space-y-6 animate-fade-in">
                                 <Award className="w-20 h-20 mx-auto text-emerald-500 animate-bounce" />
-                                <h2 className={`text-3xl font-bold ${textHeadingClass}`}>Estimate Request Sent!</h2>
+                                <h2 className={`text-3xl font-bold ${textHeadingClass}`}>Request Submitted!</h2>
                                 <p className={textMutedClass}>
-                                    Thank you for your request for **{subCategory}**. We have received your requirements and contact information. 
-                                    A dedicated service manager will contact you at **{bookingDetails.contactEmail || 'your provided email'}** within 4 business hours to confirm details and provide a formal estimate.
+                                    Your request for **{subCategory}** has been received. <br/>
+                                    Reference ID: <span className="font-mono font-bold text-indigo-500">SR-{Math.floor(Math.random()*10000)}</span>
                                 </p>
-                                <button 
-                                    onClick={() => setCurrentView('home')}
-                                    className="mt-4 px-8 py-4 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-500 transition-colors"
-                                >
-                                    Back to Home
-                                </button>
+                                <div className={`p-4 rounded-xl inline-block text-left max-w-md mx-auto border ${isDarkMode ? 'bg-white/5 border-white/10' : 'bg-gray-50 border-gray-200'}`}>
+                                    <p className="text-sm">A dedicated service manager will contact you at <span className="font-bold">{bookingDetails.contactEmail}</span> shortly.</p>
+                                </div>
+                                <div className="pt-4">
+                                    <button 
+                                        onClick={() => setCurrentView('home')}
+                                        className="px-8 py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-500 transition-colors shadow-lg"
+                                    >
+                                        Back to Home
+                                    </button>
+                                </div>
                             </div>
                         ) : (
                             renderStepContent()
@@ -3192,9 +3339,9 @@ const OneFile = () => {
                     </div>
                 </div>
 
-                <div className="lg:col-span-1">
+                <div className="hidden lg:block lg:col-span-1">
                     <div className={`sticky top-32 p-8 rounded-[2rem] border ${cardClass} ${isDarkMode ? 'border-white/10' : 'border-gray-200'}`}>
-                        <h3 className={`text-xl font-bold mb-6 ${textHeadingClass}`}>Booking Information</h3>
+                        <h3 className={`text-xl font-bold mb-6 ${textHeadingClass}`}>Draft Summary</h3>
                         
                         <div className="space-y-4">
                             <div className="flex items-center gap-3">
@@ -3209,29 +3356,33 @@ const OneFile = () => {
                             
                             <div className={`h-px w-full my-4 ${isDarkMode ? 'bg-white/10' : 'bg-gray-200'}`}></div>
 
-                            <h4 className={`text-sm font-bold uppercase tracking-wider mb-2 ${textMutedClass}`}>Your Details</h4>
-                            <ul className="space-y-2 text-sm">
-                                <li className="flex justify-between items-start">
-                                    <span className={textMutedClass}>Name:</span>
-                                    <span className={`font-medium text-right ${textHeadingClass}`}>{bookingDetails.contactName || 'Pending'}</span>
-                                </li>
-                                <li className="flex justify-between items-start">
-                                    <span className={textMutedClass}>Email:</span>
-                                    <span className={`font-medium text-right ${textHeadingClass}`}>{bookingDetails.contactEmail || 'Pending'}</span>
-                                </li>
-                                <li className="flex justify-between items-start">
-                                    <span className={textMutedClass}>Date Pref:</span>
-                                    <span className={`font-medium text-right ${textHeadingClass}`}>{bookingDetails.datePreference ? new Date(bookingDetails.datePreference).toLocaleDateString() : 'Anytime'}</span>
-                                </li>
-                            </ul>
+                            <div className="space-y-3">
+                                {serviceBookingStep > 1 && (
+                                    <>
+                                        <div className="flex justify-between text-sm">
+                                            <span className={textMutedClass}>Type</span>
+                                            <span className={`font-bold capitalize ${textHeadingClass}`}>{bookingDetails.propertyType}</span>
+                                        </div>
+                                        <div className="flex justify-between text-sm">
+                                            <span className={textMutedClass}>Urgency</span>
+                                            <span className={`font-bold capitalize ${bookingDetails.urgency === 'emergency' ? 'text-rose-500' : textHeadingClass}`}>{bookingDetails.urgency}</span>
+                                        </div>
+                                    </>
+                                )}
+                                {serviceBookingStep > 2 && (
+                                    <div className="flex justify-between text-sm">
+                                        <span className={textMutedClass}>Location</span>
+                                        <span className={`font-bold ${textHeadingClass} truncate max-w-[120px]`}>{mockAddresses.find(a => a.id == bookingDetails.addressId)?.city || '...'}</span>
+                                    </div>
+                                )}
+                            </div>
 
-                            {serviceBookingStep >= 2 && bookingDetails.description && (
-                                <>
-                                    <div className={`h-px w-full my-4 ${isDarkMode ? 'bg-white/10' : 'bg-gray-200'}`}></div>
-                                    <h4 className={`text-sm font-bold uppercase tracking-wider mb-2 ${textMutedClass}`}>Description</h4>
-                                    <p className={`text-xs italic leading-relaxed max-h-24 overflow-y-auto ${textMutedClass}`}>{bookingDetails.description}</p>
-                                </>
-                            )}
+                            <div className={`p-4 rounded-xl mt-4 text-center border ${isDarkMode ? 'bg-white/5 border-white/5' : 'bg-indigo-50 border-indigo-100'}`}>
+                                <p className={`text-xs ${textMutedClass}`}>Estimated Response Time</p>
+                                <p className={`text-lg font-bold ${bookingDetails.urgency === 'emergency' ? 'text-rose-500' : 'text-emerald-500'}`}>
+                                    {bookingDetails.urgency === 'emergency' ? '< 30 Mins' : '2 - 4 Hours'}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -3527,7 +3678,7 @@ const OneFile = () => {
 
           <div className="flex items-center gap-2 sm:gap-4">
             {/* --- LANGUAGE SWITCHER --- */}
-            <div className={`relative flex items-center rounded-full border ${isDarkMode ? 'border-white/10 bg-white/5' : 'border-gray-200 bg-white'}`}>
+            <div className={`hidden md:flex relative items-center rounded-full border ${isDarkMode ? 'border-white/10 bg-white/5' : 'border-gray-200 bg-white'}`}>
                 <Globe className={`w-5 h-5 mx-2 ${isDarkMode ? 'text-indigo-400' : 'text-indigo-600'}`} />
                 <select
                     onChange={(e) => setCurrentLang(e.target.value)}
@@ -3570,6 +3721,12 @@ const OneFile = () => {
               <span className="absolute top-0 right-0 w-4 h-4 bg-gradient-to-r from-red-500 to-blue-500 text-white text-xs flex items-center justify-center rounded-full shadow-lg">{cart.reduce((acc, item) => acc + item.qty, 0)}</span>
             </button>
             
+            <button 
+                className={`p-2 rounded-full transition-all sm:hidden ${isDarkMode ? 'text-slate-300 hover:text-white hover:bg-white/10' : 'text-gray-600 hover:text-black hover:bg-black/5'}`}
+            >
+                <User className="w-6 h-6" />
+            </button>
+
             <div className="hidden sm:flex items-center gap-2">
                 <button className={`px-4 py-2 rounded-full text-sm font-bold transition-all border ${isDarkMode ? 'text-white border-white/20 hover:bg-white/10' : 'text-gray-700 border-gray-200 hover:bg-gray-50'}`}>
                     Sign Up
@@ -3579,10 +3736,6 @@ const OneFile = () => {
                   <span>Login</span>
                 </button>
             </div>
-
-            <button className={`p-2 rounded-full sm:hidden ${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`}>
-                <User className="w-6 h-6" />
-            </button>
 
             <button className={`p-2 ${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`} onClick={() => setIsMenuOpen(true)}><Menu className="w-6 h-6" /></button>
           </div>
