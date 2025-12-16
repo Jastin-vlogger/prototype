@@ -3731,10 +3731,12 @@ const OneFile = () => {
                 <button className={`px-4 py-2 rounded-full text-sm font-bold transition-all border ${isDarkMode ? 'text-white border-white/20 hover:bg-white/10' : 'text-gray-700 border-gray-200 hover:bg-gray-50'}`}>
                     Sign Up
                 </button>
+                <a href="/customerdash">
                 <button className="flex items-center gap-2 bg-gradient-to-r from-red-600 to-blue-600 text-white px-6 py-2 rounded-full hover:from-red-500 hover:to-blue-500 transition-all text-sm font-bold shadow-lg shadow-blue-600/30">
                   <User className="w-4 h-4" />
                   <span>Login</span>
                 </button>
+                </a>
             </div>
 
             <button className={`p-2 ${isDarkMode ? 'text-slate-300' : 'text-gray-600'}`} onClick={() => setIsMenuOpen(true)}><Menu className="w-6 h-6" /></button>
