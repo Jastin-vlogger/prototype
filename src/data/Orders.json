@@ -1,1 +1,30 @@
-[]
+[
+  {
+    "id": "ORD-1766147205296",
+    "customerId": "GUEST",
+    "items": [
+      {
+        "name": "Fresh Chicken",
+        "qty": 2
+      },
+      {
+        "name": "Organic Raw Honey (500g)",
+        "qty": 1
+      },
+      {
+        "name": "BARBICAN STRAWBERRY 24 Pcs",
+        "qty": 1
+      }
+    ],
+    "total": 120.71849999999998,
+    "totals": {
+      "subtotal": 114.96999999999998,
+      "tax": 5.7485,
+      "shipping": 0,
+      "total": 120.71849999999998,
+      "discountAmount": 0
+    },
+    "date": "2025-12-19T12:26:45.218Z",
+    "status": "Processing"
+  }
+]

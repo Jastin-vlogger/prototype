@@ -2227,6 +2227,13 @@ const OneFile = () => {
         const currentAddress = mockAddresses.find(a => a.id === selectedAddress);
 
         const handlePlaceOrder = async () => {
+            if (!currentUser) {
+                // Auth Guard: Redirect to login if not authenticated
+                addToast("Please login to place an order", "error");
+                setTimeout(() => window.location.href = '/customerdash', 1500);
+                return;
+            }
+
             const orderData = {
                 customerId: currentUser?.code || 'GUEST',
                 items: cart,
