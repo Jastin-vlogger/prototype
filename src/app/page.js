@@ -1817,6 +1817,10 @@ const OneFile = () => {
                               <button
                                 onClick={(e) => {
                                   e.stopPropagation();
+                                  if (!currentUser) {
+                                    setTimeout(() => window.location.href = '/customerdash', 1500);
+                                    return;
+                                  }
                                   addToCart(product.name, 1);
                                   setCurrentView('checkout');
                                   setCheckoutStep(1);
@@ -1881,6 +1885,10 @@ const OneFile = () => {
     ];
 
     const handleBuyNow = () => {
+      if (!currentUser) {
+        setTimeout(() => window.location.href = '/customerdash', 1500);
+        return;
+      }
       addToCart(selectedProduct.name, 1);
       setCurrentView('checkout');
       setCheckoutStep(1);
@@ -2147,6 +2155,10 @@ const OneFile = () => {
                 totals={totals}
                 buttonText="Proceed to Checkout"
                 buttonAction={() => {
+                  if (!currentUser) {
+                    setTimeout(() => window.location.href = '/customerdash', 1500);
+                    return;
+                  }
                   setCurrentView('checkout');
                   setCheckoutStep(1);
                   window.scrollTo(0, 0);
@@ -2227,11 +2239,6 @@ const OneFile = () => {
     const currentAddress = mockAddresses.find(a => a.id === selectedAddress);
 
     const handlePlaceOrder = async () => {
-      if (!currentUser) {
-        // Auth Guard: Redirect to login if not authenticated
-        setTimeout(() => window.location.href = '/customerdash', 1500);
-        return;
-      }
       const orderData = {
         customerId: currentUser?.code || 'GUEST',
         items: cart,
@@ -4427,10 +4434,10 @@ const OneFile = () => {
               </div>
 
               <div className="pt-6 space-y-3">
-                <button className="w-full bg-gradient-to-r from-red-600 to-blue-600 text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg">
+                <button onClick={() => window.location.href = '/customerdash'} className="w-full bg-gradient-to-r from-red-600 to-blue-600 text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg">
                   <LogIn className="w-5 h-5" /> Sign In
                 </button>
-                <button className={`w-full bg-transparent border py-4 rounded-xl font-bold flex items-center justify-center gap-2 ${isDarkMode ? 'border-slate-700 text-white hover:bg-slate-800' : 'border-gray-300 text-gray-900 hover:bg-gray-100'}`}>
+                <button onClick={() => window.location.href = '/customerdash'} className={`w-full bg-transparent border py-4 rounded-xl font-bold flex items-center justify-center gap-2 ${isDarkMode ? 'border-slate-700 text-white hover:bg-slate-800' : 'border-gray-300 text-gray-900 hover:bg-gray-100'}`}>
                   <UserPlus className="w-5 h-5" /> Create Account
                 </button>
               </div>
