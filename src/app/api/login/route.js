@@ -25,7 +25,10 @@ export async function POST(request) {
             return NextResponse.json({ success: false, error: 'Invalid credentials' }, { status: 401 });
         }
     } catch (error) {
-        console.error('Login error:', error);
-        return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+        console.error('[API Login POST] Login error:', {
+            message: error.message,
+            stack: error.stack
+        });
+        return NextResponse.json({ error: 'Internal server error', details: error.message }, { status: 500 });
     }
 }

@@ -18,8 +18,12 @@ export async function GET(request) {
 
         return NextResponse.json(orders);
     } catch (error) {
-        console.error('Error fetching orders:', error);
-        return NextResponse.json({ error: 'Failed to fetch orders' }, { status: 500 });
+        console.error('[API Orders GET] Error fetching orders:', {
+            message: error.message,
+            stack: error.stack,
+            path: ORDERS_FILE
+        });
+        return NextResponse.json({ error: 'Failed to fetch orders', details: error.message }, { status: 500 });
     }
 }
 
@@ -44,7 +48,11 @@ export async function POST(request) {
 
         return NextResponse.json(newOrder);
     } catch (error) {
-        console.error('Error creating order:', error);
-        return NextResponse.json({ error: 'Failed to create order' }, { status: 500 });
+        console.error('[API Orders POST] Error creating order:', {
+            message: error.message,
+            stack: error.stack,
+            path: ORDERS_FILE
+        });
+        return NextResponse.json({ error: 'Failed to create order', details: error.message }, { status: 500 });
     }
 }
