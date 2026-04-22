@@ -8,7 +8,7 @@ import {
   ArrowRight, Info, Image as ImageIcon, FileText, MessageSquare, Linkedin, 
   Twitter, ArrowLeft, HeartPulse, Shield, Zap, Home,
   Cpu, Camera, Laptop, Video, Crosshair, Tv, LayoutDashboard, 
-  CalendarRange, HelpCircle, Trash2, Lock, LogOut, UploadCloud
+  CalendarRange, HelpCircle, Trash2, Lock, LogOut
 } from 'lucide-react';
 
 // --- Centralized Initial Data ---
@@ -41,9 +41,10 @@ const initialDoctorsData = [
 ];
 
 const initialTestimonials = [
-  { id: 1, text: "My experience with Cosmo Dental and Dr. Anjali and Dr. Pujita was extremely good. Both doctors were very helpful, patient, and professional. They took the time to understand my concerns and gave me the right advice with complete transparency. Their experience and expertise were clearly reflected in the way they handled my treatment. I truly appreciate their guidance and the comfortable environment they provided. I would highly recommend Cosmo Dental to anyone looking for quality dental care.", author: "Richa Likhyani", role: "Dental Patient", rating: 5, avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&w=150&q=80" },
-  { id: 2, text: "I had a wonderful experience with Dr Anjali, Dr Mallika, Dr Poojitha they treated me with so much care throughout my root canal procedure and made sure I was comfortable at every step. The treatment was smooth, gentle, and far less stressful than I expected. They made sure i was not having too much pain and helped calm my jittery nerves before the procedure. I truly appreciate her skill and kindness. Highly recommended!", author: "Vijay Sah", role: "Root Canal Patient", rating: 5, avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&w=150&q=80" },
-  { id: 3, text: "Great Experience!! I went in for a root canal expecting the worst, but Dr. Poojitha completely changed that experience. She's exceptionally skilled, confident, and clearly knows her craft. The procedure was smooth, well explained, and surprisingly comfortable. Her calm demeanor and warm smile make a big difference — it's hard not to feel relaxed in her chair. When expertise meets such a pleasant presence, you know you're in great hands. Highly recommended", author: "Abhiram Chowdary", role: "Root Canal Patient", rating: 5, avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&w=150&q=80" },
+  { id: 1, text: "COSMO DENTAL completely elevated my dental routine. From my pristine implants to the flawless root canal, I look and feel amazing.", author: "Sarah Jenkins", role: "Restorative Patient", rating: 5, avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&w=150&q=80" },
+  { id: 2, text: "The smile makeover transformed my confidence perfectly, and their laser tech is unmatched. Truly the best dental clinic in Sarjapur road.", author: "Marcus Thorne", role: "Cosmetic Patient", rating: 5, avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&w=150&q=80" },
+  { id: 3, text: "I used to have severe clinic anxiety. The calming clinical environment and their incredibly transparent, expert care completely cured my fear.", author: "Elena Rostova", role: "General Care", rating: 5, avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&w=150&q=80" },
+  { id: 4, text: "Best orthodontics experience for my teenager near Kodathi gate. The invisible aligners worked exactly as predicted. Highly recommend the team here.", author: "David Chen", role: "Parent", rating: 5, avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&w=150&q=80" },
 ];
 
 const initialFaqs = [
@@ -58,13 +59,13 @@ const initialAppointments = [
   { id: 102, name: "John Smith", email: "john.s@example.com", phone: "9123456789", service: "Dental Implants", date: "2026-04-25", status: "Pending" }
 ];
 
-const initialNewsData = [
+const newsData = [
   { id: 1, title: "The Future of AI in Orthodontics", date: "April 12, 2026", author: "Dr. Prahlad Shenava", category: "Technology", img: "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", excerpt: "How predictive modeling and 3D scanning are making treatments more precise than ever.", content: "Artificial Intelligence is no longer just a concept; it's a daily reality in modern dentistry. At COSMO DENTAL, we utilize AI-driven algorithms to map your oral cavity with microscopic precision. This allows us to predict how teeth will shift over time and tailor aligners perfectly. By integrating these systems, we deliver maximum clinical results with minimal chair time." },
   { id: 2, title: "Why Dental Implants are Changing Lives", date: "March 28, 2026", author: "Dr. Anjali Raval", category: "Treatments", img: "https://images.unsplash.com/photo-1598256989800-fea5ce5146f2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", excerpt: "Discover the unseen benefits of permanent replacements over traditional dentures.", content: "For decades, removable dentures were the only reliable path to restoring a full smile. Today, Dental Implants have changed the field. Made from medical-grade titanium, these posts fuse with your jawbone. The benefits aren't just aesthetic; they prevent bone loss, restore full chewing power, and never slip or click while you speak. It is a true, permanent return to function." },
   { id: 3, title: "Maintaining Your Oral Health Daily", date: "March 15, 2026", author: "Dr. Poojitha Pasupuleti", category: "Oral Health", img: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", excerpt: "Daily habits and modern tools to keep your enamel strong and your gums healthy.", content: "Keeping your smile stellar between clinical visits requires daily dedication. We recommend brushing twice daily using an ultrasonic toothbrush, which operates at frequencies high enough to disrupt plaque colonies even slightly beyond the bristles' reach. Flossing is non-negotiable; consider water flossers to clear interdental debris gently. Lastly, limit highly acidic and sugary foods which can erode enamel over time." },
 ];
 
-const initialGalleryImages = [
+const galleryImages = [
   "https://images.unsplash.com/photo-1629909613654-28e377c37b09?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
   "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
   "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
@@ -271,7 +272,7 @@ const BookingBanner = ({ navigateTo }) => (
   </section>
 );
 
-const HomePage = ({ navigateTo, doctors, faqs, testimonials, gallery }) => {
+const HomePage = ({ navigateTo, doctors, faqs, testimonials }) => {
   const [activeFaq, setActiveFaq] = useState(null);
 
   return (
@@ -378,7 +379,7 @@ const HomePage = ({ navigateTo, doctors, faqs, testimonials, gallery }) => {
           <Button variant="outline" onClick={() => navigateTo('gallery')} className="hidden sm:flex bg-white tracking-widest text-sm uppercase">View Full Gallery</Button>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-          {gallery.slice(0, 4).map((src, idx) => (
+          {galleryImages.slice(0, 4).map((src, idx) => (
             <div key={idx} className="relative group rounded-[1.5rem] overflow-hidden cursor-pointer shadow-[0_15px_30px_-10px_rgba(0,0,0,0.05)] hover:shadow-xl transition-all duration-300 aspect-square" onClick={() => navigateTo('gallery')}>
               <div className="absolute inset-0 bg-emerald-900/0 group-hover:bg-emerald-900/20 transition-colors duration-300 z-10"></div>
               <img src={src} alt={`Gallery Preview ${idx + 1}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
@@ -549,22 +550,149 @@ const DoctorDetailPage = ({ doctor, navigateTo }) => {
   );
 };
 
-const NewsPage = ({ news, navigateTo }) => (
+const BookingPage = ({ navigateTo, onAddAppointment }) => {
+  const [step, setStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({ service: 'General Checkup', firstName: '', lastName: '', email: '', phone: '' });
+
+  const handleSubmit = (e) => { 
+    e.preventDefault(); 
+    setIsSubmitting(true); 
+    setTimeout(() => { 
+      onAddAppointment({
+        id: Date.now(),
+        name: `${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        phone: formData.phone,
+        service: formData.service,
+        date: new Date().toISOString().split('T')[0],
+        status: "Pending"
+      });
+      setIsSubmitting(false); 
+      setStep(3); 
+    }, 1500); 
+  };
+
+  return (
+    <div className="pb-20">
+      <PageHeader title="Book an Appointment" subtitle="Schedule your consultation with our expert medical team to begin your journey to a healthy smile." icon={Calendar} breadcrumbs={[{ label: 'Booking' }]} navigateTo={navigateTo} />
+      <div className="pt-10 sm:pt-16 px-4 sm:px-6 lg:px-12 max-w-4xl mx-auto flex items-center">
+        <div className="w-full bg-white/90 backdrop-blur-xl rounded-[2rem] sm:rounded-[3rem] shadow-2xl shadow-emerald-100/50 border border-slate-100 overflow-hidden relative">
+          <div className="absolute top-0 right-0 w-48 sm:w-64 h-48 sm:h-64 bg-gradient-to-br from-teal-100 to-emerald-50 rounded-bl-full opacity-60 pointer-events-none"></div>
+          <div className="absolute bottom-0 left-0 w-48 sm:w-64 h-48 sm:h-64 bg-gradient-to-tr from-emerald-100 to-teal-50 rounded-tr-full opacity-60 pointer-events-none"></div>
+          <div className="p-6 sm:p-10 lg:p-16 relative z-10">
+            {step === 1 && (
+              <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div className="text-center mb-8 sm:mb-10"><h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3 sm:mb-4 tracking-tight">Select Clinical Service</h2><p className="text-sm sm:text-base text-slate-600 font-medium">What brings you to our clinic today?</p></div>
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                    {['Dental Implants', 'Invisalign / Braces', 'Smile Makeover', 'Root Canal / Pain', 'Laser Whitening', 'General Checkup'].map(type => (
+                      <button key={type} onClick={() => setFormData({...formData, service: type})} className={`p-3.5 sm:p-4 rounded-xl sm:rounded-2xl border-2 text-left transition-all font-bold text-sm sm:text-base tracking-wide ${formData.service === type ? 'border-emerald-500 bg-emerald-50 text-emerald-800' : 'border-slate-100 text-slate-700 hover:border-emerald-500 hover:bg-emerald-50'}`}>
+                        {type}
+                      </button>
+                    ))}
+                  </div>
+                  <Button variant="primary" className="w-full py-3.5 sm:py-4 text-sm sm:text-base mt-6 sm:mt-8 uppercase tracking-widest" onClick={() => setStep(2)}>Continue to Details <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" /></Button>
+                </div>
+              </div>
+            )}
+            {step === 2 && (
+              <div className="animate-in fade-in slide-in-from-right-8 duration-500">
+                <div className="flex items-center gap-3 sm:gap-4 mb-8 sm:mb-10 pb-4 sm:pb-6 border-b border-slate-100"><button onClick={() => setStep(1)} className="p-2 sm:p-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600"><ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" /></button><h2 className="font-heading text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">Patient Details</h2></div>
+                <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                    <div><label className="block text-xs font-bold text-slate-700 mb-1.5 sm:mb-2 uppercase tracking-widest">First Name</label><input required value={formData.firstName} onChange={e => setFormData({...formData, firstName: e.target.value})} type="text" className="w-full px-4 py-3 sm:py-3.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 outline-none bg-white text-sm sm:text-base font-medium" /></div>
+                    <div><label className="block text-xs font-bold text-slate-700 mb-1.5 sm:mb-2 uppercase tracking-widest">Last Name</label><input required value={formData.lastName} onChange={e => setFormData({...formData, lastName: e.target.value})} type="text" className="w-full px-4 py-3 sm:py-3.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 outline-none bg-white text-sm sm:text-base font-medium" /></div>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                    <div><label className="block text-xs font-bold text-slate-700 mb-1.5 sm:mb-2 uppercase tracking-widest">Email</label><input required value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} type="email" className="w-full px-4 py-3 sm:py-3.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 outline-none bg-white text-sm sm:text-base font-medium" /></div>
+                    <div><label className="block text-xs font-bold text-slate-700 mb-1.5 sm:mb-2 uppercase tracking-widest">Phone</label><input required value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} type="tel" className="w-full px-4 py-3 sm:py-3.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 outline-none bg-white text-sm sm:text-base font-medium" /></div>
+                  </div>
+                  <Button variant="primary" type="submit" className="w-full py-3.5 sm:py-4 text-sm sm:text-base mt-6 uppercase tracking-widest" disabled={isSubmitting}>{isSubmitting ? 'Confirming...' : 'Confirm Appointment'}</Button>
+                </form>
+              </div>
+            )}
+            {step === 3 && (
+              <div className="text-center animate-in zoom-in-95 duration-500 py-8 sm:py-10">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner"><CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10" /></div>
+                <h2 className="font-heading text-xl sm:text-3xl font-bold text-slate-900 mb-3 sm:mb-4 tracking-tight">Appointment Confirmed!</h2>
+                <p className="text-sm sm:text-base text-slate-600 mb-6 sm:mb-8 max-w-md mx-auto font-medium">Your consultation is scheduled. Our clinical team will reach out with the details shortly.</p>
+                <Button onClick={() => navigateTo('home')} variant="outline" className="uppercase tracking-widest text-xs sm:text-sm">Return to Home</Button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const ServicesPage = ({ navigateTo }) => (
+  <div className="pb-20">
+    <PageHeader title="Our Medical Services" subtitle="Dedicated to Delivering Outstanding Dental Care. Explore our comprehensive clinical treatment options." icon={Moon} breadcrumbs={[{ label: 'Services' }]} navigateTo={navigateTo} bgImage="https://images.unsplash.com/photo-1598256989800-fea5ce5146f2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" />
+    <div className="pt-16 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-20 sm:mb-24">
+      {servicesData.map((service, idx) => (
+        <div key={idx} className={`group relative rounded-[2.5rem] p-8 sm:p-10 border shadow-xl hover:shadow-2xl transition-all duration-500 flex flex-col overflow-hidden hover:-translate-y-2 ${service.cardBg} ${service.shadow}`}>
+          <div className={`absolute -top-24 -right-24 w-64 h-64 rounded-full blur-[80px] opacity-20 group-hover:opacity-50 transition-opacity duration-700 pointer-events-none bg-white`}></div>
+          <div className="flex justify-between items-start mb-6 relative z-10"><div className={`w-16 h-16 rounded-2xl flex items-center justify-center shrink-0 shadow-inner transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6 border border-white/20 ${service.bg}`}><service.icon className={`w-8 h-8 ${service.color}`} /></div></div>
+          <h3 className="font-heading text-2xl font-bold text-white mb-3 transition-colors relative z-10 leading-tight drop-shadow-md">{service.title}</h3>
+          <p className="text-white/90 text-sm sm:text-base leading-relaxed mb-8 flex-grow relative z-10 font-medium">{service.desc}</p>
+          <button onClick={() => navigateTo('service-detail', service)} className={`w-full py-4 px-4 rounded-xl font-bold text-sm sm:text-base flex items-center justify-center gap-2 transition-all duration-300 shadow-md hover:shadow-xl hover:-translate-y-0.5 relative z-10 font-heading tracking-wide ${service.btnBg}`}>Learn More <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" /></button>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const ServiceDetailPage = ({ service, navigateTo }) => {
+  if (!service) return <div className="pt-40 text-center"><Button onClick={() => navigateTo('services')}>Return to Services</Button></div>;
+  return (
+    <div className="pb-20">
+      <PageHeader title={service.title} subtitle={service.desc} breadcrumbs={[{ label: 'Services', action: () => navigateTo('services') }, { label: service.title }]} navigateTo={navigateTo} />
+      <div className="pt-10 sm:pt-16 px-4 sm:px-6 lg:px-12 max-w-5xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-500">
+        <div className="bg-white rounded-[2rem] sm:rounded-[3rem] p-8 sm:p-12 lg:p-16 shadow-xl border border-slate-100 relative overflow-hidden">
+          <div className={`absolute top-0 right-0 w-64 h-64 rounded-bl-full opacity-20 -z-10 ${service.bg.replace('bg-white/20', service.hoverGlow)}`}></div>
+          <div className="flex flex-col md:flex-row gap-10 lg:gap-20">
+            <div className="md:w-1/2 space-y-6">
+              <div className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 shadow-lg ${service.bg.replace('bg-white/20', 'bg-emerald-50 border border-emerald-100')}`}><service.icon className={`w-8 h-8 sm:w-10 sm:h-10 text-emerald-600`} /></div>
+              <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 leading-tight tracking-tight">{service.title}</h1>
+              <p className="text-base sm:text-lg text-slate-600 leading-relaxed font-medium">{service.fullDesc}</p>
+              <Button variant="primary" onClick={() => navigateTo('booking')} className="w-full mt-4 sm:mt-6 py-4 text-sm sm:text-base tracking-widest uppercase">Book Consultation</Button>
+            </div>
+            <div className="md:w-1/2">
+              <h3 className="font-heading text-xl sm:text-2xl font-bold text-slate-900 mb-4 sm:mb-6 tracking-tight">The Clinical Process</h3>
+              <div className="space-y-4 sm:space-y-6 relative before:absolute before:inset-0 before:ml-4 sm:before:ml-5 before:-translate-x-px before:h-full before:w-0.5 before:bg-slate-200">
+                {service.process.map((step, i) => (
+                  <div key={i} className="relative flex items-center gap-4 sm:gap-6">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white border-4 border-emerald-100 text-emerald-600 font-bold flex items-center justify-center z-10 shrink-0 shadow-sm text-sm sm:text-base font-heading">{i + 1}</div>
+                    <div className="bg-slate-50 p-3 sm:p-4 rounded-xl flex-grow border border-slate-100"><p className="font-bold text-slate-800 text-sm sm:text-base">{step}</p></div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const NewsPage = ({ navigateTo }) => (
   <div className="pb-20">
     <PageHeader title="Dental Health Blog" subtitle="The latest clinical insights, oral hygiene tips, and technological breakthroughs from our medical team." icon={FileText} breadcrumbs={[{ label: 'News' }]} navigateTo={navigateTo} bgImage="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" />
     <div className="pt-16 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {news.map((item) => (
-        <Card key={item.id} className="!p-0 flex flex-col h-full group cursor-pointer bg-gradient-to-br from-white to-emerald-50/50 border-emerald-100 hover:border-emerald-300" hover={false}>
-          <div className="relative h-48 sm:h-56 overflow-hidden" onClick={() => navigateTo('news-detail', item)}>
+      {newsData.map((news) => (
+        <Card key={news.id} className="!p-0 flex flex-col h-full group cursor-pointer bg-gradient-to-br from-white to-emerald-50/50 border-emerald-100 hover:border-emerald-300" hover={false}>
+          <div className="relative h-48 sm:h-56 overflow-hidden" onClick={() => navigateTo('news-detail', news)}>
             <div className="absolute inset-0 bg-emerald-900/10 group-hover:bg-transparent transition-colors duration-300 z-10"></div>
-            <img src={item.img} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-            <div className="absolute top-4 right-4 bg-white/95 backdrop-blur px-3 py-1 rounded-full text-[10px] sm:text-xs font-extrabold uppercase tracking-widest text-emerald-600 z-20 shadow-sm border border-white">{item.category}</div>
+            <img src={news.img} alt={news.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div className="absolute top-4 right-4 bg-white/95 backdrop-blur px-3 py-1 rounded-full text-[10px] sm:text-xs font-extrabold uppercase tracking-widest text-emerald-600 z-20 shadow-sm border border-white">{news.category}</div>
           </div>
           <div className="p-6 sm:p-8 flex flex-col flex-grow">
-            <p className="text-[10px] sm:text-xs text-emerald-500 mb-3 font-extrabold uppercase tracking-widest">{item.date}</p>
-            <h3 className="font-heading text-lg sm:text-xl font-bold text-emerald-950 mb-3 group-hover:text-emerald-600 transition-colors cursor-pointer leading-tight tracking-wide" onClick={() => navigateTo('news-detail', item)}>{item.title}</h3>
-            <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow font-medium">{item.excerpt}</p>
-            <button onClick={() => navigateTo('news-detail', item)} className="w-full py-3.5 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 text-white bg-emerald-600 hover:bg-emerald-700 shadow-md hover:shadow-xl hover:shadow-emerald-300 hover:-translate-y-0.5 mt-auto font-heading tracking-widest uppercase">Read Article <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" /></button>
+            <p className="text-[10px] sm:text-xs text-emerald-500 mb-3 font-extrabold uppercase tracking-widest">{news.date}</p>
+            <h3 className="font-heading text-lg sm:text-xl font-bold text-emerald-950 mb-3 group-hover:text-emerald-600 transition-colors cursor-pointer leading-tight tracking-wide" onClick={() => navigateTo('news-detail', news)}>{news.title}</h3>
+            <p className="text-slate-600 text-sm leading-relaxed mb-6 flex-grow font-medium">{news.excerpt}</p>
+            <button onClick={() => navigateTo('news-detail', news)} className="w-full py-3.5 px-4 rounded-xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all duration-300 text-white bg-emerald-600 hover:bg-emerald-700 shadow-md hover:shadow-xl hover:shadow-emerald-300 hover:-translate-y-0.5 mt-auto font-heading tracking-widest uppercase">Read Article <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:translate-x-1" /></button>
           </div>
         </Card>
       ))}
@@ -593,12 +721,12 @@ const NewsDetailPage = ({ news, navigateTo }) => {
   );
 };
 
-const GalleryPage = ({ gallery, navigateTo }) => (
+const GalleryPage = ({ navigateTo }) => (
   <div className="pb-20">
     <PageHeader title="Clinic Gallery" subtitle="Take a tour through our state-of-the-art medical facility near Kodathi gate and see the smiles we've crafted." icon={ImageIcon} breadcrumbs={[{ label: 'Gallery' }]} navigateTo={navigateTo} bgImage="https://images.unsplash.com/photo-1600170311833-c2cf5280ce49?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" />
     <div className="pt-10 sm:pt-16 px-4 sm:px-6 lg:px-12 max-w-7xl mx-auto columns-1 sm:columns-2 lg:columns-3 gap-6 space-y-6">
-      {gallery.map((src, idx) => (
-        <div key={idx} className="break-inside-avoid relative group rounded-[1.5rem] sm:rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+      {galleryImages.map((src, idx) => (
+        <div key={idx} className="break-inside-avoid relative group rounded-[1.5rem] sm:rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300">
           <div className="absolute inset-0 bg-emerald-900/0 group-hover:bg-emerald-900/20 transition-colors duration-300 z-10"></div>
           <img src={src} alt={`Clinical Facility Image ${idx + 1}`} className="w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 z-20 transition-opacity duration-300">
@@ -670,52 +798,45 @@ const AdminLoginPage = ({ onLogin, navigateTo }) => {
     <div className="min-h-screen bg-[#FAFAFC] flex items-center justify-center py-20 px-4 sm:px-6 lg:px-12 relative">
       <div className="bg-white p-8 sm:p-12 rounded-[2.5rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] border border-slate-100 w-full max-w-md relative overflow-hidden animate-in zoom-in-95 duration-500">
         <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-50 rounded-bl-full -z-10"></div>
+        
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-emerald-100/50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4"><Lock className="w-8 h-8 stroke-[1.5]" /></div>
+          <div className="w-16 h-16 bg-emerald-100/50 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <Lock className="w-8 h-8 stroke-[1.5]" />
+          </div>
           <h2 className="font-heading text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">Admin Portal</h2>
           <p className="text-sm text-slate-500 font-medium mt-2">Authorized personnel only</p>
         </div>
+
         <form onSubmit={handleSubmit} className="space-y-5">
           {error && <div className="p-3 bg-rose-50 text-rose-600 text-xs font-bold rounded-xl border border-rose-100 text-center uppercase tracking-wide">{error}</div>}
-          <div><label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-widest">Username</label><input required type="text" value={credentials.username} onChange={e=>setCredentials({...credentials, username: e.target.value})} className="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 outline-none bg-slate-50 text-sm font-medium" placeholder="Enter username" /></div>
-          <div><label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-widest">Password</label><input required type="password" value={credentials.password} onChange={e=>setCredentials({...credentials, password: e.target.value})} className="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 outline-none bg-slate-50 text-sm font-medium" placeholder="Enter password" /></div>
+          <div>
+            <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-widest">Username</label>
+            <input required type="text" value={credentials.username} onChange={e=>setCredentials({...credentials, username: e.target.value})} className="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 outline-none bg-slate-50 text-sm font-medium" placeholder="Enter username" />
+          </div>
+          <div>
+            <label className="block text-xs font-bold text-slate-700 mb-1.5 uppercase tracking-widest">Password</label>
+            <input required type="password" value={credentials.password} onChange={e=>setCredentials({...credentials, password: e.target.value})} className="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-2 outline-none bg-slate-50 text-sm font-medium" placeholder="Enter password" />
+          </div>
           <Button variant="primary" type="submit" className="w-full py-4 uppercase tracking-widest text-sm mt-2 shadow-md shadow-emerald-500/20">Secure Login</Button>
         </form>
-        <button onClick={() => navigateTo('home')} className="w-full text-center mt-6 text-xs font-bold text-slate-400 hover:text-emerald-600 tracking-widest uppercase transition-colors">&larr; Back to Public Site</button>
+        
+        <button onClick={() => navigateTo('home')} className="w-full text-center mt-6 text-xs font-bold text-slate-400 hover:text-emerald-600 tracking-widest uppercase transition-colors">
+          &larr; Back to Public Site
+        </button>
       </div>
     </div>
   );
 };
 
-const AdminDashboard = ({ navigateTo, onLogout, doctors, setDoctors, faqs, setFaqs, testimonials, setTestimonials, appointments, news, setNews, gallery, setGallery }) => {
+const AdminDashboard = ({ navigateTo, onLogout, doctors, setDoctors, faqs, setFaqs, testimonials, setTestimonials, appointments }) => {
   const [activeTab, setActiveTab] = useState('appointments');
 
   const [newDoc, setNewDoc] = useState({ name: '', role: '', img: '', bio: '', credentials: '', specializations: '', quote: '' });
   const [newFaq, setNewFaq] = useState({ q: '', a: '' });
   const [newTestimonial, setNewTestimonial] = useState({ text: '', author: '', role: '', rating: '5' });
-  const [newNewsItem, setNewNewsItem] = useState({ title: '', author: '', category: 'Treatments', img: '', excerpt: '', content: '' });
 
-  // File Upload Handlers (Converts image to Base64 to display instantly)
-  const handleImageUpload = (e, callback) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => callback(reader.result);
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleAddGalleryImage = (e) => {
-    handleImageUpload(e, (base64) => {
-      setGallery([base64, ...gallery]);
-      alert("Gallery Image Uploaded Successfully");
-    });
-  };
-
-  // Submit Handlers
   const handleAddDoctor = (e) => {
     e.preventDefault();
-    if(!newDoc.img) return alert("Please upload a doctor image.");
     const docToAdd = { 
       ...newDoc, 
       id: `dr-${newDoc.name.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}`,
@@ -726,19 +847,6 @@ const AdminDashboard = ({ navigateTo, onLogout, doctors, setDoctors, faqs, setFa
     setDoctors([docToAdd, ...doctors]);
     setNewDoc({ name: '', role: '', img: '', bio: '', credentials: '', specializations: '', quote: '' });
     alert("Doctor Added Successfully");
-  };
-
-  const handleAddNews = (e) => {
-    e.preventDefault();
-    if(!newNewsItem.img) return alert("Please upload a blog cover image.");
-    const newsToAdd = {
-      ...newNewsItem,
-      id: Date.now(),
-      date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
-    };
-    setNews([newsToAdd, ...news]);
-    setNewNewsItem({ title: '', author: '', category: 'Treatments', img: '', excerpt: '', content: '' });
-    alert("News Article Published Successfully");
   };
 
   const handleAddFaq = (e) => {
@@ -760,16 +868,12 @@ const AdminDashboard = ({ navigateTo, onLogout, doctors, setDoctors, faqs, setFa
       if (type === 'doc') setDoctors(doctors.filter(d => d.id !== id));
       if (type === 'faq') setFaqs(faqs.filter(f => f.id !== id));
       if (type === 'test') setTestimonials(testimonials.filter(t => t.id !== id));
-      if (type === 'news') setNews(news.filter(n => n.id !== id));
-      if (type === 'gallery') setGallery(gallery.filter((_, index) => index !== id));
     }
   };
 
   const tabs = [
     { id: 'appointments', label: 'Appointments', icon: CalendarRange },
     { id: 'doctors', label: 'Manage Doctors', icon: Users },
-    { id: 'news', label: 'Manage News', icon: FileText },
-    { id: 'gallery', label: 'Clinic Gallery', icon: ImageIcon },
     { id: 'testimonials', label: 'Testimonials', icon: MessageSquare },
     { id: 'faqs', label: 'Manage FAQs', icon: HelpCircle },
   ];
@@ -782,7 +886,9 @@ const AdminDashboard = ({ navigateTo, onLogout, doctors, setDoctors, faqs, setFa
             <div className="w-12 h-12 bg-emerald-600 text-white rounded-xl flex items-center justify-center shadow-lg shadow-emerald-500/30"><LayoutDashboard className="w-6 h-6" /></div>
             <div><h1 className="font-heading text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Admin Dashboard</h1><p className="text-slate-500 font-bold text-xs uppercase tracking-widest">Clinic Management System</p></div>
           </div>
-          <Button variant="danger" onClick={() => { onLogout(); navigateTo('home'); }} className="gap-2 text-xs uppercase tracking-widest"><LogOut className="w-4 h-4" /> Logout</Button>
+          <Button variant="danger" onClick={() => { onLogout(); navigateTo('home'); }} className="gap-2 text-xs uppercase tracking-widest">
+            <LogOut className="w-4 h-4" /> Logout
+          </Button>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8 items-start">
@@ -835,16 +941,7 @@ const AdminDashboard = ({ navigateTo, onLogout, doctors, setDoctors, faqs, setFa
                       <div><label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-widest">Name</label><input required value={newDoc.name} onChange={e=>setNewDoc({...newDoc, name: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 outline-none" placeholder="Dr. Jane Doe" /></div>
                       <div><label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-widest">Designation/Role</label><input required value={newDoc.role} onChange={e=>setNewDoc({...newDoc, role: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 outline-none" placeholder="MDS - Endodontist" /></div>
                     </div>
-                    
-                    {/* Custom Image File Upload */}
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-widest">Doctor Photo (Upload)</label>
-                      <div className="flex items-center gap-4">
-                        {newDoc.img && <img src={newDoc.img} alt="Preview" className="w-16 h-16 rounded-full object-cover border-2 border-emerald-200 shadow-sm shrink-0" />}
-                        <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, (base64) => setNewDoc({...newDoc, img: base64}))} className="w-full file:cursor-pointer file:mr-4 file:py-2.5 file:px-6 file:rounded-xl file:border-0 file:text-xs file:font-bold file:uppercase file:tracking-widest file:bg-emerald-100 file:text-emerald-700 hover:file:bg-emerald-200 transition-all text-sm text-slate-500 outline-none" />
-                      </div>
-                    </div>
-
+                    <div><label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-widest">Image URL</label><input required value={newDoc.img} onChange={e=>setNewDoc({...newDoc, img: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 outline-none" placeholder="https://..." /></div>
                     <div className="grid sm:grid-cols-2 gap-5">
                       <div><label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-widest">Credentials (Comma separated)</label><input required value={newDoc.credentials} onChange={e=>setNewDoc({...newDoc, credentials: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 outline-none" placeholder="BDS, MDS..." /></div>
                       <div><label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-widest">Specializations (Comma separated)</label><input required value={newDoc.specializations} onChange={e=>setNewDoc({...newDoc, specializations: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 outline-none" placeholder="Root Canal, Implants..." /></div>
@@ -864,74 +961,6 @@ const AdminDashboard = ({ navigateTo, onLogout, doctors, setDoctors, faqs, setFa
                           <div><h4 className="font-bold text-slate-900">{doc.name}</h4><p className="text-xs text-slate-500 font-bold uppercase tracking-widest">{doc.role}</p></div>
                         </div>
                         <button onClick={() => handleDelete('doc', doc.id)} className="p-2 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors"><Trash2 className="w-5 h-5"/></button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'news' && (
-              <div className="animate-in fade-in duration-500 space-y-10">
-                <div>
-                  <h2 className="font-heading text-2xl font-bold text-slate-900 mb-6">Publish News Article</h2>
-                  <form onSubmit={handleAddNews} className="bg-slate-50 p-6 rounded-[1.5rem] space-y-5">
-                    <div className="grid sm:grid-cols-2 gap-5">
-                      <div><label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-widest">Title</label><input required value={newNewsItem.title} onChange={e=>setNewNewsItem({...newNewsItem, title: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 outline-none" /></div>
-                      <div><label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-widest">Category</label><select required value={newNewsItem.category} onChange={e=>setNewNewsItem({...newNewsItem, category: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 outline-none bg-white"><option>Technology</option><option>Treatments</option><option>Oral Health</option><option>Clinic News</option></select></div>
-                    </div>
-                    
-                    {/* Custom Image File Upload */}
-                    <div>
-                      <label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-widest">Article Cover Image (Upload)</label>
-                      <div className="flex items-center gap-4">
-                        {newNewsItem.img && <img src={newNewsItem.img} alt="Preview" className="w-20 h-14 rounded-lg object-cover border border-emerald-200 shadow-sm shrink-0" />}
-                        <input type="file" accept="image/*" onChange={(e) => handleImageUpload(e, (base64) => setNewNewsItem({...newNewsItem, img: base64}))} className="w-full file:cursor-pointer file:mr-4 file:py-2.5 file:px-6 file:rounded-xl file:border-0 file:text-xs file:font-bold file:uppercase file:tracking-widest file:bg-emerald-100 file:text-emerald-700 hover:file:bg-emerald-200 transition-all text-sm text-slate-500 outline-none" />
-                      </div>
-                    </div>
-
-                    <div><label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-widest">Author Name</label><input required value={newNewsItem.author} onChange={e=>setNewNewsItem({...newNewsItem, author: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 outline-none" /></div>
-                    <div><label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-widest">Short Excerpt</label><textarea required value={newNewsItem.excerpt} onChange={e=>setNewNewsItem({...newNewsItem, excerpt: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 outline-none" rows="2"></textarea></div>
-                    <div><label className="block text-xs font-bold text-slate-700 mb-2 uppercase tracking-widest">Full Content</label><textarea required value={newNewsItem.content} onChange={e=>setNewNewsItem({...newNewsItem, content: e.target.value})} className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-emerald-500 outline-none" rows="4"></textarea></div>
-                    <Button type="submit" className="uppercase tracking-widest text-xs">Publish Article</Button>
-                  </form>
-                </div>
-                <div>
-                  <h2 className="font-heading text-2xl font-bold text-slate-900 mb-6">Published Articles</h2>
-                  <div className="space-y-4">
-                    {news.map(item => (
-                      <div key={item.id} className="flex items-center justify-between p-4 bg-white border border-slate-100 rounded-xl shadow-sm">
-                        <div className="flex items-center gap-4">
-                          <img src={item.img} alt={item.title} className="w-16 h-12 rounded-lg object-cover" />
-                          <div><h4 className="font-bold text-slate-900 text-sm line-clamp-1">{item.title}</h4><p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">{item.date}</p></div>
-                        </div>
-                        <button onClick={() => handleDelete('news', item.id)} className="p-2 text-rose-500 hover:bg-rose-50 rounded-lg transition-colors"><Trash2 className="w-5 h-5"/></button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'gallery' && (
-              <div className="animate-in fade-in duration-500 space-y-10">
-                <div>
-                  <h2 className="font-heading text-2xl font-bold text-slate-900 mb-6">Upload to Gallery</h2>
-                  <div className="bg-slate-50 p-6 sm:p-10 rounded-[1.5rem] border border-slate-200 border-dashed text-center">
-                     <UploadCloud className="w-12 h-12 text-emerald-500 mx-auto mb-4" />
-                     <p className="text-sm font-bold text-slate-700 mb-4 uppercase tracking-widest">Select an image to add to the clinic gallery</p>
-                     <input type="file" accept="image/*" onChange={handleAddGalleryImage} className="mx-auto block file:cursor-pointer file:py-3 file:px-8 file:rounded-full file:border-0 file:text-xs file:font-bold file:uppercase file:tracking-widest file:bg-emerald-600 file:text-white hover:file:bg-emerald-700 hover:file:shadow-lg transition-all text-sm text-slate-500 outline-none" />
-                  </div>
-                </div>
-                <div>
-                  <h2 className="font-heading text-2xl font-bold text-slate-900 mb-6">Existing Gallery Images</h2>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-                    {gallery.map((src, index) => (
-                      <div key={index} className="relative group rounded-xl overflow-hidden aspect-square border border-slate-200 shadow-sm">
-                        <img src={src} alt="Gallery item" className="w-full h-full object-cover" />
-                        <div className="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                          <button onClick={() => handleDelete('gallery', index)} className="p-3 bg-rose-500 text-white rounded-full hover:bg-rose-600 transition-colors shadow-lg"><Trash2 className="w-5 h-5"/></button>
-                        </div>
                       </div>
                     ))}
                   </div>
@@ -1011,8 +1040,6 @@ export default function App() {
   const [faqs, setFaqs] = useState(initialFaqs);
   const [testimonials, setTestimonials] = useState(initialTestimonials);
   const [appointments, setAppointments] = useState(initialAppointments);
-  const [news, setNews] = useState(initialNewsData);
-  const [gallery, setGallery] = useState(initialGalleryImages);
 
   const handleAddAppointment = (newAppt) => {
     setAppointments([newAppt, ...appointments]);
@@ -1101,21 +1128,21 @@ export default function App() {
 
       {/* Main Content Routing */}
       <main className="relative flex-grow">
-        {route.page === 'home' && <HomePage doctors={doctors} faqs={faqs} testimonials={testimonials} gallery={gallery} navigateTo={navigateTo} />}
+        {route.page === 'home' && <HomePage doctors={doctors} faqs={faqs} testimonials={testimonials} navigateTo={navigateTo} />}
         {route.page === 'about' && <AboutPage navigateTo={navigateTo} />}
         {route.page === 'services' && <ServicesPage navigateTo={navigateTo} />}
         {route.page === 'service-detail' && <ServiceDetailPage service={route.item} navigateTo={navigateTo} />}
         {route.page === 'doctors' && <DoctorsPage doctors={doctors} navigateTo={navigateTo} />}
         {route.page === 'doctor-detail' && <DoctorDetailPage doctor={route.item} navigateTo={navigateTo} />}
-        {route.page === 'gallery' && <GalleryPage gallery={gallery} navigateTo={navigateTo} />}
-        {route.page === 'news' && <NewsPage news={news} navigateTo={navigateTo} />}
+        {route.page === 'gallery' && <GalleryPage navigateTo={navigateTo} />}
+        {route.page === 'news' && <NewsPage navigateTo={navigateTo} />}
         {route.page === 'news-detail' && <NewsDetailPage news={route.item} navigateTo={navigateTo} />}
         {route.page === 'contact' && <ContactPage navigateTo={navigateTo} />}
         {route.page === 'booking' && <BookingPage onAddAppointment={handleAddAppointment} navigateTo={navigateTo} />}
         
         {/* Admin Routing */}
         {route.page === 'admin' && !isAdminLoggedIn && <AdminLoginPage onLogin={() => setIsAdminLoggedIn(true)} navigateTo={navigateTo} />}
-        {route.page === 'admin' && isAdminLoggedIn && <AdminDashboard navigateTo={navigateTo} onLogout={() => setIsAdminLoggedIn(false)} doctors={doctors} setDoctors={setDoctors} faqs={faqs} setFaqs={setFaqs} testimonials={testimonials} setTestimonials={setTestimonials} appointments={appointments} news={news} setNews={setNews} gallery={gallery} setGallery={setGallery} />}
+        {route.page === 'admin' && isAdminLoggedIn && <AdminDashboard navigateTo={navigateTo} onLogout={() => setIsAdminLoggedIn(false)} doctors={doctors} setDoctors={setDoctors} faqs={faqs} setFaqs={setFaqs} testimonials={testimonials} setTestimonials={setTestimonials} appointments={appointments} />}
 
         {/* Global Booking Banner */}
         {route.page !== 'booking' && route.page !== 'admin' && <BookingBanner navigateTo={navigateTo} />}
