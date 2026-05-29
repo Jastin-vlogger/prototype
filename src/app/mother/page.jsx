@@ -1,4 +1,6 @@
 "use client"
+
+
 import React, { useState, useEffect } from 'react';
 import { 
   Menu, X, ChevronLeft, ChevronRight, Clock, MapPin, 
@@ -1098,7 +1100,8 @@ const AdminDashboard = ({ onUpdate, onLogout }) => {
     { id: 'offers', label: 'Offers', icon: Tag },
     { id: 'team', label: 'Team Roster', icon: Users },
     { id: 'gallery', label: 'Gallery', icon: ImageIcon },
-    { id: 'journal', label: 'Journal Posts', icon: BookOpen }
+    { id: 'journal', label: 'Journal Posts', icon: BookOpen },
+    { id: 'testimonials', label: 'Testimonials', icon: Star }
   ];
 
   const refresh = () => onUpdate();
@@ -1131,6 +1134,7 @@ const AdminDashboard = ({ onUpdate, onLogout }) => {
         if (modal.type === 'gallery') GALLERY_IMAGES.splice(modal.index, 1);
         if (modal.type === 'journal') BLOG_POSTS.splice(modal.index, 1);
         if (modal.type === 'offer') OFFERS.splice(modal.index, 1);
+        if (modal.type === 'testimonial') TESTIMONIALS.splice(modal.index, 1);
     } else if (modal.action === 'edit') {
         if (modal.type === 'category') {
             const cat = MENU_CATEGORIES.find(c => c.category === menuCat);
@@ -1142,6 +1146,7 @@ const AdminDashboard = ({ onUpdate, onLogout }) => {
         if (modal.type === 'team') TEAM_MEMBERS[modal.index] = formData;
         if (modal.type === 'journal') BLOG_POSTS[modal.index] = { ...BLOG_POSTS[modal.index], ...formData };
         if (modal.type === 'offer') OFFERS[modal.index] = { ...OFFERS[modal.index], ...formData };
+        if (modal.type === 'testimonial') TESTIMONIALS[modal.index] = { ...formData, rating: Number(formData.rating) || 5 };
     } else if (modal.action === 'add') {
         if (modal.type === 'category') {
             MENU_CATEGORIES.push({
@@ -1157,6 +1162,7 @@ const AdminDashboard = ({ onUpdate, onLogout }) => {
         if (modal.type === 'gallery') GALLERY_IMAGES.push(formData.url || formData.image || "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&q=80&w=800");
         if (modal.type === 'journal') BLOG_POSTS.push({ ...formData, id: Date.now(), date: new Date().toLocaleDateString(), author: "Admin", image: formData.image || "https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&q=80&w=800", content: [formData.excerpt || "New content"]});
         if (modal.type === 'offer') OFFERS.push({ ...formData, id: Date.now(), image: formData.image || "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=800" });
+        if (modal.type === 'testimonial') TESTIMONIALS.push({ ...formData, rating: Number(formData.rating) || 5 });
     }
     refresh();
     closeModal();
@@ -1341,6 +1347,33 @@ const AdminDashboard = ({ onUpdate, onLogout }) => {
     </div>
   );
 
+  const renderTestimonialsAdmin = () => (
+    <div className="bg-[#0a0a0a] p-6 md:p-8 rounded-3xl border border-white/5 shadow-2xl animate-in fade-in h-full overflow-y-auto">
+      <div className="flex justify-between items-center mb-8 pb-6 border-b border-white/5">
+        <h3 className="text-2xl text-white font-light">Testimonials</h3>
+        <Button onClick={() => openModal('testimonial', 'add')} variant="outline" className="text-xs py-2 px-4"><Plus size={14} className="mr-2" /> Add Testimonial</Button>
+      </div>
+      <div className="space-y-4">
+        {TESTIMONIALS.map((test, idx) => (
+          <div key={idx} className="flex flex-col sm:flex-row justify-between sm:items-center bg-black p-5 rounded-2xl border border-white/5 hover:border-white/10 transition-colors gap-4">
+            <div className="flex-1 min-w-0">
+              <p className="text-white font-medium text-base md:text-lg truncate">{test.name} <span className="text-zinc-500 text-xs font-normal ml-2">{test.role}</span></p>
+              <div className="flex gap-1 text-[#B46B61] my-2">
+                {[...Array(Number(test.rating) || 5)].map((_, i) => <Star key={i} size={14} className="fill-current" />)}
+              </div>
+              <p className="text-zinc-400 text-sm italic line-clamp-2">"{test.text}"</p>
+            </div>
+            <div className="flex gap-2 shrink-0 self-end sm:self-auto">
+              <button onClick={() => openModal('testimonial', 'edit', test, idx)} className="p-2 md:p-2.5 text-zinc-400 hover:text-white bg-white/5 rounded-xl transition-colors"><Edit2 size={16} /></button>
+              <button onClick={() => openModal('testimonial', 'delete', test, idx)} className="p-2 md:p-2.5 text-red-400 hover:text-red-300 bg-white/5 rounded-xl transition-colors"><Trash2 size={16} /></button>
+            </div>
+          </div>
+        ))}
+        {TESTIMONIALS.length === 0 && <p className="text-zinc-500 text-center py-8">No testimonials yet.</p>}
+      </div>
+    </div>
+  );
+
   return (
     <div className="flex h-[100svh] bg-black text-white overflow-hidden flex-col md:flex-row relative">
       
@@ -1398,6 +1431,7 @@ const AdminDashboard = ({ onUpdate, onLogout }) => {
           {activeTab === 'team' && renderTeamAdmin()}
           {activeTab === 'gallery' && renderGalleryAdmin()}
           {activeTab === 'journal' && renderJournalAdmin()}
+          {activeTab === 'testimonials' && renderTestimonialsAdmin()}
         </div>
       </div>
 
@@ -1470,6 +1504,20 @@ const AdminDashboard = ({ onUpdate, onLogout }) => {
               <>
                 <input type="text" placeholder="Post Title" value={formData.title || ''} onChange={e => setFormData({...formData, title: e.target.value})} className="w-full bg-black border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:border-[#B46B61] outline-none transition-colors" />
                 <textarea placeholder="Short Excerpt" rows="3" value={formData.excerpt || ''} onChange={e => setFormData({...formData, excerpt: e.target.value})} className="w-full bg-black border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:border-[#B46B61] outline-none resize-none transition-colors"></textarea>
+              </>
+            )}
+            {modal.type === 'testimonial' && (
+              <>
+                <input type="text" placeholder="Author Name" value={formData.name || ''} onChange={e => setFormData({...formData, name: e.target.value})} className="w-full bg-black border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:border-[#B46B61] outline-none transition-colors" />
+                <input type="text" placeholder="Role (e.g. Food Critic)" value={formData.role || ''} onChange={e => setFormData({...formData, role: e.target.value})} className="w-full bg-black border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:border-[#B46B61] outline-none transition-colors" />
+                <select value={formData.rating || 5} onChange={e => setFormData({...formData, rating: Number(e.target.value)})} className="w-full bg-black border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:border-[#B46B61] outline-none transition-colors appearance-none">
+                  <option value={5}>5 Stars</option>
+                  <option value={4}>4 Stars</option>
+                  <option value={3}>3 Stars</option>
+                  <option value={2}>2 Stars</option>
+                  <option value={1}>1 Star</option>
+                </select>
+                <textarea placeholder="Testimonial text..." rows="4" value={formData.text || ''} onChange={e => setFormData({...formData, text: e.target.value})} className="w-full bg-black border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:border-[#B46B61] outline-none resize-none transition-colors"></textarea>
               </>
             )}
           </>
