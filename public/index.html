@@ -1,0 +1,2991 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth overflow-x-hidden">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Mother Restaurant — Love is Her Secret Ingredient</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Playfair+Display+SC:wght@400;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      fontFamily: {
+        serif: ['Playfair Display', 'serif'],
+        sans: ['Inter', 'sans-serif'],
+        display: ['Cormorant Garamond', 'serif'],
+        sc: ['Playfair Display SC', 'serif'],
+      },
+      colors: {
+        brand: {
+          50: '#fdf6f4',
+          100: '#f9e8e3',
+          200: '#f2d1c7',
+          300: '#e8b3a4',
+          400: '#d98f7c',
+          500: '#c9756a',
+          600: '#b8756a',
+          700: '#9a5d54',
+          800: '#7d4a43',
+          900: '#633a35',
+        },
+      }
+    }
+  }
+}
+</script>
+<style>
+* { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; box-sizing: border-box; }
+html, body { margin: 0; padding: 0; overflow-x: hidden; width: 100vw; max-width: 100%; }
+body { font-family: 'Inter', sans-serif; background-color: #fdfbf7; color: #2d2422; transition: background-color 0.4s ease, color 0.4s ease; min-height: 100vh; }
+.font-display { font-family: 'Cormorant Garamond', serif; }
+.font-serif { font-family: 'Playfair Display', serif; }
+.font-sc { font-family: 'Playfair Display SC', serif; }
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #f9f3e8; }
+.dark ::-webkit-scrollbar-track { background: #1a1412; }
+::-webkit-scrollbar-thumb { background: #b8756a; border-radius: 4px; }
+
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes pulse-brand { 0%, 100% { box-shadow: 0 0 0 0 rgba(184, 117, 106, 0.4); } 50% { box-shadow: 0 0 0 15px rgba(184, 117, 106, 0); } }
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@keyframes tabSlide { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+.animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+.animate-fade-in { animation: fadeIn 1s ease-out forwards; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-pulse-brand { animation: pulse-brand 2s infinite; }
+.animate-marquee { animation: marquee 25s linear infinite; }
+.animate-tab-slide { animation: tabSlide 0.5s ease-out forwards; }
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+
+.hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease-in-out; overflow: hidden; }
+.hero-slide.active { opacity: 1; z-index: 1; }
+.hero-slide img { transform: scale(1.1); transition: transform 10s ease-out; }
+.hero-slide.active img { transform: scale(1); }
+
+.menu-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+.menu-card:hover { transform: translateY(-8px); }
+.menu-card:hover .menu-img { transform: scale(1.08); }
+.menu-img { transition: transform 0.6s ease; }
+
+.nav-link { position: relative; }
+.nav-link::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: #b8756a; transition: width 0.3s ease; }
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+.mega-menu { opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s ease; pointer-events: none; }
+.group:hover .mega-menu { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; }
+
+.gallery-item { overflow: hidden; cursor: pointer; }
+.gallery-item img { transition: transform 0.6s ease; }
+.gallery-item:hover img { transform: scale(1.1); }
+
+.testimonial-slide { display: none; }
+.testimonial-slide.active { display: block; animation: fadeIn 0.6s ease; }
+
+.page { display: none; animation: fadeIn 0.5s ease; }
+.page.active { display: block; }
+
+.btn-premium {
+  background: linear-gradient(135deg, #b8756a 0%, #9a5d54 50%, #7d4a43 100%);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.btn-premium::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.5s ease;
+}
+.btn-premium:hover::before { left: 100%; }
+.btn-premium:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(184, 117, 106, 0.4); }
+
+.section-divider { height: 1px; background: linear-gradient(90deg, transparent, #b8756a, transparent); }
+
+.text-gradient {
+  background: linear-gradient(135deg, #b8756a 0%, #d98f7c 50%, #b8756a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.loader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #fdfbf7;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.5s ease;
+}
+.dark .loader { background: #1a1412; }
+.loader.hidden { opacity: 0; pointer-events: none; }
+
+.whatsapp-float {
+  position: fixed; bottom: 30px; right: 30px; z-index: 100;
+  width: 60px; height: 60px;
+  background: #25d366; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.whatsapp-float:hover { transform: scale(1.1); }
+
+.marquee-container { overflow: hidden; white-space: nowrap; }
+.marquee-content { display: inline-block; animation: marquee 25s linear infinite; }
+
+.filter-btn.active { background: #b8756a; color: white; border-color: #b8756a; }
+
+.lightbox {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.95);
+  display: none; align-items: center; justify-content: center;
+}
+.lightbox.active { display: flex; }
+
+.mobile-menu {
+  position: fixed; inset: 0; z-index: 150;
+  background: rgba(26,20,18,0.98);
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.mobile-menu.active { transform: translateX(0); }
+
+.form-input {
+  background: rgba(184, 117, 106, 0.08);
+  border: 1px solid rgba(184, 117, 106, 0.3);
+  transition: all 0.3s ease;
+  color: inherit;
+  font-family: inherit;
+}
+.form-input:focus {
+  border-color: #b8756a;
+  background: rgba(184, 117, 106, 0.12);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(184, 117, 106, 0.15);
+}
+.form-input::placeholder { color: #9a8a85; }
+.dark .form-input::placeholder { color: #7a6a65; }
+
+.glass-card {
+  background: rgba(184, 117, 106, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(184, 117, 106, 0.15);
+  transition: background 0.4s ease, border-color 0.4s ease;
+}
+.dark .glass-card {
+  background: rgba(184, 117, 106, 0.08);
+  border: 1px solid rgba(184, 117, 106, 0.2);
+}
+
+.reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+.category-tab {
+  padding: 12px 24px;
+  border-radius: 9999px;
+  border: 1px solid rgba(184, 117, 106, 0.3);
+  background: transparent;
+  color: #7d4a43;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: inherit;
+}
+.dark .category-tab { color: #e8b3a4; }
+.category-tab:hover {
+  border-color: #b8756a;
+  color: #b8756a;
+  background: rgba(184, 117, 106, 0.08);
+}
+.category-tab.active {
+  background: linear-gradient(135deg, #b8756a 0%, #9a5d54 100%);
+  color: white;
+  border-color: #b8756a;
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(184, 117, 106, 0.3);
+}
+.category-tab .tab-count {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background: rgba(184, 117, 106, 0.15);
+  font-weight: 600;
+}
+.category-tab.active .tab-count {
+  background: rgba(255,255,255,0.25);
+  color: white;
+}
+
+.dish-card {
+  background: rgba(184, 117, 106, 0.05);
+  border: 1px solid rgba(184, 117, 106, 0.12);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+.dark .dish-card {
+  background: rgba(184, 117, 106, 0.08);
+  border: 1px solid rgba(184, 117, 106, 0.2);
+}
+.dish-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(184, 117, 106, 0.5);
+  box-shadow: 0 12px 40px rgba(184, 117, 106, 0.2);
+}
+.dish-card:hover .dish-img { transform: scale(1.08); }
+.dish-img { transition: transform 0.6s ease; }
+
+.view-all-btn {
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  border: 2px solid #b8756a;
+  color: #b8756a;
+  padding: 14px 32px;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.view-all-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #b8756a 0%, #9a5d54 100%);
+  transform: translateX(-101%);
+  transition: transform 0.4s ease;
+  z-index: 0;
+}
+.view-all-btn:hover::before { transform: translateX(0); }
+.view-all-btn:hover { color: white; }
+.view-all-btn span, .view-all-btn i { position: relative; z-index: 1; }
+.view-all-btn:hover i { transform: translateX(4px); }
+.view-all-btn i { transition: transform 0.3s ease; }
+
+.theme-icon { transition: transform 0.5s ease; }
+.theme-icon.rotating { transform: rotate(180deg); }
+
+.section-cream { background-color: #f9f3e8; transition: background-color 0.4s ease; }
+.dark .section-cream { background-color: #1f1816; }
+.section-warm { background-color: #fdfbf7; transition: background-color 0.4s ease; }
+.dark .section-warm { background-color: #1a1412; }
+
+.text-heading { color: #2d2422; }
+.dark .text-heading { color: #f9f3e8; }
+.text-body { color: #2d2422; }
+.dark .text-body { color: #f9f3e8; }
+.text-muted { color: #7d6a65; }
+.dark .text-muted { color: #c8b5b0; }
+
+footer.site-footer { background-color: #2d2422; color: #f9f3e8; transition: background-color 0.4s ease; }
+.dark footer.site-footer { background-color: #0f0c0b; }
+
+#toast { background: #b8756a; color: white; }
+
+select.form-input option { background: #fdfbf7; color: #2d2422; }
+.dark select.form-input option { background: #1a1412; color: #f9f3e8; }
+
+.marquee-bar { background: #b8756a; }
+.marquee-bar .marquee-content { color: #fdfbf7; }
+
+.hero-overlay-light {
+  background: linear-gradient(90deg, rgba(253, 251, 247, 1) 0%, rgba(253, 251, 247, 0.85) 30%, rgba(253, 251, 247, 0.3) 60%, transparent 100%);
+}
+.dark .hero-overlay-light {
+  background: linear-gradient(90deg, rgba(26, 20, 18, 1) 0%, rgba(26, 20, 18, 0.9) 35%, rgba(26, 20, 18, 0.4) 60%, transparent 100%);
+}
+
+.logo-container { display: inline-flex; align-items: center; gap: 4px; max-width: 100%; }
+.logo-container > div:not(.logo-circle) { display: flex; flex-direction: column; justify-content: center; }
+.logo-the { font-family: 'Playfair Display SC', serif; font-weight: 900; font-size: 14px; color: #2d2422; line-height: 1; }
+.dark .logo-the { color: #f9f3e8; }
+.logo-m { font-family: 'Playfair Display SC', serif; font-weight: 900; font-size: 52px; color: #b8756a; line-height: 0.9; }
+.dark .logo-m { color: #d98f7c; }
+.logo-circle {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: #b8756a;
+  display: inline-flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+}
+.logo-circle-text { color: #fdfbf7; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 8px; line-height: 1.1; text-align: center; }
+.logo-restaurant { font-family: 'Playfair Display SC', serif; font-weight: 700; font-size: 13px; color: #2d2422; letter-spacing: 0.08em; margin-top: 2px; line-height: 1; }
+.dark .logo-restaurant { color: #f9f3e8; }
+
+@media (max-width: 640px) {
+  .logo-m { font-size: 26px; }
+  .logo-circle { width: 34px; height: 34px; }
+  .logo-circle-text { font-size: 4px; }
+  .logo-restaurant { font-size: 6.5px; margin-top: 1px; letter-spacing: 0.05em; }
+  .logo-the { font-size: 8px; }
+  .logo-container { gap: 2px; }
+}
+
+/* ================= ADMIN DASHBOARD STYLES ================= */
+.admin-nav-item { transition: all 0.2s ease; }
+.admin-nav-item:hover { background-color: #374151; }
+.admin-nav-item.active { background-color: #1f2937; border-left: 4px solid #b8756a; color: white; }
+.admin-tab-content { display: none; animation: fadeIn 0.3s ease; }
+.admin-tab-content.active { display: block; }
+.admin-input { w-full; border: 1px solid #d1d5db; border-radius: 0.375rem; padding: 0.5rem 0.75rem; font-size: 0.875rem; transition: border-color 0.2s; }
+.admin-input:focus { outline: none; border-color: #b8756a; box-shadow: 0 0 0 3px rgba(184, 117, 106, 0.1); }
+.admin-btn { padding: 0.5rem 1rem; border-radius: 0.375rem; font-weight: 500; font-size: 0.875rem; transition: all 0.2s; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; }
+.admin-btn-primary { background-color: #b8756a; color: white; border: 1px solid transparent; }
+.admin-btn-primary:hover { background-color: #9a5d54; }
+.admin-btn-secondary { background-color: white; color: #374151; border: 1px solid #d1d5db; }
+.admin-btn-secondary:hover { background-color: #f3f4f6; }
+.admin-btn-danger { background-color: #ef4444; color: white; border: 1px solid transparent; }
+.admin-btn-danger:hover { background-color: #dc2626; }
+.admin-table th { background-color: #f9fafb; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; color: #6b7280; padding: 0.75rem 1.5rem; text-align: left; }
+.admin-table td { padding: 1rem 1.5rem; border-top: 1px solid #e5e7eb; font-size: 0.875rem; color: #374151; vertical-align: middle; }
+.admin-badge { padding: 0.25rem 0.625rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
+.admin-badge-success { background-color: #d1fae5; color: #065f46; }
+.admin-badge-warning { background-color: #fef3c7; color: #92400e; }
+.admin-badge-danger { background-color: #fee2e2; color: #991b1b; }
+.admin-badge-neutral { background-color: #f3f4f6; color: #374151; }
+
+/* ================= FUTURISTIC HERO SLIDER ================= */
+.hero-slide { 
+  position: absolute; inset: 0; 
+  opacity: 0; 
+  clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); 
+  transition: clip-path 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 1.2s ease; 
+  z-index: 0; 
+}
+.hero-slide.active { 
+  opacity: 1; 
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); 
+  z-index: 1; 
+}
+.hero-slide img { 
+  transform: scale(1.15) rotate(1deg); 
+  transition: transform 10s cubic-bezier(0.21, 0.6, 0.35, 1); 
+}
+.hero-slide.active img { 
+  transform: scale(1) rotate(0deg); 
+}
+
+/* Futuristic Frosted Glass Panel */
+.glass-panel-hero {
+  background: rgba(253, 251, 247, 0.65);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 30px 60px rgba(184, 117, 106, 0.15), inset 0 0 0 1px rgba(255,255,255,0.4);
+}
+.dark .glass-panel-hero {
+  background: rgba(26, 20, 18, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(255,255,255,0.03);
+}
+
+/* Fluid Text Reveal */
+.slide-text-reveal { 
+  opacity: 0; 
+  transform: translateY(30px) scale(0.95); 
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
+}
+.hero-slide.active .slide-text-reveal { 
+  opacity: 1; 
+  transform: translateY(0) scale(1); 
+}
+
+/* Ambient Animated Glow */
+.hero-glow-orb { 
+  position: absolute; 
+  border-radius: 50%; 
+  filter: blur(80px); 
+  opacity: 0.6; 
+  animation: orbitGlow 12s linear infinite alternate; 
+  pointer-events: none; 
+  z-index: 0; 
+}
+@keyframes orbitGlow { 
+  0% { transform: translate(0, 0) scale(1); } 
+  50% { transform: translate(40px, -60px) scale(1.3); } 
+  100% { transform: translate(-20px, 40px) scale(0.9); } 
+}
+
+/* Futuristic Progress Line Dots */
+.slider-dot { 
+  width: 48px !important; 
+  height: 4px !important; 
+  border-radius: 4px; 
+  background: rgba(184, 117, 106, 0.25) !important; 
+  position: relative; 
+  overflow: hidden; 
+  border: none; 
+  padding: 0; 
+  transition: width 0.3s ease;
+}
+.slider-dot:hover { width: 64px !important; }
+.slider-dot::after { 
+  content: ''; 
+  position: absolute; inset: 0; 
+  width: 0%; 
+  background: #b8756a; 
+  border-radius: 4px; 
+}
+.slider-dot.active::after { 
+  animation: fillProgress 6s linear forwards; 
+}
+@keyframes fillProgress { to { width: 100%; } }
+
+.glass-arrow {
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.5);
+  color: white;
+}
+.dark .glass-arrow { background: rgba(0,0,0,0.5); border-color: rgba(255,255,255,0.1); }
+/* ========================================================== */
+
+</style>
+</head>
+<body class="overflow-x-hidden">
+
+<!-- Loader -->
+<div id="loader" class="loader">
+  <div class="text-center">
+    <div class="logo-container mb-4">
+      <div>
+        <div class="logo-the">THE</div>
+        <div class="logo-m">m</div>
+      </div>
+      <div class="logo-circle">
+        <div class="logo-circle-text">LOVE IS<br>HER SECRET<br>INGREDIENT</div>
+      </div>
+      <div>
+        <div class="logo-m">ther</div>
+        <div class="logo-restaurant">RESTAURANT</div>
+      </div>
+    </div>
+    <div class="w-32 h-0.5 bg-gradient-to-r from-transparent via-brand-600 to-transparent mx-auto"></div>
+    <p class="text-xs text-brand-700 mt-4 tracking-widest font-sc">LOVE IS HER SECRET INGREDIENT</p>
+  </div>
+</div>
+
+<!-- Navigation -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-transparent">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <a href="#home" class="flex items-center gap-2" data-page="home">
+        <div class="logo-container">
+          <div>
+            <div class="logo-the">THE</div>
+            <div class="logo-m">m</div>
+          </div>
+          <div class="logo-circle">
+            <div class="logo-circle-text">LOVE IS<br>HER SECRET<br>INGREDIENT</div>
+          </div>
+          <div>
+            <div class="logo-m">ther</div>
+            <div class="logo-restaurant">RESTAURANT</div>
+          </div>
+        </div>
+      </a>
+
+      <div class="hidden lg:flex items-center gap-6">
+        <a href="#home" class="nav-link text-sm font-medium hover:text-brand-600 transition text-body" data-page="home">Home</a>
+        <div class="group relative">
+          <a href="#about" class="nav-link text-sm font-medium hover:text-brand-600 transition flex items-center gap-1 text-body" data-page="about">
+            About <i class="fas fa-chevron-down text-xs"></i>
+          </a>
+          <div class="mega-menu absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-white dark:bg-[#1f1816] border border-brand-600/20 rounded-lg p-4 shadow-xl">
+            <a href="#about" class="block py-2 px-3 text-sm hover:text-brand-600 transition rounded hover:bg-brand-600/5 text-body" data-page="about">About Us</a>
+            <a href="#story" class="block py-2 px-3 text-sm hover:text-brand-600 transition rounded hover:bg-brand-600/5 text-body" data-page="story">Our Story</a>
+            <a href="#chef" class="block py-2 px-3 text-sm hover:text-brand-600 transition rounded hover:bg-brand-600/5 text-body" data-page="chef">Our Chef</a>
+            <a href="#careers" class="block py-2 px-3 text-sm hover:text-brand-600 transition rounded hover:bg-brand-600/5 text-body" data-page="careers">Careers</a>
+          </div>
+        </div>
+        <div class="group relative">
+          <a href="#menu" class="nav-link text-sm font-medium hover:text-brand-600 transition flex items-center gap-1 text-body" data-page="menu">
+            Menu <i class="fas fa-chevron-down text-xs"></i>
+          </a>
+          <div class="mega-menu absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-white dark:bg-[#1f1816] border border-brand-600/20 rounded-lg p-4 shadow-xl">
+            <a href="#menu" class="block py-2 px-3 text-sm hover:text-brand-600 transition rounded hover:bg-brand-600/5 text-body" data-page="menu">All Menu</a>
+            <a href="#menu-detail" class="block py-2 px-3 text-sm hover:text-brand-600 transition rounded hover:bg-brand-600/5 text-body" data-page="menu-detail">Menu Details</a>
+            <a href="#catering" class="block py-2 px-3 text-sm hover:text-brand-600 transition rounded hover:bg-brand-600/5 text-body" data-page="catering">Catering</a>
+          </div>
+        </div>
+        <a href="#gallery" class="nav-link text-sm font-medium hover:text-brand-600 transition text-body" data-page="gallery">Gallery</a>
+        <a href="#blog" class="nav-link text-sm font-medium hover:text-brand-600 transition text-body" data-page="blog">Blog</a>
+        <a href="#testimonials" class="nav-link text-sm font-medium hover:text-brand-600 transition text-body" data-page="testimonials">Reviews</a>
+        <a href="#contact" class="nav-link text-sm font-medium hover:text-brand-600 transition text-body" data-page="contact">Contact</a>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button id="themeToggle" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-brand-600/30 flex items-center justify-center hover:bg-brand-600/10 transition bg-white/90 dark:bg-[#1a1412]/90 backdrop-blur shadow-sm" aria-label="Toggle theme">
+          <i class="fas fa-sun text-brand-600 text-xs sm:text-sm theme-icon" id="themeIcon"></i>
+        </button>
+        <button class="hidden md:flex items-center gap-1 text-sm text-body hover:text-brand-600 transition bg-white/90 dark:bg-[#1a1412]/90 backdrop-blur px-3 py-1.5 rounded-full shadow-sm">
+          <i class="fas fa-globe"></i> EN
+        </button>
+        <a href="#reservation" class="btn-premium px-6 py-2.5 rounded-full text-sm font-semibold hidden md:inline-flex items-center gap-2" data-page="reservation">
+          <i class="fas fa-calendar-alt"></i> Reserve
+        </a>
+        <button id="mobileMenuBtn" class="lg:hidden w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center text-heading rounded-full bg-white/90 dark:bg-[#1a1412]/90 backdrop-blur border border-brand-600/30 shadow-sm">
+          <i class="fas fa-bars text-lg sm:text-xl"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="mobile-menu lg:hidden">
+  <div class="flex flex-col h-full p-8">
+    <div class="flex justify-between items-center mb-12">
+      <div class="logo-container">
+        <div>
+          <div class="logo-the" style="color:#f9f3e8">THE</div>
+          <div class="logo-m" style="color:#d98f7c">m</div>
+        </div>
+        <div class="logo-circle">
+          <div class="logo-circle-text">LOVE IS<br>HER SECRET<br>INGREDIENT</div>
+        </div>
+        <div>
+          <div class="logo-m" style="color:#d98f7c">ther</div>
+          <div class="logo-restaurant" style="color:#f9f3e8">RESTAURANT</div>
+        </div>
+      </div>
+      <button id="closeMobileMenu" class="w-10 h-10 flex items-center justify-center text-white">
+        <i class="fas fa-times text-2xl"></i>
+      </button>
+    </div>
+    <div class="flex flex-col gap-6">
+      <a href="#home" class="text-2xl font-serif hover:text-brand-400 transition text-white mobile-link" data-page="home">Home</a>
+      <a href="#about" class="text-2xl font-serif hover:text-brand-400 transition text-white mobile-link" data-page="about">About</a>
+      <a href="#story" class="text-2xl font-serif hover:text-brand-400 transition text-white mobile-link" data-page="story">Our Story</a>
+      <a href="#menu" class="text-2xl font-serif hover:text-brand-400 transition text-white mobile-link" data-page="menu">Menu</a>
+      <a href="#chef" class="text-2xl font-serif hover:text-brand-400 transition text-white mobile-link" data-page="chef">Chef</a>
+      <a href="#gallery" class="text-2xl font-serif hover:text-brand-400 transition text-white mobile-link" data-page="gallery">Gallery</a>
+      <a href="#blog" class="text-2xl font-serif hover:text-brand-400 transition text-white mobile-link" data-page="blog">Blog</a>
+      <a href="#testimonials" class="text-2xl font-serif hover:text-brand-400 transition text-white mobile-link" data-page="testimonials">Reviews</a>
+      <a href="#contact" class="text-2xl font-serif hover:text-brand-400 transition text-white mobile-link" data-page="contact">Contact</a>
+      <a href="#reservation" class="btn-premium px-6 py-3 rounded-full text-center font-semibold mt-4 mobile-link" data-page="reservation">Reserve a Table</a>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== HOME PAGE ==================== -->
+<div id="page-home" class="page active">
+  <!-- Hero Slider -->
+  <section class="relative h-screen overflow-hidden bg-black">
+    <div class="hero-slide active">
+      <div class="hero-glow-orb w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-brand-400/30 top-1/4 -left-20"></div>
+      <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/15a60d4b5-5cda-45a1-bfa0-bbd4d224d6ce.png" class="absolute inset-0 w-full h-full object-cover" alt="Hero">
+      
+      <div class="absolute inset-0 flex items-center z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20">
+          <div class="max-w-xl lg:max-w-2xl relative z-10">
+            <div class="inline-block bg-black/40 backdrop-blur-sm border border-white/10 px-4 py-1.5 rounded-full mb-6 slide-text-reveal delay-100 shadow-lg">
+              <p class="text-brand-300 tracking-[0.2em] text-xs font-sc font-bold mb-0">★ HOME-STYLE FINE DINING ★</p>
+            </div>
+            <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 slide-text-reveal delay-200 leading-tight text-white [text-shadow:_0_4px_12px_rgb(0_0_0_/_0.8),_0_0_40px_rgb(0_0_0_/_0.8)]">
+              The Secret<br><span class="text-brand-300">Ingredient</span>
+            </h1>
+            <p class="text-base sm:text-lg md:text-xl text-white/95 mb-6 sm:mb-8 max-w-md slide-text-reveal delay-300 font-medium [text-shadow:_0_2px_8px_rgb(0_0_0_/_0.8)]">
+              Home-style fine dining in the heart of the UAE.
+            </p>
+            <div class="flex flex-wrap gap-3 sm:gap-4 slide-text-reveal delay-400 relative z-20">
+              <a href="#reservation" class="btn-premium px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base rounded-full font-semibold inline-flex items-center gap-2 shadow-[0_4px_12px_rgba(0,0,0,0.5)]" data-page="reservation">
+                Book Your Table <i class="fas fa-arrow-right"></i>
+              </a>
+              <a href="#menu" class="px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base rounded-full border border-white/40 hover:border-white hover:bg-white/20 transition inline-flex items-center gap-2 text-white bg-black/20 backdrop-blur-md shadow-[0_4px_12px_rgba(0,0,0,0.5)]" data-page="menu">
+                Explore Menu <i class="fas fa-utensils"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="hero-slide">
+      <div class="hero-glow-orb w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-brand-500/20 top-1/3 -left-10"></div>
+      <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12a52d6a9-5bfb-4542-9f8e-dad7ae88b00b.png" class="absolute inset-0 w-full h-full object-cover" alt="Hero">
+      
+      <div class="absolute inset-0 flex items-center z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20">
+          <div class="max-w-xl lg:max-w-2xl relative z-10">
+            <div class="inline-block bg-black/40 backdrop-blur-sm border border-white/10 px-4 py-1.5 rounded-full mb-6 slide-text-reveal delay-100 shadow-lg">
+              <p class="text-brand-300 tracking-[0.2em] text-xs font-sc font-bold mb-0">★ WARM & INVITING ★</p>
+            </div>
+            <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 slide-text-reveal delay-200 leading-tight text-white [text-shadow:_0_4px_12px_rgb(0_0_0_/_0.8),_0_0_40px_rgb(0_0_0_/_0.8)]">
+              A Taste of<br><span class="text-brand-300">Home</span>
+            </h1>
+            <p class="text-base sm:text-lg md:text-xl text-white/95 mb-6 sm:mb-8 max-w-md slide-text-reveal delay-300 font-medium [text-shadow:_0_2px_8px_rgb(0_0_0_/_0.8)]">
+              A cozy space where every guest feels like family.
+            </p>
+            <div class="flex flex-wrap gap-3 sm:gap-4 slide-text-reveal delay-400 relative z-20">
+              <a href="#gallery" class="btn-premium px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base rounded-full font-semibold inline-flex items-center gap-2 shadow-[0_4px_12px_rgba(0,0,0,0.5)]" data-page="gallery">
+                View Gallery <i class="fas fa-images"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="hero-slide">
+      <div class="hero-glow-orb w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-brand-300/30 top-1/4 -left-20"></div>
+      <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/14b81e7b6-372b-4e30-9817-1e3ccd928685.png" class="absolute inset-0 w-full h-full object-cover" alt="Hero">
+      
+      <div class="absolute inset-0 flex items-center z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20">
+          <div class="max-w-xl lg:max-w-2xl relative z-10">
+            <div class="inline-block bg-black/40 backdrop-blur-sm border border-white/10 px-4 py-1.5 rounded-full mb-6 slide-text-reveal delay-100 shadow-lg">
+              <p class="text-brand-300 tracking-[0.2em] text-xs font-sc font-bold mb-0">★ SIGNATURE DISHES ★</p>
+            </div>
+            <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 slide-text-reveal delay-200 leading-tight text-white [text-shadow:_0_4px_12px_rgb(0_0_0_/_0.8),_0_0_40px_rgb(0_0_0_/_0.8)]">
+              Crafted with<br><span class="text-brand-300">Mother's Love</span>
+            </h1>
+            <p class="text-base sm:text-lg md:text-xl text-white/95 mb-6 sm:mb-8 max-w-md slide-text-reveal delay-300 font-medium [text-shadow:_0_2px_8px_rgb(0_0_0_/_0.8)]">
+              Tradition, love, and the finest local ingredients.
+            </p>
+            <div class="flex flex-wrap gap-3 sm:gap-4 slide-text-reveal delay-400 relative z-20">
+              <a href="#menu" class="btn-premium px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base rounded-full font-semibold inline-flex items-center gap-2 shadow-[0_4px_12px_rgba(0,0,0,0.5)]" data-page="menu">
+                Discover Dishes <i class="fas fa-utensils"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls below -->
+    <div class="absolute bottom-8 lg:bottom-12 left-0 right-0 z-20 pointer-events-none">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center pointer-events-auto">
+        <!-- Futuristic Progress Dots -->
+        <div class="flex gap-4 items-center">
+          <button class="slider-dot active" data-slide="0"></button>
+          <button class="slider-dot" data-slide="1"></button>
+          <button class="slider-dot" data-slide="2"></button>
+        </div>
+        
+        <!-- Glassmorphism Arrows -->
+        <div class="flex gap-3">
+          <button class="slider-arrow glass-arrow w-12 h-12 lg:w-14 lg:h-14 rounded-full flex items-center justify-center hover:bg-brand-600 hover:border-brand-600 transition-all duration-300 shadow-lg text-white group" data-dir="prev">
+            <i class="fas fa-arrow-left group-hover:-translate-x-1 transition-transform"></i>
+          </button>
+          <button class="slider-arrow glass-arrow w-12 h-12 lg:w-14 lg:h-14 rounded-full flex items-center justify-center hover:bg-brand-600 hover:border-brand-600 transition-all duration-300 shadow-lg text-white group" data-dir="next">
+            <i class="fas fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee-bar py-4 overflow-hidden">
+    <div class="marquee-container">
+      <div class="marquee-content font-serif text-lg">
+        <span class="mx-8">★ HOME-STYLE DINING</span>
+        <span class="mx-8">★ MOTHER'S RECIPES</span>
+        <span class="mx-8">★ FRESH INGREDIENTS</span>
+        <span class="mx-8">★ UAE'S FINEST</span>
+        <span class="mx-8">★ WARM HOSPITALITY</span>
+        <span class="mx-8">★ FAMILY EXPERIENCE</span>
+        <span class="mx-8">★ HOME-STYLE DINING</span>
+        <span class="mx-8">★ MOTHER'S RECIPES</span>
+        <span class="mx-8">★ FRESH INGREDIENTS</span>
+        <span class="mx-8">★ UAE'S FINEST</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Featured Signature Dishes -->
+  <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto section-warm">
+    <div class="text-center mb-16 reveal">
+      <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// SIGNATURE DISHES //</p>
+      <h2 class="font-serif text-4xl md:text-6xl font-bold mb-6 text-heading">Our <span class="text-gradient">Culinary</span> Masterpieces</h2>
+      <p class="text-muted max-w-2xl mx-auto">Each dish is crafted with a mother's love and the finest ingredients from the UAE and beyond.</p>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="menu-card group reveal">
+        <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[4/5]">
+          <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/15a60d4b5-5cda-45a1-bfa0-bbd4d224d6ce.png" class="menu-img w-full h-full object-cover" alt="Wagyu Beef">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+          <div class="absolute top-4 right-4 bg-brand-600 text-white px-3 py-1 rounded-full text-xs font-bold">SIGNATURE</div>
+          <div class="absolute bottom-4 left-4 right-4">
+            <h3 class="font-serif text-2xl font-bold mb-1 text-white">Wagyu Beef Tenderloin</h3>
+            <p class="text-gray-200 text-sm">Gold leaf, truffle mash, seasonal vegetables</p>
+          </div>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-brand-600 font-serif text-2xl font-bold">AED 680</span>
+          <button class="text-sm text-muted hover:text-brand-600 transition" onclick="showPage('menu-detail')">View Details <i class="fas fa-arrow-right ml-1"></i></button>
+        </div>
+      </div>
+
+      <div class="menu-card group reveal">
+        <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[4/5]">
+          <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/10485313a-d148-4002-8f1c-a6ae8f81073b.png" class="menu-img w-full h-full object-cover" alt="Sushi">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+          <div class="absolute top-4 right-4 bg-brand-600 text-white px-3 py-1 rounded-full text-xs font-bold">CHEF'S PICK</div>
+          <div class="absolute bottom-4 left-4 right-4">
+            <h3 class="font-serif text-2xl font-bold mb-1 text-white">Omakase Sushi Platter</h3>
+            <p class="text-gray-200 text-sm">Premium fish selection, wasabi, gold accents</p>
+          </div>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-brand-600 font-serif text-2xl font-bold">AED 530</span>
+          <button class="text-sm text-muted hover:text-brand-600 transition" onclick="showPage('menu-detail')">View Details <i class="fas fa-arrow-right ml-1"></i></button>
+        </div>
+      </div>
+
+      <div class="menu-card group reveal">
+        <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[4/5]">
+          <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12fc75675-69ca-44cd-9160-b39c06707a56.png" class="menu-img w-full h-full object-cover" alt="Pasta">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+          <div class="absolute top-4 right-4 bg-brand-600 text-white px-3 py-1 rounded-full text-xs font-bold">NEW</div>
+          <div class="absolute bottom-4 left-4 right-4">
+            <h3 class="font-serif text-2xl font-bold mb-1 text-white">Black Truffle Linguine</h3>
+            <p class="text-gray-200 text-sm">Fresh pasta, black truffle, parmesan</p>
+          </div>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-brand-600 font-serif text-2xl font-bold">AED 285</span>
+          <button class="text-sm text-muted hover:text-brand-600 transition" onclick="showPage('menu-detail')">View Details <i class="fas fa-arrow-right ml-1"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Welcome Story -->
+  <section class="py-24 section-cream">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div class="reveal">
+          <div class="relative">
+            <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12a52d6a9-5bfb-4542-9f8e-dad7ae88b00b.png" class="rounded-2xl w-full aspect-[4/5] object-cover" alt="Interior">
+            <div class="absolute -bottom-6 -right-6 bg-brand-600 text-white p-6 rounded-2xl hidden md:block">
+              <div class="font-serif text-4xl font-bold">25+</div>
+              <div class="text-sm font-semibold">Years of Love</div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal">
+          <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// WELCOME //</p>
+          <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6 leading-tight text-heading">A Legacy of <span class="text-gradient">Mother's</span> Love</h2>
+          <p class="text-muted mb-6 leading-relaxed">
+            Founded in 1998 in the heart of Dubai, The Mother Restaurant has been redefining home-style fine dining in the UAE. Our commitment to love, passion for flavor, and dedication to creating unforgettable experiences have made us a destination for families from around the world.
+          </p>
+          <p class="text-muted mb-8 leading-relaxed">
+            Every dish we serve tells a story — of tradition, love, and the finest ingredients sourced from the UAE and beyond.
+          </p>
+          <div class="grid grid-cols-3 gap-6 mb-8">
+            <div>
+              <div class="font-serif text-3xl font-bold text-brand-600">4.9</div>
+              <div class="text-sm text-muted">Rating</div>
+            </div>
+            <div>
+              <div class="font-serif text-3xl font-bold text-brand-600">50K+</div>
+              <div class="text-sm text-muted">Happy Families</div>
+            </div>
+            <div>
+              <div class="font-serif text-3xl font-bold text-brand-600">15</div>
+              <div class="text-sm text-muted">Awards</div>
+            </div>
+          </div>
+          <a href="#about" class="btn-premium px-8 py-4 rounded-full font-semibold inline-flex items-center gap-2" data-page="about">
+            Discover Our Story <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto section-warm">
+    <div class="text-center mb-16 reveal">
+      <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// WHY CHOOSE US //</p>
+      <h2 class="font-serif text-4xl md:text-6xl font-bold mb-6 text-heading">The Mother <span class="text-gradient">Experience</span></h2>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="glass-card p-8 rounded-2xl hover:border-brand-600/50 transition reveal">
+        <div class="w-14 h-14 bg-brand-600/10 rounded-xl flex items-center justify-center mb-6">
+          <i class="fas fa-award text-brand-600 text-2xl"></i>
+        </div>
+        <h3 class="font-serif text-xl font-bold mb-3 text-heading">Award Winning</h3>
+        <p class="text-muted text-sm">Multiple UAE culinary awards and international recognition.</p>
+      </div>
+      <div class="glass-card p-8 rounded-2xl hover:border-brand-600/50 transition reveal">
+        <div class="w-14 h-14 bg-brand-600/10 rounded-xl flex items-center justify-center mb-6">
+          <i class="fas fa-leaf text-brand-600 text-2xl"></i>
+        </div>
+        <h3 class="font-serif text-xl font-bold mb-3 text-heading">Fresh Ingredients</h3>
+        <p class="text-muted text-sm">Locally sourced from UAE farms and the world's finest producers.</p>
+      </div>
+      <div class="glass-card p-8 rounded-2xl hover:border-brand-600/50 transition reveal">
+        <div class="w-14 h-14 bg-brand-600/10 rounded-xl flex items-center justify-center mb-6">
+          <i class="fas fa-user-tie text-brand-600 text-2xl"></i>
+        </div>
+        <h3 class="font-serif text-xl font-bold mb-3 text-heading">Expert Chefs</h3>
+        <p class="text-muted text-sm">World-class culinary artists with decades of experience.</p>
+      </div>
+      <div class="glass-card p-8 rounded-2xl hover:border-brand-600/50 transition reveal">
+        <div class="w-14 h-14 bg-brand-600/10 rounded-xl flex items-center justify-center mb-6">
+          <i class="fas fa-heart text-brand-600 text-2xl"></i>
+        </div>
+        <h3 class="font-serif text-xl font-bold mb-3 text-heading">Made with Love</h3>
+        <p class="text-muted text-sm">Every dish prepared with the warmth of a mother's touch.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section class="py-24 section-cream">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-1 reveal">
+          <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// THE EXPERIENCE //</p>
+          <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6 leading-tight text-heading">More Than Just a <span class="text-gradient">Meal</span></h2>
+          <p class="text-muted mb-6">At The Mother Restaurant, dining is an act of love. Every detail — from the ambiance to the presentation — is carefully curated to make you feel at home.</p>
+          <a href="#reservation" class="btn-premium px-8 py-4 rounded-full font-semibold inline-flex items-center gap-2" data-page="reservation">
+            Reserve Now <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="lg:col-span-2 grid grid-cols-2 gap-4">
+          <div class="space-y-4">
+            <div class="gallery-item rounded-2xl overflow-hidden aspect-square reveal">
+              <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12a52d6a9-5bfb-4542-9f8e-dad7ae88b00b.png" class="w-full h-full object-cover" alt="Dining">
+            </div>
+            <div class="gallery-item rounded-2xl overflow-hidden aspect-[4/3] reveal">
+              <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/1b0c75629-7e42-4904-9acc-b7da012e0f36.png" class="w-full h-full object-cover" alt="Kitchen">
+            </div>
+          </div>
+          <div class="space-y-4 pt-8">
+            <div class="gallery-item rounded-2xl overflow-hidden aspect-[4/3] reveal">
+              <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/13ef415fa-00e1-4e70-992e-50cd0981097e.png" class="w-full h-full object-cover" alt="Private Dining">
+            </div>
+            <div class="gallery-item rounded-2xl overflow-hidden aspect-square reveal">
+              <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/14b81e7b6-372b-4e30-9817-1e3ccd928685.png" class="w-full h-full object-cover" alt="Steak">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Chef Introduction -->
+  <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto section-warm">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <div class="order-2 lg:order-1 reveal">
+        <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// MEET OUR CHEF //</p>
+        <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6 text-heading">Chef <span class="text-gradient">Fatima</span> Al-Rashid</h2>
+        <p class="text-muted mb-6 leading-relaxed">
+          With over 20 years of culinary experience across the UAE, Chef Fatima brings her mother's traditional recipes to life with modern finesse and world-class techniques.
+        </p>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-center gap-3">
+            <i class="fas fa-star text-brand-600"></i>
+            <span class="text-body">UAE Culinary Excellence Award</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <i class="fas fa-trophy text-brand-600"></i>
+            <span class="text-body">Dubai Food Festival Winner</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <i class="fas fa-heart text-brand-600"></i>
+            <span class="text-body">Mother's Recipe Preservationist</span>
+          </div>
+        </div>
+        <a href="#chef" class="btn-premium px-8 py-4 rounded-full font-semibold inline-flex items-center gap-2" data-page="chef">
+          Meet the Team <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+      <div class="order-1 lg:order-2 reveal">
+        <div class="relative">
+          <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/11d53ef46-1879-4b9a-8034-d9bf6acd03cb.png" class="rounded-2xl w-full aspect-[3/4] object-cover" alt="Chef">
+          <div class="absolute -bottom-4 -left-4 bg-brand-600 text-white p-4 rounded-xl">
+            <div class="font-serif text-2xl font-bold">20+</div>
+            <div class="text-xs">Years of Love</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Categories with Tabs -->
+  <section class="py-24 section-cream">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 reveal">
+        <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// OUR MENU //</p>
+        <h2 class="font-serif text-4xl md:text-6xl font-bold mb-6 text-heading">Explore Our <span class="text-gradient">Menu</span></h2>
+        <p class="text-muted max-w-2xl mx-auto">From breakfast to dinner, discover dishes crafted with a mother's love and the finest ingredients.</p>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-3 mb-12 reveal">
+        <button class="category-tab active" data-category="all" onclick="switchMenuTab('all', this)">
+          <i class="fas fa-th-large"></i>
+          All Items
+          <span class="tab-count">20</span>
+        </button>
+        <button class="category-tab" data-category="breakfast" onclick="switchMenuTab('breakfast', this)">
+          <i class="fas fa-coffee"></i>
+          Breakfast
+          <span class="tab-count">6</span>
+        </button>
+        <button class="category-tab" data-category="lunch" onclick="switchMenuTab('lunch', this)">
+          <i class="fas fa-hamburger"></i>
+          Lunch
+          <span class="tab-count">3</span>
+        </button>
+        <button class="category-tab" data-category="dinner" onclick="switchMenuTab('dinner', this)">
+          <i class="fas fa-utensils"></i>
+          Dinner
+          <span class="tab-count">4</span>
+        </button>
+        <button class="category-tab" data-category="beverages" onclick="switchMenuTab('beverages', this)">
+          <i class="fas fa-cocktail"></i>
+          Beverages
+          <span class="tab-count">4</span>
+        </button>
+        <button class="category-tab" data-category="desserts" onclick="switchMenuTab('desserts', this)">
+          <i class="fas fa-ice-cream"></i>
+          Desserts
+          <span class="tab-count">3</span>
+        </button>
+      </div>
+
+      <div id="menuTabContent" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12"></div>
+
+      <div class="text-center reveal">
+        <button onclick="showPage('menu')" class="view-all-btn">
+          <span>View All Menus</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+        <p class="text-muted text-sm mt-4">Explore our complete collection of 20+ dishes</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Reviews -->
+  <section class="py-24 section-cream">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// TESTIMONIALS //</p>
+        <h2 class="font-serif text-4xl md:text-6xl font-bold mb-6 text-heading">What Our <span class="text-gradient">Families</span> Say</h2>
+      </div>
+      <div class="relative max-w-4xl mx-auto">
+        <div class="testimonial-slide active glass-card rounded-3xl p-8 md:p-12 text-center">
+          <i class="fas fa-quote-left text-brand-600 text-4xl mb-6"></i>
+          <p class="font-display text-2xl md:text-3xl text-body mb-8 leading-relaxed">"An extraordinary dining experience. The wagyu was perfection, the ambiance felt like home, and the service was impeccable. The Mother Restaurant is truly special."</p>
+          <div class="flex justify-center gap-1 mb-4">
+            <i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i>
+          </div>
+          <div class="flex items-center justify-center gap-4">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center font-serif font-bold text-white text-xl">S</div>
+            <div class="text-left">
+              <div class="font-semibold text-heading">Sarah Mitchell</div>
+              <div class="text-sm text-muted">Food Critic, Khaleej Times</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-slide glass-card rounded-3xl p-8 md:p-12 text-center">
+          <i class="fas fa-quote-left text-brand-600 text-4xl mb-6"></i>
+          <p class="font-display text-2xl md:text-3xl text-body mb-8 leading-relaxed">"From the moment we walked in, we felt like family. The omakase experience was a journey through flavors I'll never forget. Absolutely world-class."</p>
+          <div class="flex justify-center gap-1 mb-4">
+            <i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i>
+          </div>
+          <div class="flex items-center justify-center gap-4">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center font-serif font-bold text-white text-xl">J</div>
+            <div class="text-left">
+              <div class="font-semibold text-heading">James Chen</div>
+              <div class="text-sm text-muted">Business Executive, Dubai</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-slide glass-card rounded-3xl p-8 md:p-12 text-center">
+          <i class="fas fa-quote-left text-brand-600 text-4xl mb-6"></i>
+          <p class="font-display text-2xl md:text-3xl text-body mb-8 leading-relaxed">"We celebrated our anniversary here and it was perfect. The private dining room, the personalized menu, the attention to detail — everything was beyond expectations."</p>
+          <div class="flex justify-center gap-1 mb-4">
+            <i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i>
+          </div>
+          <div class="flex items-center justify-center gap-4">
+            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center font-serif font-bold text-white text-xl">E</div>
+            <div class="text-left">
+              <div class="font-semibold text-heading">Emma & David</div>
+              <div class="text-sm text-muted">Anniversary Celebration</div>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-center gap-3 mt-8">
+          <button class="testimonial-dot w-3 h-3 rounded-full bg-brand-600 transition" data-testimonial="0"></button>
+          <button class="testimonial-dot w-3 h-3 rounded-full bg-brand-600/30 hover:bg-brand-600 transition" data-testimonial="1"></button>
+          <button class="testimonial-dot w-3 h-3 rounded-full bg-brand-600/30 hover:bg-brand-600 transition" data-testimonial="2"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Preview -->
+  <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto section-warm">
+    <div class="text-center mb-16 reveal">
+      <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// GALLERY //</p>
+      <h2 class="font-serif text-4xl md:text-6xl font-bold mb-6 text-heading">Visual <span class="text-gradient">Journey</span></h2>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="gallery-item rounded-2xl overflow-hidden aspect-square reveal" onclick="openLightbox(0)">
+        <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/15a60d4b5-5cda-45a1-bfa0-bbd4d224d6ce.png" class="w-full h-full object-cover" alt="Gallery">
+      </div>
+      <div class="gallery-item rounded-2xl overflow-hidden aspect-square reveal" onclick="openLightbox(1)">
+        <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12a52d6a9-5bfb-4542-9f8e-dad7ae88b00b.png" class="w-full h-full object-cover" alt="Gallery">
+      </div>
+      <div class="gallery-item rounded-2xl overflow-hidden aspect-square reveal" onclick="openLightbox(2)">
+        <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/10485313a-d148-4002-8f1c-a6ae8f81073b.png" class="w-full h-full object-cover" alt="Gallery">
+      </div>
+      <div class="gallery-item rounded-2xl overflow-hidden aspect-square reveal" onclick="openLightbox(3)">
+        <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/14b81e7b6-372b-4e30-9817-1e3ccd928685.png" class="w-full h-full object-cover" alt="Gallery">
+      </div>
+    </div>
+    <div class="text-center mt-12">
+      <a href="#gallery" class="btn-premium px-8 py-4 rounded-full font-semibold inline-flex items-center gap-2" data-page="gallery">
+        View Full Gallery <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Event & Catering -->
+  <section class="py-24 section-cream">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="reveal">
+          <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// EVENTS & CATERING //</p>
+          <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6 leading-tight text-heading">Make Your Event <span class="text-gradient">Unforgettable</span></h2>
+          <p class="text-muted mb-6">From intimate family gatherings to grand celebrations, our events team crafts bespoke experiences tailored to your vision.</p>
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-brand-600/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-ring text-brand-600"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-1 text-heading">Wedding Catering</h4>
+                <p class="text-muted text-sm">Elegant menus for your special day</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-brand-600/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-briefcase text-brand-600"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-1 text-heading">Corporate Events</h4>
+                <p class="text-muted text-sm">Impress your clients and team</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-12 h-12 bg-brand-600/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-birthday-cake text-brand-600"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-1 text-heading">Family Parties</h4>
+                <p class="text-muted text-sm">Celebrations made memorable</p>
+              </div>
+            </div>
+          </div>
+          <a href="#catering" class="btn-premium px-8 py-4 rounded-full font-semibold inline-flex items-center gap-2" data-page="catering">
+            Plan Your Event <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+        <div class="reveal">
+          <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/13ef415fa-00e1-4e70-992e-50cd0981097e.png" class="rounded-2xl w-full aspect-[4/5] object-cover" alt="Events">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Awards -->
+  <section class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto section-warm">
+    <div class="text-center mb-16 reveal">
+      <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// RECOGNITION //</p>
+      <h2 class="font-serif text-4xl md:text-6xl font-bold mb-6 text-heading">Awards & <span class="text-gradient">Certifications</span></h2>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="glass-card p-8 rounded-2xl text-center reveal">
+        <i class="fas fa-star text-brand-600 text-4xl mb-4"></i>
+        <h4 class="font-serif font-bold mb-2 text-heading">UAE Excellence</h4>
+        <p class="text-muted text-sm">Best Family Restaurant 2024</p>
+      </div>
+      <div class="glass-card p-8 rounded-2xl text-center reveal">
+        <i class="fas fa-trophy text-brand-600 text-4xl mb-4"></i>
+        <h4 class="font-serif font-bold mb-2 text-heading">Dubai Food Festival</h4>
+        <p class="text-muted text-sm">Outstanding Chef 2023</p>
+      </div>
+      <div class="glass-card p-8 rounded-2xl text-center reveal">
+        <i class="fas fa-medal text-brand-600 text-4xl mb-4"></i>
+        <h4 class="font-serif font-bold mb-2 text-heading">Gulf's 50 Best</h4>
+        <p class="text-muted text-sm">Ranked #8 in 2024</p>
+      </div>
+      <div class="glass-card p-8 rounded-2xl text-center reveal">
+        <i class="fas fa-certificate text-brand-600 text-4xl mb-4"></i>
+        <h4 class="font-serif font-bold mb-2 text-heading">HACCP Certified</h4>
+        <p class="text-muted text-sm">Food Safety Excellence</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Instagram Feed -->
+  <section class="py-24 section-cream">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 reveal">
+        <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// FOLLOW US //</p>
+        <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4 text-heading">@themotherrestaurant.ae</h2>
+        <p class="text-muted">Join our community of 250K+ food lovers in the UAE</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-6 gap-2">
+        <div class="gallery-item aspect-square rounded-lg overflow-hidden"><img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/15a60d4b5-5cda-45a1-bfa0-bbd4d224d6ce.png" class="w-full h-full object-cover" alt="Instagram"></div>
+        <div class="gallery-item aspect-square rounded-lg overflow-hidden"><img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12a52d6a9-5bfb-4542-9f8e-dad7ae88b00b.png" class="w-full h-full object-cover" alt="Instagram"></div>
+        <div class="gallery-item aspect-square rounded-lg overflow-hidden"><img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/10485313a-d148-4002-8f1c-a6ae8f81073b.png" class="w-full h-full object-cover" alt="Instagram"></div>
+        <div class="gallery-item aspect-square rounded-lg overflow-hidden"><img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12fc75675-69ca-44cd-9160-b39c06707a56.png" class="w-full h-full object-cover" alt="Instagram"></div>
+        <div class="gallery-item aspect-square rounded-lg overflow-hidden"><img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/14b81e7b6-372b-4e30-9817-1e3ccd928685.png" class="w-full h-full object-cover" alt="Instagram"></div>
+        <div class="gallery-item aspect-square rounded-lg overflow-hidden"><img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/1b10ba48c-4ce5-4bb5-96e7-c56d36806f4e.png" class="w-full h-full object-cover" alt="Instagram"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservation CTA -->
+  <section class="py-24 relative overflow-hidden" style="background: linear-gradient(rgba(26,20,18,0.7), rgba(26,20,18,0.85)), url('https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12a52d6a9-5bfb-4542-9f8e-dad7ae88b00b.png') center/cover fixed;">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center reveal">
+      <p class="text-brand-400 tracking-[0.3em] text-sm mb-4 font-sc">// RESERVATIONS //</p>
+      <h2 class="font-serif text-4xl md:text-6xl font-bold mb-6 text-white">Secure Your Table for a <span class="text-gradient">Memorable</span> Meal</h2>
+      <p class="text-gray-300 mb-8 max-w-2xl mx-auto">Book your experience today and let us create an unforgettable dining journey for you and your family.</p>
+      <a href="#reservation" class="btn-premium px-10 py-5 rounded-full font-semibold inline-flex items-center gap-3 text-lg" data-page="reservation">
+        <i class="fas fa-calendar-alt"></i> Book a Reservation
+      </a>
+    </div>
+  </section>
+
+  <!-- Google Map -->
+  <section class="h-96 relative">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.1785107071884!2d55.2707!3d25.2048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDEyJzE3LjMiTiA1NcKwMTYnMTQuNSJF!5e0!3m2!1sen!2sae!4v1234567890" class="w-full h-full border-0" allowfullscreen="" loading="lazy"></iframe>
+  </section>
+</div>
+
+<!-- ==================== ABOUT PAGE ==================== -->
+<div id="page-about" class="page">
+  <section class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto section-warm">
+    <div class="text-center mb-16 reveal">
+      <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// ABOUT US //</p>
+      <h1 class="font-serif text-5xl md:text-7xl font-bold mb-6 text-heading">Our <span class="text-gradient">Story</span></h1>
+      <p class="text-muted max-w-3xl mx-auto text-lg">A legacy of culinary love spanning over two decades in the UAE</p>
+    </div>
+    <div class="grid lg:grid-cols-2 gap-12 items-center mb-24">
+      <div class="reveal">
+        <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12a52d6a9-5bfb-4542-9f8e-dad7ae88b00b.png" class="rounded-2xl w-full aspect-[4/5] object-cover" alt="About">
+      </div>
+      <div class="reveal">
+        <h2 class="font-serif text-4xl font-bold mb-6 text-heading">Restaurant Story</h2>
+        <p class="text-muted mb-4 leading-relaxed">Founded in 1998 by Chef Fatima Al-Rashid, The Mother Restaurant began as a small family bistro in the heart of Dubai. What started as a passion for sharing her mother's recipes has grown into one of the most celebrated family dining establishments in the UAE.</p>
+        <p class="text-muted mb-6 leading-relaxed">Our philosophy is simple: cook with love, use the finest ingredients, and make every guest feel like family.</p>
+        <div class="grid grid-cols-2 gap-6">
+          <div class="border-l-2 border-brand-600 pl-4"><div class="font-serif text-3xl font-bold text-brand-600">1998</div><div class="text-sm text-muted">Founded in Dubai</div></div>
+          <div class="border-l-2 border-brand-600 pl-4"><div class="font-serif text-3xl font-bold text-brand-600">2010</div><div class="text-sm text-muted">UAE Excellence Award</div></div>
+          <div class="border-l-2 border-brand-600 pl-4"><div class="font-serif text-3xl font-bold text-brand-600">2018</div><div class="text-sm text-muted">Abu Dhabi Branch</div></div>
+          <div class="border-l-2 border-brand-600 pl-4"><div class="font-serif text-3xl font-bold text-brand-600">2024</div><div class="text-sm text-muted">Gulf's #8</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8 mb-24">
+      <div class="glass-card p-10 rounded-2xl reveal">
+        <i class="fas fa-eye text-brand-600 text-3xl mb-6"></i>
+        <h3 class="font-serif text-2xl font-bold mb-4 text-heading">Our Vision</h3>
+        <p class="text-muted">To be the UAE's most beloved family dining destination, where every meal feels like home and every guest becomes family.</p>
+      </div>
+      <div class="glass-card p-10 rounded-2xl reveal">
+        <i class="fas fa-heart text-brand-600 text-3xl mb-6"></i>
+        <h3 class="font-serif text-2xl font-bold mb-4 text-heading">Our Mission</h3>
+        <p class="text-muted">To preserve and share the warmth of mother's cooking through extraordinary culinary experiences rooted in love and tradition.</p>
+      </div>
+    </div>
+    <div class="glass-card rounded-3xl p-12 text-center reveal">
+      <h2 class="font-serif text-3xl md:text-4xl font-bold mb-4 text-heading">Ready to Experience The Mother?</h2>
+      <p class="text-muted mb-8">Book your table today and join our family for an unforgettable dining experience.</p>
+      <a href="#reservation" class="btn-premium px-8 py-4 rounded-full font-semibold inline-flex items-center gap-2" data-page="reservation">Reserve Your Table <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== OUR STORY PAGE ==================== -->
+<div id="page-story" class="page">
+  <section class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto section-warm">
+    <div class="text-center mb-16 reveal">
+      <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// OUR STORY //</p>
+      <h1 class="font-serif text-5xl md:text-7xl font-bold mb-6 text-heading">The <span class="text-gradient">Journey</span></h1>
+    </div>
+    <div class="max-w-none reveal">
+      <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12a52d6a9-5bfb-4542-9f8e-dad7ae88b00b.png" class="w-full aspect-[21/9] object-cover rounded-2xl mb-8" alt="Story">
+      <p class="text-lg leading-relaxed mb-6 text-body">In 1998, Chef Fatima Al-Rashid opened a small kitchen in Dubai Marina with a dream — to share her mother's recipes with the world. With nothing but a passion for home-cooked meals and an unwavering commitment to quality, The Mother Restaurant was born.</p>
+      <p class="text-lg leading-relaxed mb-6 text-body">The name "The Mother" comes from the belief that a mother's love is the secret ingredient in every great meal — a philosophy that has guided us for over two decades.</p>
+      <h2 class="font-serif text-3xl font-bold text-brand-600 mt-12 mb-4">From Humble Beginnings</h2>
+      <p class="text-lg leading-relaxed mb-6 text-body">Our first location was a modest 40-seat bistro. Word of mouth spread quickly about the exceptional food and warm hospitality. Within two years, we had outgrown our space and moved to our current location — a stunning 200-seat restaurant with panoramic views of the Arabian Gulf.</p>
+      <h2 class="font-serif text-3xl font-bold text-brand-600 mt-12 mb-4">The Pursuit of Perfection</h2>
+      <p class="text-lg leading-relaxed mb-6 text-body">Every dish at The Mother Restaurant is a testament to our commitment to love and quality. We source ingredients from the UAE's finest local farms and the world's most prestigious producers.</p>
+      <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/1b0c75629-7e42-4904-9acc-b7da012e0f36.png" class="w-full aspect-[16/9] object-cover rounded-2xl my-8" alt="Kitchen">
+      <h2 class="font-serif text-3xl font-bold text-brand-600 mt-12 mb-4">Looking Forward</h2>
+      <p class="text-lg leading-relaxed mb-6 text-body">As we look to the future, we remain committed to our founding principles: love in every detail, respect for ingredients, and creating unforgettable experiences for our guests. The next chapter of The Mother Restaurant is just beginning.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== MENU PAGE ==================== -->
+<div id="page-menu" class="page">
+  <section class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto section-warm">
+    <div class="text-center mb-12 reveal">
+      <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// OUR MENU //</p>
+      <h1 class="font-serif text-5xl md:text-7xl font-bold mb-6 text-heading">Discover the <span class="text-gradient">Menu</span></h1>
+      <p class="text-muted max-w-2xl mx-auto">Explore our carefully curated selection of dishes, crafted with love and the finest ingredients</p>
+    </div>
+    <div class="flex flex-col md:flex-row gap-4 mb-12 reveal">
+      <div class="relative flex-1">
+        <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-muted"></i>
+        <input type="text" id="menuSearch" placeholder="Search dishes..." class="form-input w-full pl-12 pr-4 py-3 rounded-full" oninput="filterMenu()">
+      </div>
+      <div class="flex gap-2 flex-wrap">
+        <button class="filter-btn active px-5 py-2 rounded-full border border-brand-600/30 text-sm transition" data-filter="all" onclick="setFilter('all')">All</button>
+        <button class="filter-btn px-5 py-2 rounded-full border border-brand-600/30 text-sm transition" data-filter="breakfast" onclick="setFilter('breakfast')">Breakfast</button>
+        <button class="filter-btn px-5 py-2 rounded-full border border-brand-600/30 text-sm transition" data-filter="lunch" onclick="setFilter('lunch')">Lunch</button>
+        <button class="filter-btn px-5 py-2 rounded-full border border-brand-600/30 text-sm transition" data-filter="dinner" onclick="setFilter('dinner')">Dinner</button>
+        <button class="filter-btn px-5 py-2 rounded-full border border-brand-600/30 text-sm transition" data-filter="beverages" onclick="setFilter('beverages')">Beverages</button>
+        <button class="filter-btn px-5 py-2 rounded-full border border-brand-600/30 text-sm transition" data-filter="desserts" onclick="setFilter('desserts')">Desserts</button>
+      </div>
+    </div>
+    <div id="menuGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  </section>
+</div>
+
+<!-- ==================== MENU DETAIL PAGE ==================== -->
+<div id="page-menu-detail" class="page">
+  <section class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto section-warm">
+    <div class="grid lg:grid-cols-2 gap-12 items-start">
+      <div class="reveal">
+        <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/15a60d4b5-5cda-45a1-bfa0-bbd4d224d6ce.png" class="rounded-2xl w-full aspect-square object-cover" alt="Dish">
+      </div>
+      <div class="reveal">
+        <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// SIGNATURE DISH //</p>
+        <h1 class="font-serif text-4xl md:text-5xl font-bold mb-4 text-heading">Wagyu Beef Tenderloin</h1>
+        <div class="flex items-center gap-4 mb-6">
+          <span class="text-brand-600 font-serif text-3xl font-bold">AED 680</span>
+          <div class="flex gap-1"><i class="fas fa-star text-brand-600 text-sm"></i><i class="fas fa-star text-brand-600 text-sm"></i><i class="fas fa-star text-brand-600 text-sm"></i><i class="fas fa-star text-brand-600 text-sm"></i><i class="fas fa-star text-brand-600 text-sm"></i></div>
+          <span class="text-muted text-sm">(128 reviews)</span>
+        </div>
+        <p class="text-muted mb-8 leading-relaxed">A5 Japanese Wagyu beef tenderloin, seared to perfection and adorned with 24-karat gold leaf. Served with black truffle mash, roasted seasonal vegetables, and a rich red wine reduction.</p>
+        <div class="space-y-6 mb-8">
+          <div>
+            <h3 class="font-serif text-xl font-bold mb-3 text-brand-600">Ingredients</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 bg-brand-600/10 rounded-full text-sm text-body">A5 Wagyu Beef</span>
+              <span class="px-3 py-1 bg-brand-600/10 rounded-full text-sm text-body">24K Gold Leaf</span>
+              <span class="px-3 py-1 bg-brand-600/10 rounded-full text-sm text-body">Black Truffle</span>
+              <span class="px-3 py-1 bg-brand-600/10 rounded-full text-sm text-body">Yukon Potatoes</span>
+              <span class="px-3 py-1 bg-brand-600/10 rounded-full text-sm text-body">Seasonal Vegetables</span>
+              <span class="px-3 py-1 bg-brand-600/10 rounded-full text-sm text-body">Red Wine</span>
+            </div>
+          </div>
+          <div>
+            <h3 class="font-serif text-xl font-bold mb-3 text-brand-600">Allergens</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1 bg-red-500/10 text-red-500 rounded-full text-sm">Dairy</span>
+              <span class="px-3 py-1 bg-red-500/10 text-red-500 rounded-full text-sm">Gluten</span>
+            </div>
+          </div>
+          <div>
+            <h3 class="font-serif text-xl font-bold mb-3 text-brand-600">Nutrition</h3>
+            <div class="grid grid-cols-4 gap-4">
+              <div class="text-center"><div class="font-bold text-lg text-heading">680</div><div class="text-xs text-muted">Calories</div></div>
+              <div class="text-center"><div class="font-bold text-lg text-heading">45g</div><div class="text-xs text-muted">Protein</div></div>
+              <div class="text-center"><div class="font-bold text-lg text-heading">38g</div><div class="text-xs text-muted">Fat</div></div>
+              <div class="text-center"><div class="font-bold text-lg text-heading">12g</div><div class="text-xs text-muted">Carbs</div></div>
+            </div>
+          </div>
+          <div>
+            <h3 class="font-serif text-xl font-bold mb-3 text-brand-600">Pairing Suggestions</h3>
+            <p class="text-body">Château Margaux 2015, Opus One 2018, or our signature Mother's Red Blend</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <a href="#reservation" class="btn-premium px-8 py-4 rounded-full font-semibold inline-flex items-center gap-2" data-page="reservation"><i class="fas fa-calendar-alt"></i> Reserve to Order</a>
+          <button class="px-6 py-4 rounded-full border-2 border-brand-600/30 hover:bg-brand-600/10 transition text-body"><i class="far fa-heart"></i></button>
+        </div>
+      </div>
+    </div>
+    <div class="mt-24 reveal">
+      <h2 class="font-serif text-3xl font-bold mb-8 text-heading">Customer Reviews</h2>
+      <div class="space-y-6">
+        <div class="glass-card p-6 rounded-2xl">
+          <div class="flex items-center gap-4 mb-3">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center font-bold text-white">M</div>
+            <div><div class="font-semibold text-heading">Michael R.</div><div class="flex gap-1 text-xs"><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i></div></div>
+            <span class="text-muted text-sm ml-auto">2 days ago</span>
+          </div>
+          <p class="text-body">Absolutely divine. The wagyu melted in my mouth and the gold leaf added a touch of luxury. Best steak I've ever had in Dubai.</p>
+        </div>
+        <div class="glass-card p-6 rounded-2xl">
+          <div class="flex items-center gap-4 mb-3">
+            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center font-bold text-white">L</div>
+            <div><div class="font-semibold text-heading">Lisa T.</div><div class="flex gap-1 text-xs"><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i></div></div>
+            <span class="text-muted text-sm ml-auto">1 week ago</span>
+          </div>
+          <p class="text-body">Worth every dirham. The presentation was stunning and the flavors were extraordinary. A must-try!</p>
+        </div>
+      </div>
+    </div>
+    <div class="mt-24 reveal">
+      <h2 class="font-serif text-3xl font-bold mb-8 text-heading">Related Dishes</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="menu-card group">
+          <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[4/3]">
+            <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/14b81e7b6-372b-4e30-9817-1e3ccd928685.png" class="menu-img w-full h-full object-cover" alt="Related">
+          </div>
+          <h3 class="font-serif text-xl font-bold text-heading">Tomahawk Ribeye</h3>
+          <p class="text-brand-600 font-bold">AED 605</p>
+        </div>
+        <div class="menu-card group">
+          <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[4/3]">
+            <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/10485313a-d148-4002-8f1c-a6ae8f81073b.png" class="menu-img w-full h-full object-cover" alt="Related">
+          </div>
+          <h3 class="font-serif text-xl font-bold text-heading">Omakase Platter</h3>
+          <p class="text-brand-600 font-bold">AED 530</p>
+        </div>
+        <div class="menu-card group">
+          <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[4/3]">
+            <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12fc75675-69ca-44cd-9160-b39c06707a56.png" class="menu-img w-full h-full object-cover" alt="Related">
+          </div>
+          <h3 class="font-serif text-xl font-bold text-heading">Truffle Linguine</h3>
+          <p class="text-brand-600 font-bold">AED 285</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== CHEF PAGE ==================== -->
+<div id="page-chef" class="page">
+  <section class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto section-warm">
+    <div class="text-center mb-16 reveal">
+      <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// OUR CHEFS //</p>
+      <h1 class="font-serif text-5xl md:text-7xl font-bold mb-6 text-heading">Meet the <span class="text-gradient">Masters</span></h1>
+    </div>
+    <div class="grid lg:grid-cols-2 gap-12 items-center mb-24">
+      <div class="reveal">
+        <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/11d53ef46-1879-4b9a-8034-d9bf6acd03cb.png" class="rounded-2xl w-full aspect-[3/4] object-cover" alt="Chef">
+      </div>
+      <div class="reveal">
+        <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// EXECUTIVE CHEF //</p>
+        <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4 text-heading">Chef Fatima Al-Rashid</h2>
+        <p class="text-muted mb-6">With over 20 years of culinary experience across the UAE, Chef Fatima has brought her mother's traditional recipes to life with modern finesse and world-class techniques.</p>
+        <div class="space-y-4 mb-8">
+          <div class="flex items-center gap-3"><i class="fas fa-star text-brand-600"></i><span class="text-body">UAE Culinary Excellence Award</span></div>
+          <div class="flex items-center gap-3"><i class="fas fa-trophy text-brand-600"></i><span class="text-body">Dubai Food Festival Winner 2023</span></div>
+          <div class="flex items-center gap-3"><i class="fas fa-heart text-brand-600"></i><span class="text-body">Mother's Recipe Preservationist</span></div>
+          <div class="flex items-center gap-3"><i class="fas fa-book text-brand-600"></i><span class="text-body">Published Author - "Mother's Kitchen"</span></div>
+        </div>
+        <h3 class="font-serif text-2xl font-bold mb-4 text-heading">Cooking Philosophy</h3>
+        <p class="text-muted mb-6">"Cooking is an act of love. Every dish should feel like a warm hug from your mother — comforting, nourishing, and unforgettable."</p>
+        <h3 class="font-serif text-2xl font-bold mb-4 text-heading">Signature Recipes</h3>
+        <div class="space-y-3">
+          <div class="glass-card p-4 rounded-xl flex justify-between items-center"><span class="text-body">Gold Leaf Wagyu Tenderloin</span><span class="text-brand-600 font-bold">AED 680</span></div>
+          <div class="glass-card p-4 rounded-xl flex justify-between items-center"><span class="text-body">Truffle & Caviar Risotto</span><span class="text-brand-600 font-bold">AED 350</span></div>
+          <div class="glass-card p-4 rounded-xl flex justify-between items-center"><span class="text-body">Lobster Thermidor Royale</span><span class="text-brand-600 font-bold">AED 460</span></div>
+        </div>
+      </div>
+    </div>
+    <h2 class="font-serif text-3xl font-bold text-center mb-12 reveal text-heading">Our <span class="text-gradient">Team</span></h2>
+    <div class="grid md:grid-cols-3 gap-8 mb-16">
+      <div class="text-center reveal">
+        <div class="w-48 h-48 rounded-full bg-gradient-to-br from-brand-600/20 to-brand-800/20 mx-auto mb-4 flex items-center justify-center border-4 border-brand-600/30"><i class="fas fa-user text-6xl text-brand-600"></i></div>
+        <h4 class="font-serif text-xl font-bold text-heading">Sophie Chen</h4>
+        <p class="text-brand-600 text-sm mb-2">Sous Chef - Pastry</p>
+        <p class="text-muted text-sm">15 years experience, Le Cordon Bleu trained</p>
+      </div>
+      <div class="text-center reveal">
+        <div class="w-48 h-48 rounded-full bg-gradient-to-br from-brand-600/20 to-brand-800/20 mx-auto mb-4 flex items-center justify-center border-4 border-brand-600/30"><i class="fas fa-user text-6xl text-brand-600"></i></div>
+        <h4 class="font-serif text-xl font-bold text-heading">Ahmed Al-Rashid</h4>
+        <p class="text-brand-600 text-sm mb-2">Head Sommelier</p>
+        <p class="text-muted text-sm">Master Sommelier, 12 years experience</p>
+      </div>
+      <div class="text-center reveal">
+        <div class="w-48 h-48 rounded-full bg-gradient-to-br from-brand-600/20 to-brand-800/20 mx-auto mb-4 flex items-center justify-center border-4 border-brand-600/30"><i class="fas fa-user text-6xl text-brand-600"></i></div>
+        <h4 class="font-serif text-xl font-bold text-heading">Yuki Tanaka</h4>
+        <p class="text-brand-600 text-sm mb-2">Sous Chef - Japanese</p>
+        <p class="text-muted text-sm">Sushi master, trained in Tokyo</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== GALLERY PAGE ==================== -->
+<div id="page-gallery" class="page">
+  <section class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto section-warm">
+    <div class="text-center mb-12 reveal">
+      <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// GALLERY //</p>
+      <h1 class="font-serif text-5xl md:text-7xl font-bold mb-6 text-heading">Visual <span class="text-gradient">Journey</span></h1>
+    </div>
+    <div class="flex flex-wrap justify-center gap-3 mb-12">
+      <button class="gallery-filter active px-6 py-2 rounded-full bg-brand-600 text-white font-semibold" data-gallery="all">All</button>
+      <button class="gallery-filter px-6 py-2 rounded-full border border-brand-600/30 hover:bg-brand-600/10 transition text-body" data-gallery="food">Food</button>
+      <button class="gallery-filter px-6 py-2 rounded-full border border-brand-600/30 hover:bg-brand-600/10 transition text-body" data-gallery="interior">Interior</button>
+      <button class="gallery-filter px-6 py-2 rounded-full border border-brand-600/30 hover:bg-brand-600/10 transition text-body" data-gallery="kitchen">Kitchen</button>
+      <button class="gallery-filter px-6 py-2 rounded-full border border-brand-600/30 hover:bg-brand-600/10 transition text-body" data-gallery="events">Events</button>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="galleryGrid">
+      <div class="gallery-item rounded-2xl overflow-hidden aspect-square" data-category="food" onclick="openLightbox(0)"><img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/15a60d4b5-5cda-45a1-bfa0-bbd4d224d6ce.png" class="w-full h-full object-cover" alt="Gallery"></div>
+      <div class="gallery-item rounded-2xl overflow-hidden aspect-square" data-category="interior" onclick="openLightbox(1)"><img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12a52d6a9-5bfb-4542-9f8e-dad7ae88b00b.png" class="w-full h-full object-cover" alt="Gallery"></div>
+      <div class="gallery-item rounded-2xl overflow-hidden aspect-square" data-category="food" onclick="openLightbox(2)"><img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/10485313a-d148-4002-8f1c-a6ae8f81073b.png" class="w-full h-full object-cover" alt="Gallery"></div>
+      <div class="gallery-item rounded-2xl overflow-hidden aspect-square" data-category="food" onclick="openLightbox(3)"><img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/14b81e7b6-372b-4e30-9817-1e3ccd928685.png" class="w-full h-full object-cover" alt="Gallery"></div>
+      <div class="gallery-item rounded-2xl overflow-hidden aspect-square" data-category="food" onclick="openLightbox(4)"><img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12fc75675-69ca-44cd-9160-b39c06707a56.png" class="w-full h-full object-cover" alt="Gallery"></div>
+      <div class="gallery-item rounded-2xl overflow-hidden aspect-square" data-category="food" onclick="openLightbox(5)"><img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/1b10ba48c-4ce5-4bb5-96e7-c56d36806f4e.png" class="w-full h-full object-cover" alt="Gallery"></div>
+      <div class="gallery-item rounded-2xl overflow-hidden aspect-square" data-category="kitchen" onclick="openLightbox(6)"><img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/1b0c75629-7e42-4904-9acc-b7da012e0f36.png" class="w-full h-full object-cover" alt="Gallery"></div>
+      <div class="gallery-item rounded-2xl overflow-hidden aspect-square" data-category="events" onclick="openLightbox(7)"><img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/13ef415fa-00e1-4e70-992e-50cd0981097e.png" class="w-full h-full object-cover" alt="Gallery"></div>
+      <div class="gallery-item rounded-2xl overflow-hidden aspect-square" data-category="food" onclick="openLightbox(8)"><img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/122cb4f5a-aaf0-446f-9815-e7cb22898671.png" class="w-full h-full object-cover" alt="Gallery"></div>
+      <div class="gallery-item rounded-2xl overflow-hidden aspect-square" data-category="food" onclick="openLightbox(9)"><img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/10b5f54c1-f10a-4c16-8bbf-16fed3a852f0.png" class="w-full h-full object-cover" alt="Gallery"></div>
+      <div class="gallery-item rounded-2xl overflow-hidden aspect-square" data-category="interior" onclick="openLightbox(10)"><img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12a52d6a9-5bfb-4542-9f8e-dad7ae88b00b.png" class="w-full h-full object-cover" alt="Gallery"></div>
+      <div class="gallery-item rounded-2xl overflow-hidden aspect-square" data-category="food" onclick="openLightbox(11)"><img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/15a60d4b5-5cda-45a1-bfa0-bbd4d224d6ce.png" class="w-full h-full object-cover" alt="Gallery"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== PRIVATE DINING PAGE ==================== -->
+<div id="page-private" class="page">
+  <section class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto section-warm">
+    <div class="text-center mb-16 reveal">
+      <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// PRIVATE DINING //</p>
+      <h1 class="font-serif text-5xl md:text-7xl font-bold mb-6 text-heading">Exclusive <span class="text-gradient">Experiences</span></h1>
+    </div>
+    <div class="grid lg:grid-cols-2 gap-12 items-center mb-16">
+      <div class="reveal"><img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/13ef415fa-00e1-4e70-992e-50cd0981097e.png" class="rounded-2xl w-full aspect-[4/3] object-cover" alt="Private Dining"></div>
+      <div class="reveal">
+        <h2 class="font-serif text-3xl font-bold mb-4 text-heading">The Family Room</h2>
+        <p class="text-muted mb-6">Our most exclusive dining space, accommodating up to 12 guests. Perfect for intimate family celebrations, business dinners, or special occasions.</p>
+        <ul class="space-y-3 mb-6">
+          <li class="flex items-center gap-3 text-body"><i class="fas fa-check text-brand-600"></i>Personal chef service</li>
+          <li class="flex items-center gap-3 text-body"><i class="fas fa-check text-brand-600"></i>Custom menu creation</li>
+          <li class="flex items-center gap-3 text-body"><i class="fas fa-check text-brand-600"></i>Dedicated sommelier</li>
+          <li class="flex items-center gap-3 text-body"><i class="fas fa-check text-brand-600"></i>Private entrance</li>
+        </ul>
+        <a href="#reservation" class="btn-premium px-8 py-4 rounded-full font-semibold inline-flex items-center gap-2" data-page="reservation">Book Private Dining</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== CATERING PAGE ==================== -->
+<div id="page-catering" class="page">
+  <section class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto section-warm">
+    <div class="text-center mb-16 reveal">
+      <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// CATERING //</p>
+      <h1 class="font-serif text-5xl md:text-7xl font-bold mb-6 text-heading">Event <span class="text-gradient">Catering</span></h1>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+      <div class="glass-card rounded-2xl overflow-hidden reveal">
+        <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/13ef415fa-00e1-4e70-992e-50cd0981097e.png" class="w-full aspect-[4/3] object-cover" alt="Wedding">
+        <div class="p-6">
+          <h3 class="font-serif text-2xl font-bold mb-2 text-heading">Wedding Catering</h3>
+          <p class="text-muted text-sm mb-4">Make your special day unforgettable with our bespoke wedding menus.</p>
+          <span class="text-brand-600 font-semibold">From AED 550/person</span>
+        </div>
+      </div>
+      <div class="glass-card rounded-2xl overflow-hidden reveal">
+        <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12a52d6a9-5bfb-4542-9f8e-dad7ae88b00b.png" class="w-full aspect-[4/3] object-cover" alt="Corporate">
+        <div class="p-6">
+          <h3 class="font-serif text-2xl font-bold mb-2 text-heading">Corporate Events</h3>
+          <p class="text-muted text-sm mb-4">Impress clients and team with world-class catering.</p>
+          <span class="text-brand-600 font-semibold">From AED 310/person</span>
+        </div>
+      </div>
+      <div class="glass-card rounded-2xl overflow-hidden reveal">
+        <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/1b10ba48c-4ce5-4bb5-96e7-c56d36806f4e.png" class="w-full aspect-[4/3] object-cover" alt="Birthday">
+        <div class="p-6">
+          <h3 class="font-serif text-2xl font-bold mb-2 text-heading">Family Parties</h3>
+          <p class="text-muted text-sm mb-4">Celebrate in style with custom menus and desserts.</p>
+          <span class="text-brand-600 font-semibold">From AED 350/person</span>
+        </div>
+      </div>
+    </div>
+    <div class="glass-card rounded-3xl p-8 md:p-12 reveal">
+      <h2 class="font-serif text-3xl font-bold mb-6 text-center text-heading">Request a Quote</h2>
+      <form class="grid md:grid-cols-2 gap-4" onsubmit="handleCatering(event)">
+        <input type="text" placeholder="Full Name" class="form-input px-4 py-3 rounded-lg" required>
+        <input type="email" placeholder="Email" class="form-input px-4 py-3 rounded-lg" required>
+        <input type="tel" placeholder="Phone" class="form-input px-4 py-3 rounded-lg" required>
+        <select class="form-input px-4 py-3 rounded-lg">
+          <option>Event Type</option><option>Wedding</option><option>Corporate</option><option>Birthday</option><option>Other</option>
+        </select>
+        <input type="number" placeholder="Number of Guests" class="form-input px-4 py-3 rounded-lg">
+        <input type="date" class="form-input px-4 py-3 rounded-lg">
+        <textarea placeholder="Tell us about your event..." class="form-input px-4 py-3 rounded-lg md:col-span-2" rows="4"></textarea>
+        <button type="submit" class="btn-premium px-8 py-4 rounded-full font-semibold md:col-span-2">Submit Request</button>
+      </form>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== BLOG PAGE ==================== -->
+<div id="page-blog" class="page">
+  <section class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto section-warm">
+    <div class="text-center mb-16 reveal">
+      <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// BLOG //</p>
+      <h1 class="font-serif text-5xl md:text-7xl font-bold mb-6 text-heading">Culinary <span class="text-gradient">Stories</span></h1>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <article class="menu-card reveal" onclick="showPage('blog-detail')">
+        <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[4/3]">
+          <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/15a60d4b5-5cda-45a1-bfa0-bbd4d224d6ce.png" class="menu-img w-full h-full object-cover" alt="Blog">
+          <div class="absolute top-4 left-4 bg-brand-600 text-white px-3 py-1 rounded-full text-xs font-bold">RECIPES</div>
+        </div>
+        <div class="text-muted text-sm mb-2">July 5, 2026 • 5 min read</div>
+        <h3 class="font-serif text-xl font-bold mb-2 text-heading">The Art of Perfect Wagyu</h3>
+        <p class="text-muted text-sm">Learn the secrets behind cooking the world's finest beef to perfection.</p>
+      </article>
+      <article class="menu-card reveal" onclick="showPage('blog-detail')">
+        <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[4/3]">
+          <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/1b0c75629-7e42-4904-9acc-b7da012e0f36.png" class="menu-img w-full h-full object-cover" alt="Blog">
+          <div class="absolute top-4 left-4 bg-brand-600 text-white px-3 py-1 rounded-full text-xs font-bold">CHEF STORIES</div>
+        </div>
+        <div class="text-muted text-sm mb-2">July 2, 2026 • 8 min read</div>
+        <h3 class="font-serif text-xl font-bold mb-2 text-heading">A Day in Chef Fatima's Kitchen</h3>
+        <p class="text-muted text-sm">Behind the scenes with our executive chef and her culinary journey.</p>
+      </article>
+      <article class="menu-card reveal" onclick="showPage('blog-detail')">
+        <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[4/3]">
+          <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12fc75675-69ca-44cd-9160-b39c06707a56.png" class="menu-img w-full h-full object-cover" alt="Blog">
+          <div class="absolute top-4 left-4 bg-brand-600 text-white px-3 py-1 rounded-full text-xs font-bold">HEALTHY</div>
+        </div>
+        <div class="text-muted text-sm mb-2">June 28, 2026 • 6 min read</div>
+        <h3 class="font-serif text-xl font-bold mb-2 text-heading">Truffle: The Diamond of the Kitchen</h3>
+        <p class="text-muted text-sm">Exploring the world's most luxurious ingredient and its health benefits.</p>
+      </article>
+      <article class="menu-card reveal" onclick="showPage('blog-detail')">
+        <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[4/3]">
+          <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/10485313a-d148-4002-8f1c-a6ae8f81073b.png" class="menu-img w-full h-full object-cover" alt="Blog">
+          <div class="absolute top-4 left-4 bg-brand-600 text-white px-3 py-1 rounded-full text-xs font-bold">CULTURE</div>
+        </div>
+        <div class="text-muted text-sm mb-2">June 25, 2026 • 7 min read</div>
+        <h3 class="font-serif text-xl font-bold mb-2 text-heading">The History of Arabic Coffee</h3>
+        <p class="text-muted text-sm">From ancient tradition to modern culinary art form in the UAE.</p>
+      </article>
+      <article class="menu-card reveal" onclick="showPage('blog-detail')">
+        <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[4/3]">
+          <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/1b10ba48c-4ce5-4bb5-96e7-c56d36806f4e.png" class="menu-img w-full h-full object-cover" alt="Blog">
+          <div class="absolute top-4 left-4 bg-brand-600 text-white px-3 py-1 rounded-full text-xs font-bold">EVENTS</div>
+        </div>
+        <div class="text-muted text-sm mb-2">June 20, 2026 • 4 min read</div>
+        <h3 class="font-serif text-xl font-bold mb-2 text-heading">Summer Menu Launch 2026</h3>
+        <p class="text-muted text-sm">Introducing our new seasonal dishes crafted with summer's finest produce.</p>
+      </article>
+      <article class="menu-card reveal" onclick="showPage('blog-detail')">
+        <div class="relative overflow-hidden rounded-2xl mb-4 aspect-[4/3]">
+          <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/10b5f54c1-f10a-4c16-8bbf-16fed3a852f0.png" class="menu-img w-full h-full object-cover" alt="Blog">
+          <div class="absolute top-4 left-4 bg-brand-600 text-white px-3 py-1 rounded-full text-xs font-bold">RECIPES</div>
+        </div>
+        <div class="text-muted text-sm mb-2">June 15, 2026 • 5 min read</div>
+        <h3 class="font-serif text-xl font-bold mb-2 text-heading">Crafting the Perfect Karak Chai</h3>
+        <p class="text-muted text-sm">Our head barista shares secrets behind our signature UAE drink.</p>
+      </article>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== BLOG DETAIL PAGE ==================== -->
+<div id="page-blog-detail" class="page">
+  <section class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto section-warm">
+    <article class="reveal">
+      <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/15a60d4b5-5cda-45a1-bfa0-bbd4d224d6ce.png" class="w-full aspect-[21/9] object-cover rounded-2xl mb-8" alt="Blog">
+      <div class="flex items-center gap-4 mb-4">
+        <span class="bg-brand-600 text-white px-3 py-1 rounded-full text-xs font-bold">RECIPES</span>
+        <span class="text-muted text-sm">July 5, 2026</span>
+        <span class="text-muted text-sm">• 5 min read</span>
+      </div>
+      <h1 class="font-serif text-4xl md:text-5xl font-bold mb-6 text-heading">The Art of Perfect Wagyu</h1>
+      <div class="flex items-center gap-4 mb-8 pb-8 border-b border-brand-600/20">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center font-bold text-white">F</div>
+        <div><div class="font-semibold text-heading">Chef Fatima Al-Rashid</div><div class="text-sm text-muted">Executive Chef</div></div>
+      </div>
+      <div class="max-w-none">
+        <p class="text-lg leading-relaxed mb-6 text-body">Wagyu beef is widely regarded as the finest beef in the world. Originating from Japan, the term "wagyu" literally means "Japanese cow" and refers to several breeds of cattle known for their intense marbling and rich flavor.</p>
+        <h2 class="font-serif text-2xl font-bold text-brand-600 mt-8 mb-4">Understanding the Grades</h2>
+        <p class="text-lg leading-relaxed mb-6 text-body">Japanese Wagyu is graded on a scale from A1 to A5, with A5 being the highest quality. The grading considers marbling, color, brightness, firmness, and texture. At The Mother Restaurant, we exclusively serve A5 Wagyu from the renowned Miyazaki prefecture.</p>
+        <h2 class="font-serif text-2xl font-bold text-brand-600 mt-8 mb-4">Cooking Techniques</h2>
+        <p class="text-lg leading-relaxed mb-6 text-body">The key to cooking Wagyu is simplicity. The beef's natural flavor and texture should be the star. We recommend minimal seasoning — just sea salt and freshly ground black pepper — and cooking over high heat for a perfect sear.</p>
+        <div class="flex flex-wrap gap-2 mt-8 pt-8 border-t border-brand-600/20">
+          <span class="px-3 py-1 bg-brand-600/10 rounded-full text-sm text-body">#Wagyu</span>
+          <span class="px-3 py-1 bg-brand-600/10 rounded-full text-sm text-body">#Recipes</span>
+          <span class="px-3 py-1 bg-brand-600/10 rounded-full text-sm text-body">#FineDining</span>
+          <span class="px-3 py-1 bg-brand-600/10 rounded-full text-sm text-body">#ChefFatima</span>
+        </div>
+      </div>
+    </article>
+    <div class="mt-16">
+      <h3 class="font-serif text-2xl font-bold mb-6 text-heading">Related Posts</h3>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="menu-card" onclick="showPage('blog-detail')">
+          <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12fc75675-69ca-44cd-9160-b39c06707a56.png" class="w-full aspect-[16/9] object-cover rounded-xl mb-3" alt="Related">
+          <h4 class="font-serif text-lg font-bold text-heading">Truffle: The Diamond of the Kitchen</h4>
+        </div>
+        <div class="menu-card" onclick="showPage('blog-detail')">
+          <img src="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/10485313a-d148-4002-8f1c-a6ae8f81073b.png" class="w-full aspect-[16/9] object-cover rounded-xl mb-3" alt="Related">
+          <h4 class="font-serif text-lg font-bold text-heading">The History of Arabic Coffee</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== RESERVATION PAGE ==================== -->
+<div id="page-reservation" class="page">
+  <section class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto section-warm">
+    <div class="text-center mb-12 reveal">
+      <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// RESERVATIONS //</p>
+      <h1 class="font-serif text-5xl md:text-7xl font-bold mb-6 text-heading">Book Your <span class="text-gradient">Table</span></h1>
+      <p class="text-muted">Secure your dining experience at The Mother Restaurant</p>
+    </div>
+    <div class="glass-card rounded-3xl p-8 md:p-12 reveal">
+      <form class="space-y-6" onsubmit="handleReservation(event)">
+        <div class="grid md:grid-cols-2 gap-6">
+          <div><label class="block text-sm mb-2 text-body">Full Name *</label><input type="text" class="form-input w-full px-4 py-3 rounded-lg" required></div>
+          <div><label class="block text-sm mb-2 text-body">Email Address *</label><input type="email" class="form-input w-full px-4 py-3 rounded-lg" required></div>
+          <div><label class="block text-sm mb-2 text-body">Phone Number *</label><input type="tel" class="form-input w-full px-4 py-3 rounded-lg" required></div>
+          <div><label class="block text-sm mb-2 text-body">Number of Guests *</label><select class="form-input w-full px-4 py-3 rounded-lg" required><option value="">Select guests</option><option>1 Guest</option><option>2 Guests</option><option>3 Guests</option><option>4 Guests</option><option>5 Guests</option><option>6 Guests</option><option>7+ Guests</option></select></div>
+          <div><label class="block text-sm mb-2 text-body">Date *</label><input type="date" class="form-input w-full px-4 py-3 rounded-lg" required></div>
+          <div><label class="block text-sm mb-2 text-body">Time *</label><select class="form-input w-full px-4 py-3 rounded-lg" required><option value="">Select time</option><option>12:00 PM</option><option>12:30 PM</option><option>1:00 PM</option><option>1:30 PM</option><option>6:00 PM</option><option>6:30 PM</option><option>7:00 PM</option><option>7:30 PM</option><option>8:00 PM</option><option>8:30 PM</option><option>9:00 PM</option></select></div>
+          <div class="md:col-span-2"><label class="block text-sm mb-2 text-body">Seating Preference</label><select class="form-input w-full px-4 py-3 rounded-lg"><option>No Preference</option><option>Window Seat</option><option>Private Room</option><option>Bar Area</option><option>Outdoor Terrace</option></select></div>
+          <div class="md:col-span-2"><label class="block text-sm mb-2 text-body">Special Requests</label><textarea class="form-input w-full px-4 py-3 rounded-lg" rows="4" placeholder="Allergies, celebrations, dietary requirements..."></textarea></div>
+        </div>
+        <button type="submit" class="btn-premium w-full py-4 rounded-full font-semibold text-lg"><i class="fas fa-calendar-check mr-2"></i> Confirm Reservation</button>
+      </form>
+    </div>
+    <div class="mt-12 grid md:grid-cols-3 gap-6 text-center reveal">
+      <div class="glass-card p-6 rounded-2xl"><i class="fas fa-phone text-brand-600 text-2xl mb-3"></i><h4 class="font-semibold mb-1 text-heading">Call Us</h4><p class="text-muted text-sm">+971 4 123 4567</p></div>
+      <div class="glass-card p-6 rounded-2xl"><i class="fas fa-envelope text-brand-600 text-2xl mb-3"></i><h4 class="font-semibold mb-1 text-heading">Email</h4><p class="text-muted text-sm">reservations@themother.ae</p></div>
+      <div class="glass-card p-6 rounded-2xl"><i class="fab fa-whatsapp text-brand-600 text-2xl mb-3"></i><h4 class="font-semibold mb-1 text-heading">WhatsApp</h4><p class="text-muted text-sm">+971 50 123 4567</p></div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== TESTIMONIALS PAGE ==================== -->
+<div id="page-testimonials" class="page">
+  <section class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto section-warm">
+    <div class="text-center mb-16 reveal">
+      <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// TESTIMONIALS //</p>
+      <h1 class="font-serif text-5xl md:text-7xl font-bold mb-6 text-heading">Guest <span class="text-gradient">Reviews</span></h1>
+    </div>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="glass-card p-6 rounded-2xl reveal">
+        <div class="flex gap-1 mb-4"><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i></div>
+        <p class="text-body mb-6">"The best dining experience I've ever had in Dubai. Every dish was a masterpiece made with love."</p>
+        <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center font-bold text-white">S</div><div><div class="font-semibold text-heading">Sarah M.</div><div class="text-sm text-muted">Google Review</div></div></div>
+      </div>
+      <div class="glass-card p-6 rounded-2xl reveal">
+        <div class="flex gap-1 mb-4"><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i></div>
+        <p class="text-body mb-6">"Impeccable service, stunning ambiance, and food that feels like home. Truly exceptional."</p>
+        <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center font-bold text-white">J</div><div><div class="font-semibold text-heading">James C.</div><div class="text-sm text-muted">TripAdvisor</div></div></div>
+      </div>
+      <div class="glass-card p-6 rounded-2xl reveal">
+        <div class="flex gap-1 mb-4"><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i></div>
+        <p class="text-body mb-6">"Worth every dirham. The wagyu was perfection and the wine pairing was spot on."</p>
+        <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center font-bold text-white">E</div><div><div class="font-semibold text-heading">Emma D.</div><div class="text-sm text-muted">Google Review</div></div></div>
+      </div>
+      <div class="glass-card p-6 rounded-2xl reveal">
+        <div class="flex gap-1 mb-4"><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i></div>
+        <p class="text-body mb-6">"Celebrated our anniversary here. The private dining room was magical and intimate."</p>
+        <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center font-bold text-white">D</div><div><div class="font-semibold text-heading">David & Lisa</div><div class="text-sm text-muted">Yelp</div></div></div>
+      </div>
+      <div class="glass-card p-6 rounded-2xl reveal">
+        <div class="flex gap-1 mb-4"><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i></div>
+        <p class="text-body mb-6">"The omakase experience was a journey through flavors. Absolutely world-class in Abu Dhabi."</p>
+        <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center font-bold text-white">M</div><div><div class="font-semibold text-heading">Michael R.</div><div class="text-sm text-muted">Google Review</div></div></div>
+      </div>
+      <div class="glass-card p-6 rounded-2xl reveal">
+        <div class="flex gap-1 mb-4"><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i><i class="fas fa-star text-brand-600"></i></div>
+        <p class="text-body mb-6">"From the moment we arrived to the last bite, everything was perfect. A true gem in the UAE."</p>
+        <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-gradient-to-br from-brand-600 to-brand-800 flex items-center justify-center font-bold text-white">A</div><div><div class="font-semibold text-heading">Ahmed K.</div><div class="text-sm text-muted">TripAdvisor</div></div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== FAQS PAGE ==================== -->
+<div id="page-faqs" class="page">
+  <section class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto section-warm">
+    <div class="text-center mb-16 reveal">
+      <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// FAQS //</p>
+      <h1 class="font-serif text-5xl md:text-7xl font-bold mb-6 text-heading">Frequently <span class="text-gradient">Asked</span></h1>
+    </div>
+    <div class="space-y-4 reveal">
+      <div class="glass-card rounded-2xl overflow-hidden">
+        <button class="faq-toggle w-full p-6 text-left flex justify-between items-center text-heading" onclick="toggleFaq(this)"><span class="font-semibold">What are your opening hours?</span><i class="fas fa-chevron-down transition-transform text-brand-600"></i></button>
+        <div class="faq-content hidden px-6 pb-6 text-muted"><p>Monday - Thursday: 12:00 PM - 11:00 PM<br>Friday - Saturday: 12:00 PM - 12:00 AM<br>Sunday: 12:00 PM - 10:00 PM</p></div>
+      </div>
+      <div class="glass-card rounded-2xl overflow-hidden">
+        <button class="faq-toggle w-full p-6 text-left flex justify-between items-center text-heading" onclick="toggleFaq(this)"><span class="font-semibold">Do you accept reservations?</span><i class="fas fa-chevron-down transition-transform text-brand-600"></i></button>
+        <div class="faq-content hidden px-6 pb-6 text-muted"><p>Yes, we highly recommend reservations. You can book online, by phone, or through WhatsApp. For parties of 8+, please call us directly.</p></div>
+      </div>
+      <div class="glass-card rounded-2xl overflow-hidden">
+        <button class="faq-toggle w-full p-6 text-left flex justify-between items-center text-heading" onclick="toggleFaq(this)"><span class="font-semibold">Is there a dress code?</span><i class="fas fa-chevron-down transition-transform text-brand-600"></i></button>
+        <div class="faq-content hidden px-6 pb-6 text-muted"><p>Smart casual is recommended. We kindly ask that guests avoid sportswear, flip-flops, and overly casual attire.</p></div>
+      </div>
+      <div class="glass-card rounded-2xl overflow-hidden">
+        <button class="faq-toggle w-full p-6 text-left flex justify-between items-center text-heading" onclick="toggleFaq(this)"><span class="font-semibold">Do you accommodate dietary restrictions?</span><i class="fas fa-chevron-down transition-transform text-brand-600"></i></button>
+        <div class="faq-content hidden px-6 pb-6 text-muted"><p>Absolutely. We cater to vegetarian, vegan, gluten-free, halal, and other dietary requirements. Please inform us when booking.</p></div>
+      </div>
+      <div class="glass-card rounded-2xl overflow-hidden">
+        <button class="faq-toggle w-full p-6 text-left flex justify-between items-center text-heading" onclick="toggleFaq(this)"><span class="font-semibold">Is parking available?</span><i class="fas fa-chevron-down transition-transform text-brand-600"></i></button>
+        <div class="faq-content hidden px-6 pb-6 text-muted"><p>Yes, we offer complimentary valet parking for all our guests at both Dubai and Abu Dhabi locations.</p></div>
+      </div>
+      <div class="glass-card rounded-2xl overflow-hidden">
+        <button class="faq-toggle w-full p-6 text-left flex justify-between items-center text-heading" onclick="toggleFaq(this)"><span class="font-semibold">Do you offer private dining?</span><i class="fas fa-chevron-down transition-transform text-brand-600"></i></button>
+        <div class="faq-content hidden px-6 pb-6 text-muted"><p>Yes, we have several private dining rooms available for groups of 8-50 guests. Contact us for details and availability.</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== CONTACT PAGE ==================== -->
+<div id="page-contact" class="page">
+  <section class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto section-warm">
+    <div class="text-center mb-16 reveal">
+      <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// CONTACT //</p>
+      <h1 class="font-serif text-5xl md:text-7xl font-bold mb-6 text-heading">Get in <span class="text-gradient">Touch</span></h1>
+    </div>
+    <div class="grid lg:grid-cols-2 gap-12">
+      <div class="reveal">
+        <h2 class="font-serif text-3xl font-bold mb-6 text-heading">Contact Information</h2>
+        <div class="space-y-6 mb-8">
+          <div class="flex items-start gap-4"><div class="w-12 h-12 bg-brand-600/10 rounded-xl flex items-center justify-center flex-shrink-0"><i class="fas fa-map-marker-alt text-brand-600"></i></div><div><h4 class="font-semibold mb-1 text-heading">Dubai Branch</h4><p class="text-muted">Dubai Marina, Tower 1, Level 3<br>Dubai, UAE</p></div></div>
+          <div class="flex items-start gap-4"><div class="w-12 h-12 bg-brand-600/10 rounded-xl flex items-center justify-center flex-shrink-0"><i class="fas fa-map-marker-alt text-brand-600"></i></div><div><h4 class="font-semibold mb-1 text-heading">Abu Dhabi Branch</h4><p class="text-muted">Corniche Road, Al Maryah Island<br>Abu Dhabi, UAE</p></div></div>
+          <div class="flex items-start gap-4"><div class="w-12 h-12 bg-brand-600/10 rounded-xl flex items-center justify-center flex-shrink-0"><i class="fas fa-phone text-brand-600"></i></div><div><h4 class="font-semibold mb-1 text-heading">Phone</h4><p class="text-muted">+971 4 123 4567<br>+971 2 987 6543</p></div></div>
+          <div class="flex items-start gap-4"><div class="w-12 h-12 bg-brand-600/10 rounded-xl flex items-center justify-center flex-shrink-0"><i class="fas fa-envelope text-brand-600"></i></div><div><h4 class="font-semibold mb-1 text-heading">Email</h4><p class="text-muted">info@themother.ae<br>reservations@themother.ae</p></div></div>
+          <div class="flex items-start gap-4"><div class="w-12 h-12 bg-brand-600/10 rounded-xl flex items-center justify-center flex-shrink-0"><i class="fas fa-clock text-brand-600"></i></div><div><h4 class="font-semibold mb-1 text-heading">Hours</h4><p class="text-muted">Mon-Thu: 12PM - 11PM<br>Fri-Sat: 12PM - 12AM<br>Sun: 12PM - 10PM</p></div></div>
+        </div>
+        <div class="flex gap-3">
+          <a href="#" class="w-10 h-10 rounded-full bg-brand-600/10 flex items-center justify-center hover:bg-brand-600 hover:text-white transition text-brand-600"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="w-10 h-10 rounded-full bg-brand-600/10 flex items-center justify-center hover:bg-brand-600 hover:text-white transition text-brand-600"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="w-10 h-10 rounded-full bg-brand-600/10 flex items-center justify-center hover:bg-brand-600 hover:text-white transition text-brand-600"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="w-10 h-10 rounded-full bg-brand-600/10 flex items-center justify-center hover:bg-brand-600 hover:text-white transition text-brand-600"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="reveal">
+        <form class="glass-card p-8 rounded-2xl space-y-4" onsubmit="handleContact(event)">
+          <h3 class="font-serif text-2xl font-bold mb-4 text-heading">Send us a Message</h3>
+          <input type="text" placeholder="Full Name" class="form-input w-full px-4 py-3 rounded-lg" required>
+          <input type="email" placeholder="Email" class="form-input w-full px-4 py-3 rounded-lg" required>
+          <input type="tel" placeholder="Phone" class="form-input w-full px-4 py-3 rounded-lg">
+          <input type="text" placeholder="Subject" class="form-input w-full px-4 py-3 rounded-lg">
+          <textarea placeholder="Your message..." class="form-input w-full px-4 py-3 rounded-lg" rows="5" required></textarea>
+          <button type="submit" class="btn-premium w-full py-4 rounded-full font-semibold">Send Message</button>
+        </form>
+      </div>
+    </div>
+    <div class="mt-16 rounded-2xl overflow-hidden h-96 reveal">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.1785107071884!2d55.2707!3d25.2048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDEyJzE3LjMiTiA1NcKwMTYnMTQuNSJF!5e0!3m2!1sen!2sae!4v1234567890" class="w-full h-full border-0" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== CAREERS PAGE ==================== -->
+<div id="page-careers" class="page">
+  <section class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto section-warm">
+    <div class="text-center mb-16 reveal">
+      <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// CAREERS //</p>
+      <h1 class="font-serif text-5xl md:text-7xl font-bold mb-6 text-heading">Join Our <span class="text-gradient">Family</span></h1>
+      <p class="text-muted max-w-2xl mx-auto">Be part of a world-class culinary team in the UAE</p>
+    </div>
+    <div class="space-y-4">
+      <div class="glass-card p-6 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 reveal"><div><h3 class="font-serif text-xl font-bold mb-1 text-heading">Sous Chef</h3><p class="text-muted text-sm">Full-time • Kitchen • Dubai</p></div><button class="btn-premium px-6 py-2 rounded-full font-semibold text-sm">Apply Now</button></div>
+      <div class="glass-card p-6 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 reveal"><div><h3 class="font-serif text-xl font-bold mb-1 text-heading">Head Waiter</h3><p class="text-muted text-sm">Full-time • Service • Dubai</p></div><button class="btn-premium px-6 py-2 rounded-full font-semibold text-sm">Apply Now</button></div>
+      <div class="glass-card p-6 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 reveal"><div><h3 class="font-serif text-xl font-bold mb-1 text-heading">Pastry Chef</h3><p class="text-muted text-sm">Full-time • Kitchen • Abu Dhabi</p></div><button class="btn-premium px-6 py-2 rounded-full font-semibold text-sm">Apply Now</button></div>
+      <div class="glass-card p-6 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 reveal"><div><h3 class="font-serif text-xl font-bold mb-1 text-heading">Sommelier</h3><p class="text-muted text-sm">Full-time • Bar • Dubai</p></div><button class="btn-premium px-6 py-2 rounded-full font-semibold text-sm">Apply Now</button></div>
+      <div class="glass-card p-6 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 reveal"><div><h3 class="font-serif text-xl font-bold mb-1 text-heading">Marketing Manager</h3><p class="text-muted text-sm">Full-time • Office • Dubai</p></div><button class="btn-premium px-6 py-2 rounded-full font-semibold text-sm">Apply Now</button></div>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== PRIVACY POLICY PAGE ==================== -->
+<div id="page-privacy" class="page">
+  <section class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto section-warm">
+    <div class="text-center mb-16 reveal">
+      <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// LEGAL //</p>
+      <h1 class="font-serif text-5xl md:text-6xl font-bold mb-6 text-heading">Privacy <span class="text-gradient">Policy</span></h1>
+    </div>
+    <div class="max-w-none reveal">
+      <p class="mb-6 text-body">Last updated: July 6, 2026</p>
+      <h2 class="font-serif text-2xl font-bold text-brand-600 mt-8 mb-4">1. Information We Collect</h2>
+      <p class="mb-6 text-body">We collect information you provide directly to us, such as when you make a reservation, create an account, or contact us. This may include your name, email address, phone number, and payment information.</p>
+      <h2 class="font-serif text-2xl font-bold text-brand-600 mt-8 mb-4">2. How We Use Your Information</h2>
+      <p class="mb-6 text-body">We use the information we collect to provide, maintain, and improve our services, process transactions, send technical notices and support messages, and respond to your comments and questions.</p>
+      <h2 class="font-serif text-2xl font-bold text-brand-600 mt-8 mb-4">3. Information Sharing</h2>
+      <p class="mb-6 text-body">We do not share your personal information with third parties except as described in this policy. We may share information with vendors and service providers who perform services on our behalf.</p>
+      <h2 class="font-serif text-2xl font-bold text-brand-600 mt-8 mb-4">4. Data Security</h2>
+      <p class="mb-6 text-body">We take reasonable measures to help protect your personal information from loss, theft, misuse, unauthorized access, disclosure, alteration, and destruction.</p>
+      <h2 class="font-serif text-2xl font-bold text-brand-600 mt-8 mb-4">5. Contact Us</h2>
+      <p class="mb-6 text-body">If you have any questions about this Privacy Policy, please contact us at privacy@themother.ae.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== TERMS PAGE ==================== -->
+<div id="page-terms" class="page">
+  <section class="pt-32 pb-24 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto section-warm">
+    <div class="text-center mb-16 reveal">
+      <p class="text-brand-600 tracking-[0.3em] text-sm mb-4 font-sc">// LEGAL //</p>
+      <h1 class="font-serif text-5xl md:text-6xl font-bold mb-6 text-heading">Terms & <span class="text-gradient">Conditions</span></h1>
+    </div>
+    <div class="max-w-none reveal">
+      <p class="mb-6 text-body">Last updated: July 6, 2026</p>
+      <h2 class="font-serif text-2xl font-bold text-brand-600 mt-8 mb-4">1. Acceptance of Terms</h2>
+      <p class="mb-6 text-body">By accessing and using The Mother Restaurant website, you accept and agree to be bound by the terms and provision of this agreement.</p>
+      <h2 class="font-serif text-2xl font-bold text-brand-600 mt-8 mb-4">2. Reservations</h2>
+      <p class="mb-6 text-body">All reservations are subject to availability. We require a valid credit card to hold your reservation. Cancellations must be made at least 24 hours in advance.</p>
+      <h2 class="font-serif text-2xl font-bold text-brand-600 mt-8 mb-4">3. Intellectual Property</h2>
+      <p class="mb-6 text-body">All content on this website, including text, graphics, logos, and images, is the property of The Mother Restaurant and is protected by UAE and international copyright laws.</p>
+      <h2 class="font-serif text-2xl font-bold text-brand-600 mt-8 mb-4">4. Limitation of Liability</h2>
+      <p class="mb-6 text-body">The Mother Restaurant shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of our services.</p>
+    </div>
+  </section>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="site-footer pt-20 pb-8 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+      <div>
+        <div class="logo-container mb-6">
+          <div>
+            <div class="logo-the" style="color:#f9f3e8">THE</div>
+            <div class="logo-m" style="color:#d98f7c">m</div>
+          </div>
+          <div class="logo-circle">
+            <div class="logo-circle-text">LOVE IS<br>HER SECRET<br>INGREDIENT</div>
+          </div>
+          <div>
+            <div class="logo-m" style="color:#d98f7c">ther</div>
+            <div class="logo-restaurant" style="color:#f9f3e8">RESTAURANT</div>
+          </div>
+        </div>
+        <p class="text-gray-300 text-sm mb-6">Where love is the secret ingredient. Experience culinary excellence in the heart of the UAE.</p>
+        <div class="flex gap-3">
+          <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-600 transition"><i class="fab fa-facebook-f text-sm"></i></a>
+          <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-600 transition"><i class="fab fa-instagram text-sm"></i></a>
+          <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-600 transition"><i class="fab fa-twitter text-sm"></i></a>
+          <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-600 transition"><i class="fab fa-tiktok text-sm"></i></a>
+          <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-600 transition"><i class="fab fa-linkedin-in text-sm"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-serif text-lg font-bold mb-6">Quick Links</h4>
+        <ul class="space-y-3 text-sm text-gray-300">
+          <li><a href="#home" class="hover:text-brand-400 transition" data-page="home">Home</a></li>
+          <li><a href="#about" class="hover:text-brand-400 transition" data-page="about">About Us</a></li>
+          <li><a href="#menu" class="hover:text-brand-400 transition" data-page="menu">Menu</a></li>
+          <li><a href="#chef" class="hover:text-brand-400 transition" data-page="chef">Our Chef</a></li>
+          <li><a href="#gallery" class="hover:text-brand-400 transition" data-page="gallery">Gallery</a></li>
+          <li><a href="#reservation" class="hover:text-brand-400 transition" data-page="reservation">Reservations</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-serif text-lg font-bold mb-6">Services</h4>
+        <ul class="space-y-3 text-sm text-gray-300">
+          <li><a href="#catering" class="hover:text-brand-400 transition" data-page="catering">Catering</a></li>
+          <li><a href="#private" class="hover:text-brand-400 transition" data-page="private">Private Dining</a></li>
+          <li><a href="#blog" class="hover:text-brand-400 transition" data-page="blog">Blog</a></li>
+          <li><a href="#careers" class="hover:text-brand-400 transition" data-page="careers">Careers</a></li>
+          <li><a href="#contact" class="hover:text-brand-400 transition" data-page="contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-serif text-lg font-bold mb-6">Contact</h4>
+        <ul class="space-y-3 text-sm text-gray-300">
+          <li class="flex items-start gap-3"><i class="fas fa-map-marker-alt text-brand-400 mt-1"></i><span>Dubai Marina, Tower 1<br>Level 3, Dubai, UAE</span></li>
+          <li class="flex items-center gap-3"><i class="fas fa-phone text-brand-400"></i><span>+971 4 123 4567</span></li>
+          <li class="flex items-center gap-3"><i class="fas fa-envelope text-brand-400"></i><span>info@themother.ae</span></li>
+          <li class="flex items-center gap-3"><i class="fas fa-clock text-brand-400"></i><span>Mon-Sun: 12PM - 11PM</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="section-divider mb-8"></div>
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
+      <p>© 2026 The Mother Restaurant UAE. All rights reserved.</p>
+      <div class="flex gap-6">
+        <a href="#privacy" class="hover:text-brand-400 transition" data-page="privacy">Privacy Policy</a>
+        <a href="#terms" class="hover:text-brand-400 transition" data-page="terms">Terms & Conditions</a>
+        <a href="#faqs" class="hover:text-brand-400 transition" data-page="faqs">FAQs</a>
+        <a href="javascript:void(0)" onclick="toggleAdminPanel()" class="hover:text-brand-400 transition text-brand-600 font-semibold"><i class="fas fa-lock text-xs mr-1"></i>Admin Login</a>
+      </div>
+      <p>Made with <i class="fas fa-heart text-brand-400"></i> in the UAE</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ==================== ADMIN PORTAL AREA ==================== -->
+<div id="adminPortalContainer" class="hidden w-full bg-gray-100 relative z-[9000] border-t-8 border-gray-900" style="min-height: 100vh;">
+  
+  <!-- Admin Login Screen -->
+  <div id="adminLoginScreen" class="flex min-h-screen items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="w-full max-w-md space-y-8 bg-white p-6 sm:p-10 rounded-2xl shadow-xl">
+      <div class="text-center">
+        <div class="mx-auto w-16 h-16 bg-brand-600 rounded-full flex items-center justify-center mb-4">
+          <i class="fas fa-shield-alt text-white text-2xl"></i>
+        </div>
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900 font-serif">Admin Portal</h2>
+        <p class="mt-2 text-sm text-gray-600">Enter your credentials to access the dashboard</p>
+      </div>
+      <form class="mt-8 space-y-6" onsubmit="handleAdminLogin(event)">
+        <div class="space-y-4 rounded-md shadow-sm">
+          <div>
+            <label for="adminUser" class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+            <input id="adminUser" name="username" type="text" required class="admin-input" placeholder="Enter username (admin)">
+          </div>
+          <div>
+            <label for="adminPass" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <input id="adminPass" name="password" type="password" required class="admin-input" placeholder="Enter password (admin)">
+          </div>
+        </div>
+        <div id="adminLoginError" class="hidden text-sm text-red-600 text-center font-medium">Invalid username or password.</div>
+        <div>
+          <button type="submit" class="group relative flex w-full justify-center admin-btn-primary py-3">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+              <i class="fas fa-lock group-hover:text-brand-100"></i>
+            </span>
+            Sign In
+          </button>
+        </div>
+      </form>
+      <div class="text-center mt-4">
+        <button onclick="toggleAdminPanel()" class="text-sm text-gray-500 hover:text-gray-900 underline">Return to Website</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Dashboard Screen -->
+  <div id="adminDashboardScreen" class="hidden flex h-screen overflow-hidden text-gray-800 relative">
+    <!-- Admin Sidebar Overlay -->
+    <div id="adminSidebarOverlay" class="hidden fixed inset-0 bg-gray-900/50 z-[9400] md:hidden" onclick="toggleAdminSidebar()"></div>
+    
+    <!-- Sidebar -->
+    <aside id="adminSidebar" class="absolute md:relative w-64 h-full z-[9500] transform -translate-x-full md:translate-x-0 transition-transform duration-300 bg-gray-900 text-gray-300 flex flex-col flex-shrink-0">
+      <div class="h-16 flex items-center px-6 bg-gray-950 border-b border-gray-800">
+        <span class="text-white font-serif font-bold text-xl tracking-wider">THE MOTHER<span class="text-brand-600 text-sm ml-2 font-sans">ADMIN</span></span>
+      </div>
+      <div class="flex-1 overflow-y-auto py-4">
+        <nav class="space-y-1">
+          <button onclick="switchAdminTab('overview')" class="admin-nav-item active w-full flex items-center px-6 py-3 text-sm font-medium">
+            <i class="fas fa-chart-pie w-6"></i> Dashboard
+          </button>
+          <div class="px-6 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider mt-4">Management</div>
+          <button onclick="switchAdminTab('reservations')" class="admin-nav-item w-full flex items-center px-6 py-3 text-sm font-medium">
+            <i class="fas fa-calendar-alt w-6"></i> Reservations
+          </button>
+          <button onclick="switchAdminTab('categories')" class="admin-nav-item w-full flex items-center px-6 py-3 text-sm font-medium">
+            <i class="fas fa-tags w-6"></i> Menu Categories
+          </button>
+          <button onclick="switchAdminTab('menu')" class="admin-nav-item w-full flex items-center px-6 py-3 text-sm font-medium">
+            <i class="fas fa-utensils w-6"></i> Menu Items
+          </button>
+          <button onclick="switchAdminTab('chefs')" class="admin-nav-item w-full flex items-center px-6 py-3 text-sm font-medium">
+            <i class="fas fa-user-tie w-6"></i> Chefs
+          </button>
+          <div class="px-6 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider mt-4">Content</div>
+          <button onclick="switchAdminTab('gallery')" class="admin-nav-item w-full flex items-center px-6 py-3 text-sm font-medium">
+            <i class="fas fa-images w-6"></i> Gallery
+          </button>
+          <button onclick="switchAdminTab('blog')" class="admin-nav-item w-full flex items-center px-6 py-3 text-sm font-medium">
+            <i class="fas fa-newspaper w-6"></i> Blog Posts
+          </button>
+          <button onclick="switchAdminTab('reviews')" class="admin-nav-item w-full flex items-center px-6 py-3 text-sm font-medium">
+            <i class="fas fa-star w-6"></i> Reviews
+          </button>
+        </nav>
+      </div>
+      <div class="p-4 bg-gray-950 border-t border-gray-800">
+        <button onclick="adminLogout()" class="flex items-center text-gray-400 hover:text-white w-full px-2 py-2 text-sm font-medium transition">
+          <i class="fas fa-sign-out-alt w-6"></i> Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-screen overflow-hidden bg-gray-100 relative z-0">
+      <!-- Topbar -->
+      <header class="bg-white shadow-sm h-16 flex items-center justify-between px-4 sm:px-8 flex-shrink-0 z-10">
+        <div class="flex items-center gap-4">
+          <button class="md:hidden text-gray-500 hover:text-gray-700 focus:outline-none" onclick="toggleAdminSidebar()">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+          <h2 id="adminPageTitle" class="text-lg sm:text-xl font-bold text-gray-800 font-serif truncate max-w-[150px] sm:max-w-none">Dashboard Overview</h2>
+        </div>
+        <div class="flex items-center gap-3 sm:gap-6">
+          <button class="text-gray-400 hover:text-gray-600 relative">
+            <i class="fas fa-bell text-lg"></i>
+            <span class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full text-[10px] text-white flex items-center justify-center font-bold">3</span>
+          </button>
+          <div class="hidden sm:flex items-center gap-3 border-l pl-6">
+            <div class="w-8 h-8 rounded-full bg-brand-600 flex items-center justify-center text-white font-bold text-sm">A</div>
+            <span class="text-sm font-medium text-gray-700">Administrator</span>
+          </div>
+          <button onclick="toggleAdminPanel()" class="text-xs text-brand-600 font-semibold underline sm:ml-2 whitespace-nowrap"><i class="fas fa-external-link-alt"></i> <span class="hidden sm:inline">View Site</span></button>
+        </div>
+      </header>
+
+      <!-- Dynamic Content Area -->
+      <div class="flex-1 overflow-y-auto p-4 sm:p-8">
+        
+        <!-- Tab: Overview -->
+        <div id="admin-tab-overview" class="admin-tab-content active space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+              <div class="flex justify-between items-start mb-4">
+                <div><p class="text-sm text-gray-500 font-medium">Total Reservations</p><h3 class="text-3xl font-bold text-gray-800 mt-1">1,284</h3></div>
+                <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center"><i class="fas fa-calendar-check text-xl"></i></div>
+              </div>
+              <p class="text-sm text-green-600 flex items-center gap-1"><i class="fas fa-arrow-up"></i> 12% from last month</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+              <div class="flex justify-between items-start mb-4">
+                <div><p class="text-sm text-gray-500 font-medium">Active Menu Items</p><h3 class="text-3xl font-bold text-gray-800 mt-1" id="adminStatMenuCount">20</h3></div>
+                <div class="w-10 h-10 rounded-lg bg-brand-50 text-brand-600 flex items-center justify-center"><i class="fas fa-utensils text-xl"></i></div>
+              </div>
+              <p class="text-sm text-gray-500 flex items-center gap-1">Across 6 categories</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+              <div class="flex justify-between items-start mb-4">
+                <div><p class="text-sm text-gray-500 font-medium">Total Revenue</p><h3 class="text-3xl font-bold text-gray-800 mt-1">AED 45k</h3></div>
+                <div class="w-10 h-10 rounded-lg bg-green-50 text-green-600 flex items-center justify-center"><i class="fas fa-chart-line text-xl"></i></div>
+              </div>
+              <p class="text-sm text-green-600 flex items-center gap-1"><i class="fas fa-arrow-up"></i> 8.4% from last month</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+              <div class="flex justify-between items-start mb-4">
+                <div><p class="text-sm text-gray-500 font-medium">Avg Review Score</p><h3 class="text-3xl font-bold text-gray-800 mt-1">4.9</h3></div>
+                <div class="w-10 h-10 rounded-lg bg-yellow-50 text-yellow-500 flex items-center justify-center"><i class="fas fa-star text-xl"></i></div>
+              </div>
+              <p class="text-sm text-gray-500 flex items-center gap-1">Based on 342 reviews</p>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="px-6 py-5 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+              <h3 class="font-bold text-gray-800">Recent Reservations</h3>
+              <button onclick="switchAdminTab('reservations')" class="text-sm text-brand-600 font-medium hover:underline">View All</button>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full admin-table" id="overviewReservationsTable">
+                <!-- Generated by JS -->
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Reservations -->
+        <div id="admin-tab-reservations" class="admin-tab-content h-full flex flex-col">
+          <div class="bg-white rounded-xl shadow-sm border border-gray-100 flex-1 flex flex-col overflow-hidden">
+            <div class="p-4 border-b border-gray-100 flex flex-col sm:flex-row justify-between gap-4 items-center bg-gray-50">
+              <div class="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+                <input type="text" placeholder="Search by name, ID..." class="admin-input w-full sm:w-64">
+                <select class="admin-input w-full sm:w-40">
+                  <option>All Status</option><option>Pending</option><option>Confirmed</option><option>Completed</option><option>Cancelled</option>
+                </select>
+                <input type="date" class="admin-input w-full sm:w-40">
+              </div>
+              <button class="admin-btn admin-btn-primary w-full sm:w-auto justify-center" onclick="adminShowModal('addReservationModal')"><i class="fas fa-plus"></i> New Reservation</button>
+            </div>
+            <div class="flex-1 overflow-auto">
+              <table class="w-full admin-table" id="fullReservationsTable">
+                <!-- Generated by JS -->
+              </table>
+            </div>
+            <div class="p-4 border-t border-gray-100 flex justify-between items-center bg-gray-50 text-sm text-gray-500">
+              <span>Showing 1 to 5 of 24 entries</span>
+              <div class="flex gap-1">
+                <button class="px-3 py-1 border rounded hover:bg-gray-100 disabled:opacity-50" disabled>Prev</button>
+                <button class="px-3 py-1 border rounded bg-brand-600 text-white">1</button>
+                <button class="px-3 py-1 border rounded hover:bg-gray-100">2</button>
+                <button class="px-3 py-1 border rounded hover:bg-gray-100">3</button>
+                <button class="px-3 py-1 border rounded hover:bg-gray-100">Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Categories -->
+        <div id="admin-tab-categories" class="admin-tab-content h-full flex flex-col">
+          <div class="bg-white rounded-xl shadow-sm border border-gray-100 flex-1 flex flex-col overflow-hidden">
+            <div class="p-4 border-b border-gray-100 flex flex-col sm:flex-row justify-between gap-4 items-center bg-gray-50">
+              <input type="text" placeholder="Search categories..." class="admin-input w-full sm:w-64">
+              <button class="admin-btn admin-btn-primary w-full sm:w-auto justify-center" onclick="adminShowModal('genericModal', 'Add Category')"><i class="fas fa-plus"></i> Add Category</button>
+            </div>
+            <div class="flex-1 overflow-auto p-4 sm:p-6">
+              <div class="max-w-3xl space-y-3">
+                <!-- Mock Category List -->
+                <div class="flex items-center justify-between p-4 border rounded-lg hover:border-brand-600/50 transition bg-white shadow-sm">
+                  <div class="flex items-center gap-4">
+                    <i class="fas fa-grip-lines text-gray-400 cursor-move"></i>
+                    <div><h4 class="font-bold text-gray-800">Breakfast</h4><p class="text-xs text-gray-500">Slug: breakfast • 6 Items</p></div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <span class="admin-badge admin-badge-success">Active</span>
+                    <button class="text-blue-600 hover:text-blue-800 p-2"><i class="fas fa-edit"></i></button>
+                    <button class="text-red-600 hover:text-red-800 p-2"><i class="fas fa-trash"></i></button>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between p-4 border rounded-lg hover:border-brand-600/50 transition bg-white shadow-sm">
+                  <div class="flex items-center gap-4">
+                    <i class="fas fa-grip-lines text-gray-400 cursor-move"></i>
+                    <div><h4 class="font-bold text-gray-800">Lunch</h4><p class="text-xs text-gray-500">Slug: lunch • 3 Items</p></div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <span class="admin-badge admin-badge-success">Active</span>
+                    <button class="text-blue-600 hover:text-blue-800 p-2"><i class="fas fa-edit"></i></button>
+                    <button class="text-red-600 hover:text-red-800 p-2"><i class="fas fa-trash"></i></button>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between p-4 border rounded-lg hover:border-brand-600/50 transition bg-white shadow-sm">
+                  <div class="flex items-center gap-4">
+                    <i class="fas fa-grip-lines text-gray-400 cursor-move"></i>
+                    <div><h4 class="font-bold text-gray-800">Dinner</h4><p class="text-xs text-gray-500">Slug: dinner • 4 Items</p></div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <span class="admin-badge admin-badge-success">Active</span>
+                    <button class="text-blue-600 hover:text-blue-800 p-2"><i class="fas fa-edit"></i></button>
+                    <button class="text-red-600 hover:text-red-800 p-2"><i class="fas fa-trash"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab: Menu Items (DYNAMICALLY CONNECTED TO FRONTEND) -->
+        <div id="admin-tab-menu" class="admin-tab-content h-full flex flex-col">
+          <div class="bg-blue-50 border border-blue-200 text-blue-800 px-4 py-3 rounded-lg mb-6 flex gap-3">
+            <i class="fas fa-info-circle mt-1"></i>
+            <div><p class="font-semibold text-sm">Dynamic Frontend Integration Active</p><p class="text-xs mt-1">Changes made here (Adding or Deleting items) will instantly reflect on the live website Menu section during this session.</p></div>
+          </div>
+          <div class="bg-white rounded-xl shadow-sm border border-gray-100 flex-1 flex flex-col overflow-hidden">
+            <div class="p-4 border-b border-gray-100 flex flex-col sm:flex-row justify-between gap-4 items-center bg-gray-50">
+              <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                <input type="text" id="adminMenuSearch" placeholder="Search menu..." class="admin-input w-full sm:w-64" oninput="adminRenderMenuTable()">
+                <select id="adminMenuCatFilter" class="admin-input w-full sm:w-40" onchange="adminRenderMenuTable()">
+                  <option value="all">All Categories</option><option value="breakfast">Breakfast</option><option value="lunch">Lunch</option><option value="dinner">Dinner</option>
+                </select>
+              </div>
+              <button class="admin-btn admin-btn-primary w-full sm:w-auto justify-center" onclick="adminShowAddMenuModal()"><i class="fas fa-plus"></i> Add Menu Item</button>
+            </div>
+            <div class="flex-1 overflow-auto">
+              <table class="w-full admin-table" id="fullMenuTable">
+                <!-- Generated by JS -->
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabs: Placeholder for Others (Chefs, Gallery, Blog, Reviews) -->
+        <div id="admin-tab-chefs" class="admin-tab-content"><div class="bg-white p-12 rounded-xl text-center border border-gray-200 shadow-sm"><i class="fas fa-user-tie text-5xl text-gray-300 mb-4"></i><h3 class="text-xl font-bold text-gray-700">Chef Management</h3><p class="text-gray-500 mt-2">Manage chef profiles, images, and display order.</p><button class="admin-btn admin-btn-primary mt-6" onclick="adminShowModal('genericModal', 'Add Chef')">Add New Chef</button></div></div>
+        <div id="admin-tab-gallery" class="admin-tab-content"><div class="bg-white p-12 rounded-xl text-center border border-gray-200 shadow-sm"><i class="fas fa-images text-5xl text-gray-300 mb-4"></i><h3 class="text-xl font-bold text-gray-700">Gallery Management</h3><p class="text-gray-500 mt-2">Upload multiple images, create categories, and sort.</p><button class="admin-btn admin-btn-primary mt-6" onclick="adminShowModal('genericModal', 'Upload Images')">Upload Images</button></div></div>
+        <div id="admin-tab-blog" class="admin-tab-content"><div class="bg-white p-12 rounded-xl text-center border border-gray-200 shadow-sm"><i class="fas fa-newspaper text-5xl text-gray-300 mb-4"></i><h3 class="text-xl font-bold text-gray-700">Blog Management</h3><p class="text-gray-500 mt-2">Create rich-text blog posts, set featured images, and publish.</p><button class="admin-btn admin-btn-primary mt-6" onclick="adminShowModal('genericModal', 'Create Post')">Create New Post</button></div></div>
+        <div id="admin-tab-reviews" class="admin-tab-content"><div class="bg-white p-12 rounded-xl text-center border border-gray-200 shadow-sm"><i class="fas fa-star text-5xl text-gray-300 mb-4"></i><h3 class="text-xl font-bold text-gray-700">Review Management</h3><p class="text-gray-500 mt-2">Add, moderate, and sort customer reviews and ratings.</p><button class="admin-btn admin-btn-primary mt-6" onclick="adminShowModal('genericModal', 'Add Review')">Add Custom Review</button></div></div>
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Admin Universal Modals -->
+<div id="adminGenericModal" class="hidden fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-[20000] flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+  <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden transform scale-95 transition-transform duration-300">
+    <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+      <h3 id="adminModalTitle" class="font-bold text-gray-800 text-lg font-serif">Modal Title</h3>
+      <button onclick="adminCloseModal('adminGenericModal')" class="text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
+    </div>
+    <div class="p-6">
+      <p class="text-gray-500 mb-6">This is a simulated management form. In a real environment, this would save data to the server database.</p>
+      <div class="space-y-4">
+        <div><label class="block text-sm font-medium text-gray-700 mb-1">Name / Title</label><input type="text" class="admin-input"></div>
+        <div><label class="block text-sm font-medium text-gray-700 mb-1">Description / Content</label><textarea class="admin-input" rows="3"></textarea></div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Image Upload</label>
+          <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:bg-gray-50 cursor-pointer transition">
+            <i class="fas fa-cloud-upload-alt text-gray-400 text-3xl mb-2"></i>
+            <p class="text-sm text-gray-500">Click to upload or drag and drop</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 mt-2">
+          <input type="checkbox" id="mockActive" checked class="w-4 h-4 text-brand-600 rounded border-gray-300 focus:ring-brand-600">
+          <label for="mockActive" class="text-sm text-gray-700">Active / Published</label>
+        </div>
+      </div>
+    </div>
+    <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex justify-end gap-3">
+      <button onclick="adminCloseModal('adminGenericModal')" class="admin-btn admin-btn-secondary">Cancel</button>
+      <button onclick="adminSimulateSave('adminGenericModal')" class="admin-btn admin-btn-primary">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Admin Add/Edit Menu Modal -->
+<div id="adminMenuModal" class="hidden fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-[20000] flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+  <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl overflow-hidden transform scale-95 transition-transform duration-300 max-h-[90vh] flex flex-col">
+    <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50 flex-shrink-0">
+      <h3 class="font-bold text-gray-800 text-lg font-serif">Add Menu Item</h3>
+      <button onclick="adminCloseModal('adminMenuModal')" class="text-gray-400 hover:text-gray-600"><i class="fas fa-times text-xl"></i></button>
+    </div>
+    <div class="p-6 overflow-y-auto flex-1">
+      <form id="adminMenuForm" class="space-y-5" onsubmit="adminSaveMenu(event)">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div class="col-span-1 sm:col-span-2"><label class="block text-sm font-medium text-gray-700 mb-1">Dish Name *</label><input type="text" id="addMenuName" required class="admin-input" placeholder="e.g., Spicy Chicken Wings"></div>
+          <div><label class="block text-sm font-medium text-gray-700 mb-1">Category *</label>
+            <select id="addMenuCat" required class="admin-input">
+              <option value="breakfast">Breakfast</option><option value="lunch">Lunch</option><option value="dinner">Dinner</option><option value="beverages">Beverages</option><option value="desserts">Desserts</option>
+            </select>
+          </div>
+          <div><label class="block text-sm font-medium text-gray-700 mb-1">Price (AED) *</label><input type="number" id="addMenuPrice" required class="admin-input" placeholder="e.g., 45"></div>
+          <div class="col-span-1 sm:col-span-2"><label class="block text-sm font-medium text-gray-700 mb-1">Short Description</label><textarea id="addMenuDesc" class="admin-input" rows="2" placeholder="Brief description of the dish..."></textarea></div>
+          <div class="col-span-1 sm:col-span-2">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Featured Image URL</label>
+            <input type="url" id="addMenuImg" class="admin-input" value="https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/15a60d4b5-5cda-45a1-bfa0-bbd4d224d6ce.png">
+            <p class="text-xs text-gray-500 mt-1">For this demo, using a default image URL.</p>
+          </div>
+          <div class="col-span-1 sm:col-span-2 flex flex-col sm:flex-row gap-4 border-t pt-4 mt-2">
+             <div class="flex items-center gap-2"><input type="checkbox" id="addMenuVeg" class="w-4 h-4 text-brand-600 rounded border-gray-300"><label class="text-sm text-gray-700">Vegetarian</label></div>
+             <div class="flex items-center gap-2"><input type="checkbox" id="addMenuSig" class="w-4 h-4 text-brand-600 rounded border-gray-300"><label class="text-sm text-gray-700">Signature Dish (Home Page)</label></div>
+             <div class="flex items-center gap-2"><input type="checkbox" id="addMenuAvail" checked class="w-4 h-4 text-brand-600 rounded border-gray-300"><label class="text-sm text-gray-700">Currently Available</label></div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 flex justify-end gap-3 flex-shrink-0">
+      <button type="button" onclick="adminCloseModal('adminMenuModal')" class="admin-btn admin-btn-secondary">Cancel</button>
+      <button type="submit" form="adminMenuForm" class="admin-btn admin-btn-primary">Add Dish to Live Site</button>
+    </div>
+  </div>
+</div>
+
+<!-- Admin Action Confirm Modal -->
+<div id="adminConfirmModal" class="hidden fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-[20000] flex items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+  <div class="bg-white rounded-xl shadow-2xl w-full max-w-sm p-6 text-center transform scale-95 transition-transform duration-300">
+    <div class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fas fa-exclamation-triangle text-2xl"></i></div>
+    <h3 class="text-lg font-bold text-gray-900 mb-2">Delete Item?</h3>
+    <p class="text-gray-500 text-sm mb-6">Are you sure you want to delete this item? This action cannot be undone.</p>
+    <div class="flex justify-center gap-3">
+      <button onclick="adminCloseModal('adminConfirmModal')" class="admin-btn admin-btn-secondary w-full justify-center">Cancel</button>
+      <button id="adminConfirmBtn" class="admin-btn admin-btn-danger w-full justify-center">Delete</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/971501234567" target="_blank" class="whatsapp-float animate-pulse-brand">
+  <i class="fab fa-whatsapp text-white text-3xl"></i>
+</a>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()">
+  <button class="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-600 transition" onclick="closeLightbox()"><i class="fas fa-times text-xl"></i></button>
+  <button class="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-600 transition" onclick="event.stopPropagation(); navigateLightbox(-1)"><i class="fas fa-chevron-left"></i></button>
+  <img id="lightboxImg" class="max-w-[90vw] max-h-[90vh] object-contain rounded-lg" onclick="event.stopPropagation()" alt="Lightbox">
+  <button class="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 flex items-center justify-center hover:bg-brand-600 transition" onclick="event.stopPropagation(); navigateLightbox(1)"><i class="fas fa-chevron-right"></i></button>
+</div>
+
+<!-- Toast Notification -->
+<div id="toast" class="fixed bottom-24 right-8 px-6 py-4 rounded-xl shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300 z-[200] flex items-center gap-3">
+  <i class="fas fa-check-circle text-xl"></i>
+  <span id="toastMsg">Success!</span>
+</div>
+
+<script>
+// Admin Sidebar Toggle
+function toggleAdminSidebar() {
+  const sidebar = document.getElementById('adminSidebar');
+  const overlay = document.getElementById('adminSidebarOverlay');
+  if (sidebar && overlay) {
+    sidebar.classList.toggle('-translate-x-full');
+    overlay.classList.toggle('hidden');
+  }
+}
+
+// Menu Data - AED Prices
+const menuItems = [
+  { name: "Golden Stack Delight", price: "AED 28", category: "breakfast", img: "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/122cb4f5a-aaf0-446f-9815-e7cb22898671.png", desc: "Warm pancakes layered with butter and honey", tags: ["vegetarian"] },
+  { name: "Choco Drizzle Stack", price: "AED 35", category: "breakfast", img: "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/1b10ba48c-4ce5-4bb5-96e7-c56d36806f4e.png", desc: "Fluffy pancakes finished with chocolate sauce", tags: ["vegetarian"] },
+  { name: "Vanilla Pancakes", price: "AED 31", category: "breakfast", img: "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/122cb4f5a-aaf0-446f-9815-e7cb22898671.png", desc: "Delicate vanilla-flavored pancakes with cream", tags: ["vegetarian"] },
+  { name: "Classic Maple Morning", price: "AED 25", category: "breakfast", img: "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/122cb4f5a-aaf0-446f-9815-e7cb22898671.png", desc: "Traditional pancakes with rich maple syrup", tags: ["vegetarian"] },
+  { name: "Berry Bliss Pancakes", price: "AED 33", category: "breakfast", img: "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/122cb4f5a-aaf0-446f-9815-e7cb22898671.png", desc: "Soft pancakes topped with fresh berries", tags: ["vegetarian"] },
+  { name: "Cloud-Soft Pancakes", price: "AED 18", category: "breakfast", img: "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/122cb4f5a-aaf0-446f-9815-e7cb22898671.png", desc: "Light & fluffy pancakes with pure syrup", tags: ["vegetarian"] },
+  { name: "Truffle Linguine", price: "AED 285", category: "lunch", img: "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12fc75675-69ca-44cd-9160-b39c06707a56.png", desc: "Fresh pasta with black truffle and parmesan", tags: ["vegetarian"] },
+  { name: "Caesar Salad", price: "AED 88", category: "lunch", img: "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12fc75675-69ca-44cd-9160-b39c06707a56.png", desc: "Crisp romaine with parmesan and croutons", tags: ["vegetarian"] },
+  { name: "Grilled Salmon", price: "AED 240", category: "lunch", img: "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/10485313a-d148-4002-8f1c-a6ae8f81073b.png", desc: "Atlantic salmon with lemon butter sauce", tags: [] },
+  { name: "Wagyu Beef Tenderloin", price: "AED 680", category: "dinner", img: "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/15a60d4b5-5cda-45a1-bfa0-bbd4d224d6ce.png", desc: "A5 Wagyu with gold leaf and truffle mash", tags: [] },
+  { name: "Tomahawk Ribeye", price: "AED 605", category: "dinner", img: "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/14b81e7b6-372b-4e30-9817-1e3ccd928685.png", desc: "45-day aged ribeye with roasted vegetables", tags: [] },
+  { name: "Lobster Thermidor", price: "AED 460", category: "dinner", img: "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/10485313a-d148-4002-8f1c-a6ae8f81073b.png", desc: "Whole lobster with creamy mustard sauce", tags: [] },
+  { name: "Omakase Sushi Platter", price: "AED 530", category: "dinner", img: "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/10485313a-d148-4002-8f1c-a6ae8f81073b.png", desc: "Premium fish selection with gold accents", tags: [] },
+  { name: "Karak Chai Special", price: "AED 33", category: "beverages", img: "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/10b5f54c1-f10a-4c16-8bbf-16fed3a852f0.png", desc: "Traditional UAE spiced milk tea", tags: ["vegetarian"] },
+  { name: "Arabic Coffee", price: "AED 25", category: "beverages", img: "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/10b5f54c1-f10a-4c16-8bbf-16fed3a852f0.png", desc: "Traditional Gulf coffee with cardamom", tags: ["vegetarian"] },
+  { name: "Fresh Mint Lemonade", price: "AED 28", category: "beverages", img: "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/10b5f54c1-f10a-4c16-8bbf-16fed3a852f0.png", desc: "Fresh mint and lime refresher", tags: ["vegetarian"] },
+  { name: "Tropical Paradise", price: "AED 45", category: "beverages", img: "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/10b5f54c1-f10a-4c16-8bbf-16fed3a852f0.png", desc: "Exotic fruit cocktail blend", tags: ["vegetarian"] },
+  { name: "Chocolate Lava Cake", price: "AED 105", category: "desserts", img: "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/1b10ba48c-4ce5-4bb5-96e7-c56d36806f4e.png", desc: "Dark chocolate fondant with vanilla ice cream", tags: ["vegetarian"] },
+  { name: "Um Ali", price: "AED 65", category: "desserts", img: "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/1b10ba48c-4ce5-4bb5-96e7-c56d36806f4e.png", desc: "Traditional Egyptian bread pudding", tags: ["vegetarian"] },
+  { name: "Kunafa", price: "AED 58", category: "desserts", img: "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/1b10ba48c-4ce5-4bb5-96e7-c56d36806f4e.png", desc: "Cheese pastry with sweet syrup", tags: ["vegetarian"] },
+];
+
+let currentFilter = 'all';
+let currentLightboxIndex = 0;
+const galleryImages = [
+  "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/15a60d4b5-5cda-45a1-bfa0-bbd4d224d6ce.png",
+  "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12a52d6a9-5bfb-4542-9f8e-dad7ae88b00b.png",
+  "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/10485313a-d148-4002-8f1c-a6ae8f81073b.png",
+  "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/14b81e7b6-372b-4e30-9817-1e3ccd928685.png",
+  "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12fc75675-69ca-44cd-9160-b39c06707a56.png",
+  "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/1b10ba48c-4ce5-4bb5-96e7-c56d36806f4e.png",
+  "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/1b0c75629-7e42-4904-9acc-b7da012e0f36.png",
+  "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/13ef415fa-00e1-4e70-992e-50cd0981097e.png",
+  "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/122cb4f5a-aaf0-446f-9815-e7cb22898671.png",
+  "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/10b5f54c1-f10a-4c16-8bbf-16fed3a852f0.png",
+  "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/12a52d6a9-5bfb-4542-9f8e-dad7ae88b00b.png",
+  "https://image.qwenlm.ai/public_source/0988f4f3-c95a-4b8e-8585-3575d69c4c4f/15a60d4b5-5cda-45a1-bfa0-bbd4d224d6ce.png"
+];
+
+// Theme Management
+function initTheme() {
+  const saved = localStorage.getItem('theme');
+  if (saved === 'dark') {
+    document.documentElement.classList.add('dark');
+    updateThemeIcon(true);
+  } else {
+    document.documentElement.classList.remove('dark');
+    updateThemeIcon(false);
+  }
+}
+
+function updateThemeIcon(isDark) {
+  const icon = document.getElementById('themeIcon');
+  if (!icon) return;
+  if (isDark) {
+    icon.className = 'fas fa-moon text-brand-400 text-sm theme-icon';
+  } else {
+    icon.className = 'fas fa-sun text-brand-600 text-sm theme-icon';
+  }
+}
+
+function toggleTheme() {
+  const isDark = document.documentElement.classList.toggle('dark');
+  try { localStorage.setItem('theme', isDark ? 'dark' : 'light'); } catch(e) {}
+  updateThemeIcon(isDark);
+  const icon = document.getElementById('themeIcon');
+  icon.classList.add('rotating');
+  setTimeout(() => icon.classList.remove('rotating'), 500);
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+  try {
+    initTheme();
+  } catch(e) { console.log(e); }
+  
+  setTimeout(function() {
+    var loader = document.getElementById('loader');
+    if (loader) loader.classList.add('hidden');
+  }, 1200);
+
+  renderMenu();
+  renderMenuTabContent('all');
+
+  startHeroSlider();
+  startTestimonialSlider();
+  setupNavigation();
+  setupThemeToggle();
+  setupMobileMenu();
+  setupGalleryFilters();
+  setupScrollEffects();
+  setupRevealObserver();
+});
+
+// Page Navigation
+function showPage(pageId) {
+  var pages = document.querySelectorAll('.page');
+  for (var i = 0; i < pages.length; i++) pages[i].classList.remove('active');
+  var page = document.getElementById('page-' + pageId);
+  if (page) {
+    page.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(function() {
+      var reveals = page.querySelectorAll('.reveal');
+      for (var i = 0; i < reveals.length; i++) reveals[i].classList.add('visible');
+    }, 100);
+  }
+  var mobileMenu = document.getElementById('mobileMenu');
+  if (mobileMenu) mobileMenu.classList.remove('active');
+}
+
+function setupNavigation() {
+  var links = document.querySelectorAll('[data-page]');
+  for (var i = 0; i < links.length; i++) {
+    links[i].addEventListener('click', function(e) {
+      e.preventDefault();
+      var page = this.getAttribute('data-page');
+      showPage(page);
+      window.location.hash = page;
+    });
+  }
+  var hash = window.location.hash.replace('#', '');
+  if (hash && document.getElementById('page-' + hash)) {
+    showPage(hash);
+  }
+}
+
+function setupThemeToggle() {
+  var toggle = document.getElementById('themeToggle');
+  if (toggle) {
+    toggle.addEventListener('click', toggleTheme);
+  }
+}
+
+function setupMobileMenu() {
+  var btn = document.getElementById('mobileMenuBtn');
+  var menu = document.getElementById('mobileMenu');
+  var closeBtn = document.getElementById('closeMobileMenu');
+  if (btn) btn.addEventListener('click', function() { if (menu) menu.classList.add('active'); });
+  if (closeBtn) closeBtn.addEventListener('click', function() { if (menu) menu.classList.remove('active'); });
+  var mobileLinks = document.querySelectorAll('.mobile-link');
+  for (var i = 0; i < mobileLinks.length; i++) {
+    mobileLinks[i].addEventListener('click', function() { if (menu) menu.classList.remove('active'); });
+  }
+}
+
+var currentSlide = 0;
+function startHeroSlider() {
+  var slides = document.querySelectorAll('.hero-slide');
+  var dots = document.querySelectorAll('.slider-dot');
+  function goToSlide(index) {
+    for (var i = 0; i < slides.length; i++) slides[i].classList.remove('active');
+    for (var i = 0; i < dots.length; i++) { dots[i].classList.remove('active'); dots[i].style.background = 'rgba(184, 117, 106, 0.5)'; }
+    slides[index].classList.add('active');
+    dots[index].classList.add('active');
+    dots[index].style.background = '#b8756a';
+    currentSlide = index;
+  }
+  for (var i = 0; i < dots.length; i++) {
+    (function(idx) {
+      dots[idx].addEventListener('click', function() { goToSlide(idx); });
+    })(i);
+  }
+  var arrows = document.querySelectorAll('.slider-arrow');
+  for (var i = 0; i < arrows.length; i++) {
+    arrows[i].addEventListener('click', function() {
+      var dir = this.getAttribute('data-dir');
+      var next = dir === 'next' ? (currentSlide + 1) % slides.length : (currentSlide - 1 + slides.length) % slides.length;
+      goToSlide(next);
+    });
+  }
+  setInterval(function() {
+    goToSlide((currentSlide + 1) % slides.length);
+  }, 6000);
+}
+
+var currentTestimonial = 0;
+function startTestimonialSlider() {
+  var slides = document.querySelectorAll('.testimonial-slide');
+  var dots = document.querySelectorAll('.testimonial-dot');
+  function goToTestimonial(index) {
+    for (var i = 0; i < slides.length; i++) slides[i].classList.remove('active');
+    for (var i = 0; i < dots.length; i++) { dots[i].classList.remove('bg-brand-600'); dots[i].classList.add('bg-brand-600/30'); }
+    slides[index].classList.add('active');
+    dots[index].classList.remove('bg-brand-600/30');
+    dots[index].classList.add('bg-brand-600');
+    currentTestimonial = index;
+  }
+  for (var i = 0; i < dots.length; i++) {
+    (function(idx) {
+      dots[idx].addEventListener('click', function() { goToTestimonial(idx); });
+    })(i);
+  }
+  setInterval(function() {
+    goToTestimonial((currentTestimonial + 1) % slides.length);
+  }, 5000);
+}
+
+// Menu Tab Switching
+function switchMenuTab(category, btn) {
+  var tabs = document.querySelectorAll('.category-tab');
+  for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
+  btn.classList.add('active');
+  
+  var content = document.getElementById('menuTabContent');
+  content.style.opacity = '0';
+  content.style.transform = 'translateY(10px)';
+  
+  setTimeout(function() {
+    renderMenuTabContent(category);
+    content.style.transition = 'all 0.4s ease';
+    content.style.opacity = '1';
+    content.style.transform = 'translateY(0)';
+  }, 200);
+}
+
+function renderMenuTabContent(category) {
+  var content = document.getElementById('menuTabContent');
+  var filtered = category === 'all' ? menuItems : menuItems.filter(function(item) { return item.category === category; });
+  
+  var html = '';
+  for (var i = 0; i < filtered.length; i++) {
+    var item = filtered[i];
+    html += '<div class="dish-card tab-content" style="animation-delay: ' + (i * 0.05) + 's" onclick="showPage(\'menu-detail\')">' +
+      '<div class="relative overflow-hidden aspect-[4/3]">' +
+        '<img src="' + item.img + '" class="dish-img w-full h-full object-cover" alt="' + item.name + '">' +
+        '<div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>' +
+        '<div class="absolute top-3 right-3 bg-brand-600 text-white px-2 py-1 rounded-full text-xs font-bold uppercase">' + item.category + '</div>' +
+        (item.tags.indexOf('vegetarian') !== -1 ? '<div class="absolute top-3 left-3 bg-green-600 text-white px-2 py-1 rounded-full text-xs font-bold"><i class="fas fa-leaf mr-1"></i>VEG</div>' : '') +
+      '</div>' +
+      '<div class="p-5">' +
+        '<h3 class="font-serif text-lg font-bold mb-1 text-heading">' + item.name + '</h3>' +
+        '<p class="text-muted text-xs mb-3" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + item.desc + '</p>' +
+        '<div class="flex justify-between items-center">' +
+          '<span class="text-brand-600 font-serif text-lg font-bold">' + item.price + '</span>' +
+          '<button class="text-xs text-muted hover:text-brand-600 transition inline-flex items-center gap-1">View <i class="fas fa-arrow-right"></i></button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+  content.innerHTML = html;
+}
+
+// Menu Rendering
+function renderMenu() {
+  var grid = document.getElementById('menuGrid');
+  if (!grid) return;
+  var searchEl = document.getElementById('menuSearch');
+  var search = searchEl ? searchEl.value.toLowerCase() : '';
+  var filtered = menuItems.filter(function(item) {
+    var matchesFilter = currentFilter === 'all' || item.category === currentFilter;
+    var matchesSearch = item.name.toLowerCase().indexOf(search) !== -1 || item.desc.toLowerCase().indexOf(search) !== -1;
+    return matchesFilter && matchesSearch;
+  });
+  var html = '';
+  for (var i = 0; i < filtered.length; i++) {
+    var item = filtered[i];
+    html += '<div class="menu-card glass-card rounded-2xl overflow-hidden reveal visible" onclick="showPage(\'menu-detail\')">' +
+      '<div class="relative overflow-hidden aspect-[4/3]">' +
+        '<img src="' + item.img + '" class="menu-img w-full h-full object-cover" alt="' + item.name + '">' +
+        '<div class="absolute top-3 right-3 bg-brand-600 text-white px-2 py-1 rounded-full text-xs font-bold">' + item.category.toUpperCase() + '</div>' +
+      '</div>' +
+      '<div class="p-5">' +
+        '<h3 class="font-serif text-xl font-bold mb-2 text-heading">' + item.name + '</h3>' +
+        '<p class="text-muted text-sm mb-3">' + item.desc + '</p>' +
+        '<div class="flex justify-between items-center">' +
+          '<span class="text-brand-600 font-serif text-xl font-bold">' + item.price + '</span>' +
+          '<button class="text-xs text-muted hover:text-brand-600 transition">View <i class="fas fa-arrow-right ml-1"></i></button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+  grid.innerHTML = html;
+}
+
+function setFilter(filter) {
+  currentFilter = filter;
+  var btns = document.querySelectorAll('.filter-btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.remove('active');
+    if (btns[i].getAttribute('data-filter') === filter) btns[i].classList.add('active');
+  }
+  renderMenu();
+}
+
+function filterMenu() { renderMenu(); }
+
+function setupGalleryFilters() {
+  var btns = document.querySelectorAll('.gallery-filter');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener('click', function() {
+      for (var j = 0; j < btns.length; j++) {
+        btns[j].classList.remove('active', 'bg-brand-600', 'text-white', 'font-semibold');
+        btns[j].classList.add('border', 'border-brand-600/30', 'text-body');
+      }
+      this.classList.add('active', 'bg-brand-600', 'text-white', 'font-semibold');
+      this.classList.remove('border', 'border-brand-600/30', 'text-body');
+      var category = this.getAttribute('data-gallery');
+      var items = document.querySelectorAll('#galleryGrid .gallery-item');
+      for (var j = 0; j < items.length; j++) {
+        items[j].style.display = (category === 'all' || items[j].getAttribute('data-category') === category) ? 'block' : 'none';
+      }
+    });
+  }
+}
+
+function openLightbox(index) {
+  currentLightboxIndex = index;
+  document.getElementById('lightboxImg').src = galleryImages[index];
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+function navigateLightbox(dir) {
+  currentLightboxIndex = (currentLightboxIndex + dir + galleryImages.length) % galleryImages.length;
+  document.getElementById('lightboxImg').src = galleryImages[currentLightboxIndex];
+}
+
+function toggleFaq(btn) {
+  var content = btn.nextElementSibling;
+  var icon = btn.querySelector('i');
+  content.classList.toggle('hidden');
+  icon.style.transform = content.classList.contains('hidden') ? 'rotate(0)' : 'rotate(180deg)';
+}
+
+function handleReservation(e) { e.preventDefault(); showToast('Reservation confirmed! Check your email for details.'); e.target.reset(); }
+function handleContact(e) { e.preventDefault(); showToast('Message sent successfully! We\'ll get back to you soon.'); e.target.reset(); }
+function handleNewsletter(e) { e.preventDefault(); showToast('Successfully subscribed to our newsletter!'); e.target.reset(); }
+function handleCatering(e) { e.preventDefault(); showToast('Catering request submitted! We\'ll contact you within 24 hours.'); e.target.reset(); }
+
+function showToast(msg) {
+  var toast = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  toast.style.transform = 'translateY(0)';
+  toast.style.opacity = '1';
+  setTimeout(function() {
+    toast.style.transform = 'translateY(20px)';
+    toast.style.opacity = '0';
+  }, 3000);
+}
+
+// ==================== ADMIN DASHBOARD LOGIC ====================
+
+// Admin Mock Data
+let adminState = {
+  isLoggedIn: false,
+  reservations: [
+    { id: 'RES-1042', name: 'Michael Robinson', date: '2026-07-08', time: '19:30', guests: 4, status: 'Confirmed' },
+    { id: 'RES-1043', name: 'Emma Davis', date: '2026-07-08', time: '20:00', guests: 2, status: 'Pending' },
+    { id: 'RES-1044', name: 'Ahmed Khalifa', date: '2026-07-09', time: '13:00', guests: 6, status: 'Confirmed' },
+    { id: 'RES-1045', name: 'Sarah Mitchell', date: '2026-07-09', time: '21:00', guests: 2, status: 'Cancelled' },
+    { id: 'RES-1046', name: 'David Chen', date: '2026-07-10', time: '19:00', guests: 8, status: 'Completed' }
+  ]
+};
+
+// Toggle Main Portal Overlay
+function toggleAdminPanel(e) {
+  if (e) e.preventDefault();
+  const portal = document.getElementById('adminPortalContainer');
+  portal.classList.toggle('hidden');
+  
+  if (!portal.classList.contains('hidden')) {
+    // Scroll to portal
+    window.scrollTo({ top: portal.offsetTop, behavior: 'smooth' });
+    document.body.style.overflow = 'hidden'; // Lock main scroll
+    
+    // Show correct screen based on auth
+    if(adminState.isLoggedIn) {
+      document.getElementById('adminLoginScreen').classList.add('hidden');
+      document.getElementById('adminDashboardScreen').classList.remove('hidden');
+      adminRenderAll();
+    } else {
+      document.getElementById('adminLoginScreen').classList.remove('hidden');
+      document.getElementById('adminDashboardScreen').classList.add('hidden');
+    }
+  } else {
+    document.body.style.overflow = ''; // Unlock main scroll
+  }
+}
+
+// Handle Login
+function handleAdminLogin(e) {
+  e.preventDefault();
+  const user = document.getElementById('adminUser').value;
+  const pass = document.getElementById('adminPass').value;
+  
+  if(user === 'admin' && pass === 'admin') {
+    adminState.isLoggedIn = true;
+    document.getElementById('adminLoginError').classList.add('hidden');
+    document.getElementById('adminLoginScreen').classList.add('hidden');
+    document.getElementById('adminDashboardScreen').classList.remove('hidden');
+    adminRenderAll();
+  } else {
+    document.getElementById('adminLoginError').classList.remove('hidden');
+  }
+}
+
+function adminLogout() {
+  adminState.isLoggedIn = false;
+  document.getElementById('adminLoginScreen').classList.remove('hidden');
+  document.getElementById('adminDashboardScreen').classList.add('hidden');
+  document.getElementById('adminUser').value = '';
+  document.getElementById('adminPass').value = '';
+}
+
+// Tab Switching
+const tabTitles = {
+  'overview': 'Dashboard Overview',
+  'reservations': 'Reservation Management',
+  'categories': 'Menu Categories',
+  'menu': 'Menu Management',
+  'chefs': 'Chef Profiles',
+  'gallery': 'Gallery Management',
+  'blog': 'Blog Articles',
+  'reviews': 'Customer Reviews'
+};
+
+function switchAdminTab(tabId) {
+  // Update nav UI
+  document.querySelectorAll('.admin-nav-item').forEach(el => el.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  
+  // Update content UI
+  document.querySelectorAll('.admin-tab-content').forEach(el => el.classList.remove('active'));
+  document.getElementById('admin-tab-' + tabId).classList.add('active');
+  
+  // Update Title
+  document.getElementById('adminPageTitle').textContent = tabTitles[tabId];
+
+  // Close sidebar on mobile after selection
+  if (window.innerWidth < 768) {
+    const sidebar = document.getElementById('adminSidebar');
+    if (sidebar && !sidebar.classList.contains('-translate-x-full')) {
+      toggleAdminSidebar();
+    }
+  }
+}
+
+// Rendering Logic
+function adminRenderAll() {
+  adminRenderReservations();
+  adminRenderMenuTable();
+  document.getElementById('adminStatMenuCount').textContent = menuItems.length;
+}
+
+function getStatusBadge(status) {
+  switch(status) {
+    case 'Confirmed': return '<span class="admin-badge admin-badge-success">Confirmed</span>';
+    case 'Pending': return '<span class="admin-badge admin-badge-warning">Pending</span>';
+    case 'Cancelled': return '<span class="admin-badge admin-badge-danger">Cancelled</span>';
+    default: return '<span class="admin-badge admin-badge-neutral">' + status + '</span>';
+  }
+}
+
+function adminRenderReservations() {
+  let html = '<thead><tr><th>ID</th><th>Guest Name</th><th>Date & Time</th><th>Guests</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
+  
+  adminState.reservations.forEach(res => {
+    html += `<tr>
+      <td class="font-medium text-gray-900">${res.id}</td>
+      <td class="font-bold">${res.name}</td>
+      <td>${res.date} at ${res.time}</td>
+      <td>${res.guests} Pax</td>
+      <td>${getStatusBadge(res.status)}</td>
+      <td>
+        <div class="flex gap-2">
+          <button class="w-8 h-8 rounded bg-gray-100 hover:bg-brand-100 hover:text-brand-600 text-gray-500 flex items-center justify-center transition" title="View"><i class="fas fa-eye"></i></button>
+          <button class="w-8 h-8 rounded bg-gray-100 hover:bg-green-100 hover:text-green-600 text-gray-500 flex items-center justify-center transition" title="Confirm"><i class="fas fa-check"></i></button>
+          <button class="w-8 h-8 rounded bg-gray-100 hover:bg-red-100 hover:text-red-600 text-gray-500 flex items-center justify-center transition" title="Cancel"><i class="fas fa-times"></i></button>
+        </div>
+      </td>
+    </tr>`;
+  });
+  html += '</tbody>';
+  
+  // Populate both overview and full tables
+  document.getElementById('overviewReservationsTable').innerHTML = html;
+  document.getElementById('fullReservationsTable').innerHTML = html;
+}
+
+function adminRenderMenuTable() {
+  const search = document.getElementById('adminMenuSearch')?.value.toLowerCase() || '';
+  const catFilter = document.getElementById('adminMenuCatFilter')?.value || 'all';
+  
+  let filteredMenu = menuItems.filter(item => {
+    return (catFilter === 'all' || item.category === catFilter) && 
+           (item.name.toLowerCase().includes(search));
+  });
+
+  let html = '<thead><tr><th>Image & Name</th><th>Category</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead><tbody>';
+  
+  filteredMenu.forEach((item, index) => {
+    // Find original index to allow deletion
+    const originalIndex = menuItems.findIndex(mi => mi.name === item.name);
+    
+    html += `<tr>
+      <td>
+        <div class="flex items-center gap-3">
+          <img src="${item.img}" class="w-12 h-12 rounded object-cover shadow-sm">
+          <div>
+            <div class="font-bold text-gray-800">${item.name}</div>
+            <div class="text-xs text-gray-500 flex gap-1">
+              ${item.tags.includes('vegetarian') ? '<span class="text-green-600"><i class="fas fa-leaf text-[10px]"></i> Veg</span>' : ''}
+            </div>
+          </div>
+        </div>
+      </td>
+      <td class="capitalize">${item.category}</td>
+      <td class="font-medium">${item.price}</td>
+      <td><span class="admin-badge admin-badge-success">Available</span></td>
+      <td>
+        <div class="flex gap-2">
+          <button class="w-8 h-8 rounded bg-gray-100 hover:bg-blue-100 hover:text-blue-600 text-gray-500 flex items-center justify-center transition"><i class="fas fa-edit"></i></button>
+          <button onclick="adminConfirmDeleteMenu(${originalIndex})" class="w-8 h-8 rounded bg-gray-100 hover:bg-red-100 hover:text-red-600 text-gray-500 flex items-center justify-center transition"><i class="fas fa-trash"></i></button>
+        </div>
+      </td>
+    </tr>`;
+  });
+  
+  if(filteredMenu.length === 0) {
+    html += '<tr><td colspan="5" class="text-center py-8 text-gray-500">No menu items found.</td></tr>';
+  }
+  html += '</tbody>';
+  
+  document.getElementById('fullMenuTable').innerHTML = html;
+}
+
+// Modals
+function adminShowModal(modalId, title) {
+  const modal = document.getElementById(modalId);
+  if(title && document.getElementById('adminModalTitle')) {
+    document.getElementById('adminModalTitle').textContent = title;
+  }
+  modal.classList.remove('hidden');
+  // Small delay to allow display:block before opacity transition
+  setTimeout(() => {
+    modal.classList.remove('opacity-0');
+    modal.querySelector('div').classList.remove('scale-95');
+  }, 10);
+}
+
+function adminCloseModal(modalId) {
+  const modal = document.getElementById(modalId);
+  modal.classList.add('opacity-0');
+  modal.querySelector('div').classList.add('scale-95');
+  setTimeout(() => {
+    modal.classList.add('hidden');
+  }, 300);
+}
+
+function adminSimulateSave(modalId) {
+  showToast('Simulated Save Successful!');
+  adminCloseModal(modalId);
+}
+
+// ================= DYNAMIC MENU INTEGRATION =================
+
+function adminShowAddMenuModal() {
+  document.getElementById('adminMenuForm').reset();
+  adminShowModal('adminMenuModal');
+}
+
+function adminSaveMenu(e) {
+  e.preventDefault();
+  
+  // Get values from form
+  const name = document.getElementById('addMenuName').value;
+  const category = document.getElementById('addMenuCat').value;
+  const price = document.getElementById('addMenuPrice').value;
+  const desc = document.getElementById('addMenuDesc').value;
+  const img = document.getElementById('addMenuImg').value;
+  const isVeg = document.getElementById('addMenuVeg').checked;
+  
+  // Construct new item object
+  const newItem = {
+    name: name,
+    price: "AED " + price,
+    category: category,
+    img: img,
+    desc: desc,
+    tags: isVeg ? ["vegetarian"] : []
+  };
+  
+  // 1. ADD TO GLOBAL ARRAY
+  menuItems.unshift(newItem); // Add to beginning
+  
+  // 2. UPDATE FRONT-END LIVE
+  renderMenu();
+  renderMenuTabContent(document.querySelector('.category-tab.active').getAttribute('data-category'));
+  
+  // 3. UPDATE ADMIN DASHBOARD LIVE
+  adminRenderMenuTable();
+  document.getElementById('adminStatMenuCount').textContent = menuItems.length;
+  
+  // Notify & Close
+  showToast('Menu Item Added! Live site updated.');
+  adminCloseModal('adminMenuModal');
+}
+
+let itemToDeleteIndex = -1;
+function adminConfirmDeleteMenu(index) {
+  itemToDeleteIndex = index;
+  const btn = document.getElementById('adminConfirmBtn');
+  btn.onclick = function() {
+    if(itemToDeleteIndex > -1) {
+      // 1. REMOVE FROM GLOBAL ARRAY
+      menuItems.splice(itemToDeleteIndex, 1);
+      
+      // 2. UPDATE FRONT-END LIVE
+      renderMenu();
+      renderMenuTabContent(document.querySelector('.category-tab.active').getAttribute('data-category'));
+      
+      // 3. UPDATE ADMIN DASHBOARD LIVE
+      adminRenderMenuTable();
+      document.getElementById('adminStatMenuCount').textContent = menuItems.length;
+      
+      showToast('Menu Item Deleted from live site.');
+      adminCloseModal('adminConfirmModal');
+    }
+  };
+  adminShowModal('adminConfirmModal');
+}
+
+function setupScrollEffects() {
+  var navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 100) {
+      navbar.classList.add('bg-white/90', 'dark:bg-[#1a1412]/90', 'backdrop-blur-xl', 'border-b', 'border-brand-600/20', 'shadow-sm');
+    } else {
+      navbar.classList.remove('bg-white/90', 'dark:bg-[#1a1412]/90', 'backdrop-blur-xl', 'border-b', 'border-brand-600/20', 'shadow-sm');
+    }
+  });
+}
+
+function setupRevealObserver() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  var reveals = document.querySelectorAll('.reveal');
+  for (var i = 0; i < reveals.length; i++) observer.observe(reveals[i]);
+}
+
+document.addEventListener('keydown', function(e) {
+  if (document.getElementById('lightbox').classList.contains('active')) {
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navigateLightbox(-1);
+    if (e.key === 'ArrowRight') navigateLightbox(1);
+  }
+});
+</script>
+</body>
+</html>
