@@ -2,24 +2,28 @@
 import React, { useState, useEffect, useMemo } from 'react';
 
 // --- CDN Imports ---
-const ChartJS = window.Chart;
-// --- End CDN Imports ---
-
-// Register Chart.js components
-if (ChartJS) {
-  ChartJS.register(
-    ChartJS.CategoryScale, 
-    ChartJS.LinearScale, 
-    ChartJS.BarElement, 
-    ChartJS.Title, 
-    ChartJS.Tooltip, 
-    ChartJS.Legend, 
-    ChartJS.ArcElement, 
-    ChartJS.PointElement, 
-    ChartJS.LineElement, 
-    ChartJS.Filler
-  );
+// Chart.js will be loaded from the browser window object
+let ChartJS = null;
+if (typeof window !== 'undefined') {
+  ChartJS = window.Chart;
+  
+  // Register Chart.js components
+  if (ChartJS) {
+    ChartJS.register(
+      ChartJS.CategoryScale, 
+      ChartJS.LinearScale, 
+      ChartJS.BarElement, 
+      ChartJS.Title, 
+      ChartJS.Tooltip, 
+      ChartJS.Legend, 
+      ChartJS.ArcElement, 
+      ChartJS.PointElement, 
+      ChartJS.LineElement, 
+      ChartJS.Filler
+    );
+  }
 }
+// --- End CDN Imports ---
 
 // --- CHART COMPONENT ---
 const ChartComponent = ({ type, data, options, height = 200 }) => {
