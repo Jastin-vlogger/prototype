@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect, useMemo } from 'react';
 
+
 // --- CDN Imports ---
 // Chart.js will be loaded from the browser window object
 let ChartJS = null;
@@ -24,7 +25,6 @@ if (typeof window !== 'undefined') {
   }
 }
 // --- End CDN Imports ---
-
 // --- CHART COMPONENT ---
 const ChartComponent = ({ type, data, options, height = 200 }) => {
   const chartRef = React.useRef(null);
@@ -3704,8 +3704,56 @@ function ReportsPage() {
                 </div>
             </div>
 
+            {/* DYNAMIC SUMMARY CARDS & TOTALS (Multi-Colour Modern) */}
+            {reportData && !isGenerating && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-in fade-in slide-in-from-bottom-4 duration-300">
+                    
+                    {/* Primary Card: Total Records */}
+                    <div className="bg-[#3b82f6] p-5 rounded-2xl shadow-sm flex flex-col justify-between relative overflow-hidden transition-all hover:shadow-md hover:-translate-y-1 text-white">
+                        <div className="absolute right-[-10px] top-[-10px] opacity-20 text-white"><Icon name="List" className="w-20 h-20"/></div>
+                        <p className="text-xs font-bold uppercase tracking-wider mb-1 relative z-10 opacity-90">Total Records Generated</p>
+                        <h3 className="text-3xl font-black relative z-10">{reportData.length}</h3>
+                    </div>
+
+                    {/* Dynamic Metric Cards */}
+                    {(() => {
+                        const numericCols = activeReport?.columns.filter(col => 
+                            col.includes('Amount') || col.includes('Sales') || col.includes('Cost') || col.includes('Profit') || 
+                            col.includes('Value') || col.includes('Tax') || col === 'Debit' || col === 'Credit' || 
+                            col.includes('Balance') || col === 'Revenue' || col === 'COGS' || col.includes('Qty') || col.includes('Count') || col.includes('Total')
+                        ).slice(0, 3) || []; 
+
+                        // Pre-defined solid vibrant modern colour palettes
+                        const colorStyles = [
+                            'bg-[#10b981]', // Emerald
+                            'bg-[#8b5cf6]', // Purple
+                            'bg-[#f59e0b]'  // Amber
+                        ];
+
+                        return numericCols.map((col, idx) => {
+                            const sum = reportData.reduce((acc, row) => acc + (Number(row[col]) || 0), 0);
+                            const isCurrency = col.includes('Amount') || col.includes('Sales') || col.includes('Cost') || col.includes('Profit') || col.includes('Value') || col.includes('Tax') || col === 'Debit' || col === 'Credit' || col.includes('Balance') || col === 'Revenue' || col === 'COGS' || col.includes('Total');
+                            
+                            const styleClass = colorStyles[idx % colorStyles.length];
+
+                            return (
+                                <div key={idx} className={`${styleClass} p-5 rounded-2xl shadow-sm flex flex-col justify-between relative overflow-hidden transition-all hover:shadow-md hover:-translate-y-1 text-white`}>
+                                     <div className="absolute right-[-10px] top-[-10px] opacity-20 text-white">
+                                         <Icon name={isCurrency ? "DollarSign" : "BarChart2"} className="w-20 h-20"/>
+                                     </div>
+                                     <p className="text-xs font-bold uppercase tracking-wider mb-1 relative z-10 line-clamp-1 opacity-90" title={`Total ${col}`}>Total {col}</p>
+                                     <h3 className="text-3xl font-black relative z-10">
+                                         {isCurrency ? sum.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) : sum.toLocaleString()}
+                                     </h3>
+                                </div>
+                            );
+                        });
+                    })()}
+                </div>
+            )}
+
             {/* BOTTOM: Spreadsheet Preview Area */}
-            <div className="flex-1 min-h-[400px] flex flex-col bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden relative">
+            <div className="flex-1 min-h-[400px] flex flex-col bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden relative mt-2">
                 
                 {/* Table Header Bar */}
                 <div className="p-4 border-b border-slate-100 bg-slate-50/80 flex items-center justify-between z-20 shadow-sm">
